@@ -1,0 +1,89 @@
+//
+//  LessonDetailViewController.swift
+//  Voxyn
+//
+//  Created by Gaganveer Bawa on 12/01/25.
+//
+
+import UIKit
+import AVFoundation
+
+class LessonDetailViewController: UIViewController, UIScrollViewDelegate {
+
+    var lesson: Lesson?
+    
+    private let speechSynthesizer = AVSpeechSynthesizer()
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupUI()
+        scrollView.delegate = self
+    }
+    
+    func setupUI() {
+        guard let lesson = lesson else { return }
+                
+        // Populate the UI with lesson details
+        titleLabel.text = lesson.title
+        contentTextView.text = lesson.fullContent
+        progressView.progress = 0.0 // Start at 0
+        
+        // Update the button's appearance
+        updateCompleteButtonState()
+        
+    }
+    
+    // Update the complete button's state and appearance
+    func updateCompleteButtonState() {
+        guard let lesson = lesson else { return }
+        
+        completeButton.setTitle(lesson.isCompleted ? "Completed" : "Mark as Complete", for: .normal)
+        completeButton.tintColor = lesson.isCompleted ? .systemGreen : .systemBlue
+        completeButton.setTitleColor(.white, for: .normal)
+    }
+
+    
+    @IBAction func completeButton(_ sender: Any) {
+        guard var lesson = lesson else { return }
+                
+        // Toggle completion status
+        lesson.isCompleted.toggle()
+        
+        self.lesson = lesson // Update the lesson reference
+        
+        // Update the UI
+        updateCompleteButtonState()
+    }
+    
+    // Pronounce the text using AVSpeechSynthesizer
+    func pronounceText(_ text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US") // Set language
+        utterance.rate = 0.5 // Adjust speaking rate
+        speechSynthesizer.speak(utterance)
+    }
+    
+    @IBAction func playContent(_ sender: UIButton) {
+        guard let text = contentTextView.text, !text.isEmpty else { return }
+        pronounceText(text)
+    }
+    
+    // MARK: - UIScrollViewDelegate Method
+        
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentHeight = scrollView.contentSize.height - scrollView.bounds.height
+        guard contentHeight > 0 else { return } // Avoid division by zero
+        
+        let offset = scrollView.contentOffset.y
+        let progress = Float(offset / contentHeight)
+        progressView.progress = max(0, min(progress, 1.0)) // Ensure progress is between 0 and 1
+    }
+    
+}
