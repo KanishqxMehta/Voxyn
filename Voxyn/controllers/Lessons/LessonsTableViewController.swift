@@ -7,12 +7,12 @@
 
 import UIKit
 
-class LessonsTableViewController: UITableViewController, UISearchBarDelegate {
+class LessonsTableViewController: UITableViewController, UISearchBarDelegate, LessonDetailDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
-    let lessons = LessonDataModel.shared.getAllLessons()
-    
+//    let lessons = LessonDataModel.shared.getAllLessons()
+    private var lessons: [Lesson] = []
     private var filteredLessons: [Lesson] = []
     private var isSearching: Bool = false
     
@@ -21,11 +21,15 @@ class LessonsTableViewController: UITableViewController, UISearchBarDelegate {
         
         // Search bar
         searchBar.delegate = self
-        
-        // Initialize filtered array
-        filteredLessons = lessons
+        reloadLessonData()
     }
     
+    private func reloadLessonData() {
+        lessons = LessonDataModel.shared.getAllLessons()
+        filteredLessons = lessons
+        tableView.reloadData()
+    }
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             isSearching = false
@@ -50,11 +54,6 @@ class LessonsTableViewController: UITableViewController, UISearchBarDelegate {
     
     
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return isSearching ? filteredLessons.count : lessons.count
     }
@@ -76,6 +75,30 @@ class LessonsTableViewController: UITableViewController, UISearchBarDelegate {
            let indexPath = tableView.indexPathForSelectedRow {
             let lesson = isSearching ? filteredLessons[indexPath.row] : lessons[indexPath.row]
             destinationVC.lesson = lesson
+            destinationVC.delegate = self
         }
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func didUpdateLessonCompletion(_ lesson: Lesson) {
+        // Update the lessons array
+        if let index = lessons.firstIndex(where: { $0.lessonId == lesson.lessonId }) {
+            lessons[index] = lesson
+        }
+
+        // Update the filtered list
+        if isSearching {
+            filteredLessons = lessons.filter { $0.title.lowercased().contains(searchBar.text?.lowercased() ?? "") }
+        } else {
+            filteredLessons = lessons
+        }
+
+        // Reload the table view
+        tableView.reloadData()
+    }
+
+
 }

@@ -12,7 +12,6 @@ class LessonTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet var completionImage: UIImageView!
     
     func configure(with lesson: Lesson) {
         titleLabel.text = lesson.title
@@ -20,22 +19,11 @@ class LessonTableViewCell: UITableViewCell {
         descriptionLabel.text = lesson.shortDescription
         
         if lesson.isCompleted {
-            // Set the checkmark image
-            completionImage.image = UIImage(systemName: "checkmark.circle")
-            
-            // Make the image view circular
-            completionImage.layer.cornerRadius = completionImage.frame.size.width / 2
-            completionImage.clipsToBounds = true
-            
-            // Set a green background color
-            completionImage.backgroundColor = UIColor.systemGreen
-            
-            // Optional: Add a white tint color for the checkmark
-            completionImage.tintColor = UIColor.white
+            accessoryType = .checkmark
+            tintColor = .systemGreen
         } else {
-            // Reset the image view for incomplete lessons
-            completionImage.image = nil
-            completionImage.backgroundColor = nil
+            accessoryType = .disclosureIndicator
+            tintColor = .systemGray
         }
     }
 

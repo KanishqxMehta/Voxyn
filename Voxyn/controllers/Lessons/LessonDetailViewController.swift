@@ -8,10 +8,14 @@
 import UIKit
 import AVFoundation
 
+protocol LessonDetailDelegate: AnyObject {
+    func didUpdateLessonCompletion(_ lesson: Lesson)
+}
+
 class LessonDetailViewController: UIViewController, UIScrollViewDelegate {
 
     var lesson: Lesson?
-    
+    weak var delegate: LessonDetailDelegate?
     private let speechSynthesizer = AVSpeechSynthesizer()
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -30,14 +34,11 @@ class LessonDetailViewController: UIViewController, UIScrollViewDelegate {
     func setupUI() {
         guard let lesson = lesson else { return }
                 
-        // Populate the UI with lesson details
         titleLabel.text = lesson.title
         contentTextView.text = lesson.fullContent
         progressView.progress = 0.0 // Start at 0
         
-        // Update the button's appearance
         updateCompleteButtonState()
-        
     }
     
     // Update the complete button's state and appearance
@@ -51,15 +52,22 @@ class LessonDetailViewController: UIViewController, UIScrollViewDelegate {
 
     
     @IBAction func completeButton(_ sender: Any) {
-        guard var lesson = lesson else { return }
+        guard let lessonId = lesson?.lessonId else { return }
                 
-        // Toggle completion status
-        lesson.isCompleted.toggle()
+        // Toggle the completion status
+        LessonDataModel.shared.toggleLessonCompletion(for: lessonId)
         
-        self.lesson = lesson // Update the lesson reference
-        
-        // Update the UI
-        updateCompleteButtonState()
+        // Get the updated lesson
+        if let updatedLesson = LessonDataModel.shared.getLesson(by: lessonId) {
+            // Update local lesson
+            self.lesson = updatedLesson
+            
+            // Update UI
+            updateCompleteButtonState()
+            
+            // Notify delegate about the change
+            delegate?.didUpdateLessonCompletion(updatedLesson)
+        }
     }
     
     // Pronounce the text using AVSpeechSynthesizer

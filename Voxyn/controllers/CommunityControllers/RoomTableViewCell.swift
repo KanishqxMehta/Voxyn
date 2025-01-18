@@ -15,20 +15,21 @@ class RoomTableViewCell: UITableViewCell {
     @IBOutlet weak var hostLabel: UILabel!
     @IBOutlet weak var enterRoomButton: UIButton!
     @IBOutlet var topicImage: UIImageView!
+    @IBOutlet var liveIndicator: UIButton!
     
     func configure(with room: Room) {
         titleLabel.text = room.title
-        
-        // Display participants in the format: "X/Y Participants"
         participantsLabel.text = "\(room.participantsJoined)/\(room.totalParticipants) Participants"
-        
         topicLabel.text = room.topic
-        
-        // Updated 'host' to 'hostName'
         hostLabel.text = room.hostName
-        
-        // Set a system image for the topic, could be customized per topic
         topicImage.image = UIImage(systemName: "tag")
+        
+        // Configure live indicator
+        liveIndicator.isHidden = !room.isLive
+        
+        // Configure enter button state
+        enterRoomButton.isEnabled = room.participantsJoined < room.totalParticipants
+        enterRoomButton.alpha = enterRoomButton.isEnabled ? 1.0 : 0.5
     }
 
 }
