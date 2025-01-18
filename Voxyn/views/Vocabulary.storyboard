@@ -21,7 +21,7 @@
                             <tableViewSection headerTitle="" id="Mk7-Xh-BwZ" userLabel="Word Header Section">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WordHeaderCell" id="QVx-Px-McS">
-                                        <rect key="frame" x="0.0" y="39.666667938232422" width="393" height="138"/>
+                                        <rect key="frame" x="0.0" y="22.333333969116211" width="393" height="138"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QVx-Px-McS" id="VTM-Iy-ZD1">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="138"/>
@@ -131,7 +131,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DefinitionCell" id="nzL-xB-Vwt">
-                                        <rect key="frame" x="0.0" y="177.66666793823242" width="393" height="224.33332824707031"/>
+                                        <rect key="frame" x="0.0" y="160.33333396911621" width="393" height="224.33332824707031"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nzL-xB-Vwt" id="xXd-Ho-pIZ">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="224.33332824707031"/>
@@ -204,7 +204,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExamplesHeaderCell" id="TaI-Ni-cIv">
-                                        <rect key="frame" x="0.0" y="401.99999618530273" width="393" height="52.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="384.66666221618652" width="393" height="52.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TaI-Ni-cIv" id="tBe-NV-dXt">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="52.666667938232422"/>
@@ -237,7 +237,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExamplesContentCell" id="28N-Cu-e1d">
-                                        <rect key="frame" x="0.0" y="454.66666412353516" width="393" height="98.333335876464844"/>
+                                        <rect key="frame" x="0.0" y="437.33333015441895" width="393" height="98.333335876464844"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="28N-Cu-e1d" id="7qN-HL-zbg">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="98.333335876464844"/>
@@ -276,7 +276,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PracticeCell" id="Xld-MC-kdD">
-                                        <rect key="frame" x="0.0" y="553" width="393" height="155"/>
+                                        <rect key="frame" x="0.0" y="535.66666603088379" width="393" height="155"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xld-MC-kdD" id="TuT-MN-hNq">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="155"/>
@@ -375,7 +375,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t55-GY-TQG">
-                                <rect key="frame" x="136.66666666666666" y="123" width="119.99999999999997" height="120"/>
+                                <rect key="frame" x="136.66666666666666" y="175" width="119.99999999999997" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="90" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yS-2n-llb">
                                         <rect key="frame" x="27.999999999999996" y="31.333333333333346" width="63.666666666666657" height="57.333333333333343"/>
@@ -393,7 +393,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IaC-3i-g2L">
-                                <rect key="frame" x="16" y="273" width="361" height="62.333333333333314"/>
+                                <rect key="frame" x="16" y="325" width="361" height="62.333333333333314"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eFu-3a-NPx">
                                         <rect key="frame" x="5" y="5" width="351" height="52.333333333333336"/>
@@ -422,7 +422,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1n-sb-Gcs">
-                                <rect key="frame" x="16" y="365.33333333333331" width="361" height="119"/>
+                                <rect key="frame" x="16" y="417.33333333333331" width="361" height="118.99999999999994"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ys8-6a-eLe">
                                         <rect key="frame" x="5" y="5" width="351" height="109"/>
@@ -496,7 +496,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e33-HM-iup">
-                                <rect key="frame" x="16" y="514.33333333333337" width="361" height="90.666666666666629"/>
+                                <rect key="frame" x="16" y="566.33333333333337" width="361" height="90.666666666666629"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="87p-K2-Q3m">
                                         <rect key="frame" x="5" y="5" width="351" height="80.666666666666671"/>
@@ -564,10 +564,10 @@
         <scene sceneID="CLa-JI-DMo">
             <objects>
                 <tableViewController storyboardIdentifier="Vocab" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pVh-RZ-Xgt" customClass="VocabularyTableViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="uOL-Ei-WH6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="uOL-Ei-WH6">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Search word" showsCancelButton="YES" id="AbQ-Hm-FnN">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -581,11 +581,11 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="VocabularyCell" textLabel="AAw-Zy-miW" detailTextLabel="sss-Ur-bse" style="IBUITableViewCellStyleSubtitle" id="9h6-cS-URS">
-                                <rect key="frame" x="0.0" y="106" width="393" height="55.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="VocabularyCell" textLabel="AAw-Zy-miW" detailTextLabel="sss-Ur-bse" rowHeight="56" style="IBUITableViewCellStyleSubtitle" id="9h6-cS-URS">
+                                <rect key="frame" x="0.0" y="94" width="393" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9h6-cS-URS" id="USq-nv-4gx">
-                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="55.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AAw-Zy-miW">
@@ -626,8 +626,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8sh-eo-1oI" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IGR-Xq-4ke">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="IGR-Xq-4ke">
+                        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -646,19 +646,22 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

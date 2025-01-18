@@ -19,6 +19,7 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         searchBar.delegate = self
+        tableView.reloadData() // Reload the table with the updated data
 
          self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
@@ -38,12 +39,13 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "preparedSpeech", for: indexPath)
 
-        var content = cell.defaultContentConfiguration()
+//        var content = cell.defaultContentConfiguration()
         let speechPractices = SpeechPracticeDataModel.shared.getAllSpeechPractices()
-        content.text = speechPractices[indexPath.row].title
-        content.secondaryText = speechPractices[indexPath.row].description
-        cell.contentConfiguration = content
+        cell.textLabel?.text = speechPractices[indexPath.row].title
+        cell.detailTextLabel?.text = speechPractices[indexPath.row].description
+//        cell.contentConfiguration = content
         cell.showsReorderControl = true
+        
         return cell
     }
     
@@ -71,10 +73,34 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    func unwindToPreparedSpeechTVC(segue: UIStoryboardSegue) {
-        
+    @IBAction func unwindToPreparedSpeechTVC(segue: UIStoryboardSegue) {
+        if let sourceVC = segue.source as? AddPreparedSpeechTVC {
+            // Validate input fields
+            guard let title = sourceVC.titleTextField.text, !title.isEmpty,
+                  let description = sourceVC.descTextField.text, !description.isEmpty,
+                  let speechText = sourceVC.speechTextField.text, !speechText.isEmpty else {
+                print("All fields are required.")
+                return
+            }
+
+            // Create a new SpeechPractice object
+            let newSpeechPractice = SpeechPractice(
+                inputMode: .typed, // Assume user types the input for now
+                title: title,
+                description: description,
+                originalText: speechText,
+                userRecording: nil,
+                createdAt: Date().description // Current date as string
+            )
+
+            // Add the new speech practice to the data model
+            SpeechPracticeDataModel.shared.addSpeechPractice(newSpeechPractice)
+
+            // Reload the table view to display the new entry
+            tableView.reloadData()
+        }
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             isSearching = false

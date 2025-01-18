@@ -10,18 +10,18 @@ import UIKit
 class AddPreparedSpeechTVC: UITableViewController {
 //    var speechData: SpeechPractice
 
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var descTextField: UITextField!
+    @IBOutlet weak var speechTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
     
-//    init?(coder: NSCoder, speechData: SpeechPractice) {
-//        self.speechData = speechData
-//        super.init(coder: coder)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        view.endEditing(true)
+
+        performSegue(withIdentifier: "saveUnwind", sender: self)
+    }
 }
