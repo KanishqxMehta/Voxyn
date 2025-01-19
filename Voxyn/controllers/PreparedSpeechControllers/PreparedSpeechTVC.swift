@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
+class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate, SpeechDetailDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -149,11 +149,38 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showSpeechDetail" {
-            if let detailVC = segue.destination as? SpeechDetailViewController,
-               let speech = sender as? SpeechPractice {
-                detailVC.speechPractice = speech
+            print("Preparing for showSpeechDetail segue")
+            if let detailVC = segue.destination as? SpeechDetailViewController {
+                print("Successfully got detailVC")
+                if let speech = sender as? SpeechPractice {
+                    print("Got speech: \(speech.title)")
+                    detailVC.speechPractice = speech
+                    detailVC.delegate = self
+                    print("Set speech and delegate")
+                } else {
+                    print("Failed to get speech from sender")
+                }
+            } else {
+                print("Failed to get SpeechDetailViewController")
             }
         }
     }
 
+    // Implement delegate method
+    func speechDetailViewController(_ controller: SpeechDetailViewController, didUpdateSpeech speech: SpeechPractice) {
+        print("Delegate method called with updated speech: \(speech.title)")
+        
+        // If we're in search mode, update filtered results
+        if isSearching {
+            if let index = filteredSpeechPractices.firstIndex(where: { $0.id == speech.id }) {
+                filteredSpeechPractices[index] = speech
+                print("Updated filtered results")
+            }
+        }
+        
+        print("Before reloading table:")
+        preparedSpeechdataModel.printAllSpeeches()
+        
+        tableView.reloadData()
+    }
 }

@@ -1,6 +1,11 @@
 import UIKit
 
+protocol SpeechDetailDelegate: AnyObject {
+    func speechDetailViewController(_ controller: SpeechDetailViewController, didUpdateSpeech speech: SpeechPractice)
+}
+
 class SpeechDetailViewController: UIViewController {
+    weak var delegate: SpeechDetailDelegate?
 
     @IBOutlet var editBarButton: UIBarButtonItem!
     @IBOutlet weak var titleTextView: UITextView!
@@ -46,17 +51,24 @@ class SpeechDetailViewController: UIViewController {
     }
 
     private func saveChanges() {
-        guard isEditingSpeech, let speech = speechPractice else { return }
-
+        // Remove the isEditingSpeech check since we want to save when exiting edit mode
+        guard let speech = speechPractice else {
+            print("No speech practice available")
+            return
+        }
+        
         // Validate non-empty fields
-        guard let updatedTitle = titleTextView.text, !updatedTitle.isEmpty,
-              let updatedDescription = descriptionTextView.text, !updatedDescription.isEmpty,
-              let updatedText = speechTextView.text, !updatedText.isEmpty else {
+        guard let updatedTitle = titleTextView.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+              let updatedDescription = descriptionTextView.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+              let updatedText = speechTextView.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !updatedTitle.isEmpty,
+              !updatedDescription.isEmpty,
+              !updatedText.isEmpty else {
             showAlert(message: "All fields must be filled.")
             return
         }
-
-        // Update the speechPractice object
+        
+        // Create updated speech practice
         let updatedSpeech = SpeechPractice(
             id: speech.id,
             inputMode: speech.inputMode,
@@ -66,14 +78,17 @@ class SpeechDetailViewController: UIViewController {
             userRecording: speech.userRecording,
             createdAt: speech.createdAt
         )
-
-        // Persist the updated speechPractice in the data model
+        
+        // Update the data model
         dataModel.updateSpeechPractice(updatedSpeech)
-
+        
         // Update the local speechPractice property
         speechPractice = updatedSpeech
+        
+        // Notify delegate of the update
+        delegate?.speechDetailViewController(self, didUpdateSpeech: updatedSpeech)
     }
-
+    
     private func showAlert(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -84,7 +99,7 @@ class SpeechDetailViewController: UIViewController {
         editBarButton.title = isEditingSpeech ? "Save" : "Edit"
         navigationItem.title = isEditingSpeech ? "Edit Speech" : "Speech Details"
         navigationItem.hidesBackButton = isEditingSpeech
-
+        
         // Update text views
         [titleTextView, descriptionTextView].forEach { textView in
             textView?.isEditable = isEditingSpeech
@@ -92,20 +107,21 @@ class SpeechDetailViewController: UIViewController {
             textView?.layer.borderWidth = isEditingSpeech ? 0.2 : 0
             textView?.clipsToBounds = true
         }
-
+        
         // Update speech text view separately
         speechTextView?.isEditable = isEditingSpeech
-        speechTextView?.backgroundColor = .systemGray6  // Always systemGray6
+        speechTextView?.backgroundColor = .systemGray6
         speechTextView?.layer.borderWidth = isEditingSpeech ? 0.2 : 0
         speechTextView?.clipsToBounds = true
-
-        practiceStackView.isHidden = isEditingSpeech // Hide stack view when editing
-
+        
+        practiceStackView.isHidden = isEditingSpeech
+        
+        // Only call saveChanges when exiting edit mode
         if !isEditingSpeech {
             saveChanges()
         }
     }
-
+    
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         isEditingSpeech.toggle()
     }

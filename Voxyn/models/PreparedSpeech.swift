@@ -88,7 +88,20 @@ class SpeechPracticeDataModel {
     func updateSpeechPractice(_ updatedPractice: SpeechPractice) {
         if let index = speechPractices.firstIndex(where: { $0.id == updatedPractice.id }) {
             speechPractices[index] = updatedPractice
+            // Print for debugging
+            print("Speech practice updated: \(updatedPractice.title)")
+            print("Current speeches: \(speechPractices.map { $0.title })")
+        } else {
+            print("Speech practice with id \(updatedPractice.id) not found")
         }
+    }
+    
+    func printAllSpeeches() {
+        print("\n--- All Speech Practices ---")
+        for speech in speechPractices {
+            print("ID: \(speech.id), Title: \(speech.title)")
+        }
+        print("-------------------------\n")
     }
 
 //    func deleteSpeechPractice(by title: String) -> Bool {

@@ -651,6 +651,7 @@
                     <connections>
                         <outlet property="descriptionTextView" destination="DsW-07-ndY" id="70Q-2v-pNf"/>
                         <outlet property="editBarButton" destination="bs0-JL-pY6" id="a1O-8f-Rvu"/>
+                        <outlet property="practiceButton" destination="m78-5w-Iem" id="kVF-da-OIL"/>
                         <outlet property="practiceCountLabel" destination="gYq-dr-9HT" id="MNR-Oh-dnA"/>
                         <outlet property="practiceStackView" destination="aR6-Ck-Xr7" id="m9A-KH-6it"/>
                         <outlet property="speechTextView" destination="Skn-4w-Phc" id="gcm-9n-O1u"/>
