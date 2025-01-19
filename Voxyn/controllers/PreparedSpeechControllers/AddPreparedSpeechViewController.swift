@@ -1,10 +1,3 @@
-//
-//  AddPreparedSpeechViewController.swift
-//  Voxyn
-//
-//  Created by Gaganveer Bawa on 19/01/25.
-//
-
 import UIKit
 
 class AddPreparedSpeechViewController: UIViewController {
@@ -12,7 +5,6 @@ class AddPreparedSpeechViewController: UIViewController {
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var descTextView: UITextView!
     @IBOutlet var speechTextView: UITextView!
-    
     @IBOutlet var saveButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -20,10 +12,15 @@ class AddPreparedSpeechViewController: UIViewController {
 
         // Add a cancel button to the navigation bar
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
-    
         self.navigationItem.leftBarButtonItem = cancelButton
         
         applyBorderAndCornerRadius()
+        checkFields() // Initial validation to disable the save button if fields are empty
+
+        // Add observers for text changes in UITextView
+        [titleTextView, descTextView, speechTextView].forEach { textView in
+            textView.delegate = self
+        }
     }
     
     func applyBorderAndCornerRadius() {
@@ -38,7 +35,6 @@ class AddPreparedSpeechViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         view.endEditing(true)
-
         performSegue(withIdentifier: "saveUnwind", sender: self)
     }
     
@@ -46,9 +42,20 @@ class AddPreparedSpeechViewController: UIViewController {
        dismiss(animated: true, completion: nil)
     }
     
-    // MARK: - Actions for text fields and text view
-    @IBAction func textFieldEditingChanged(_ sender: UITextField) {
-//        checkFields()
+    // MARK: - Validation for fields
+    func checkFields() {
+        let isTitleEmpty = titleTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let isDescEmpty = descTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let isSpeechEmpty = speechTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        
+        // Disable the save button if any of the fields are empty
+        saveButton.isEnabled = !(isTitleEmpty || isDescEmpty || isSpeechEmpty)
     }
+}
 
+// MARK: - UITextViewDelegate
+extension AddPreparedSpeechViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        checkFields() // Validate fields whenever the text changes
+    }
 }

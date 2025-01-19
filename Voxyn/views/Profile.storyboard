@@ -25,7 +25,7 @@
                             <tableViewSection id="nXQ-QA-4aq">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="XTM-Pa-Lja" detailTextLabel="oom-aV-R3e" style="IBUITableViewCellStyleValue1" id="GQU-UB-jV1">
-                                        <rect key="frame" x="20" y="157.99999999999997" width="353" height="43.666667938232422"/>
+                                        <rect key="frame" x="20" y="158" width="353" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GQU-UB-jV1" id="eEB-vz-qjD">
                                             <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="43.666667938232422"/>
@@ -52,7 +52,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="oA2-o8-NFt" style="IBUITableViewCellStyleDefault" id="ZGV-Xc-iGe">
-                                        <rect key="frame" x="20" y="201.66666793823239" width="353" height="43.666667938232422"/>
+                                        <rect key="frame" x="20" y="201.66666793823242" width="353" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZGV-Xc-iGe" id="MvU-Rv-3V1">
                                             <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="43.666667938232422"/>
@@ -191,6 +191,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Profile" id="zn4-1p-z0y"/>
+                    <connections>
+                        <outlet property="nameLabel" destination="oom-aV-R3e" id="7qI-0q-2bV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kl7-FU-SH5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -269,10 +272,10 @@
             </objects>
             <point key="canvasLocation" x="1042" y="32"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Recording Table View Controller-->
         <scene sceneID="jaI-Ag-dps">
             <objects>
-                <tableViewController id="Yxw-bF-zLh" sceneMemberID="viewController">
+                <tableViewController id="Yxw-bF-zLh" customClass="RecordingTableViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="Adf-kR-4Wi">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -311,10 +314,10 @@
             </objects>
             <point key="canvasLocation" x="1041.9847328244275" y="748.59154929577471"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Name Change Table View Controller-->
         <scene sceneID="VFx-Km-ZxQ">
             <objects>
-                <tableViewController id="DQV-Xi-vZu" sceneMemberID="viewController">
+                <tableViewController id="DQV-Xi-vZu" customClass="nameChangeTableViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="fKm-Qw-Mv3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -336,14 +339,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uss-LP-Aol">
-                                                    <rect key="frame" x="100" y="5" width="253" height="34"/>
+                                                    <rect key="frame" x="100" y="5" width="237" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="SRy-zK-W72" firstAttribute="centerY" secondItem="vDP-TD-5jZ" secondAttribute="centerY" id="O94-k1-oE5"/>
-                                                <constraint firstAttribute="trailing" secondItem="Uss-LP-Aol" secondAttribute="trailing" id="Se7-d3-Hie"/>
+                                                <constraint firstAttribute="trailing" secondItem="Uss-LP-Aol" secondAttribute="trailing" constant="16" id="Se7-d3-Hie"/>
                                                 <constraint firstItem="Uss-LP-Aol" firstAttribute="leading" secondItem="vDP-TD-5jZ" secondAttribute="leading" constant="100" id="fdt-Cf-BPD"/>
                                                 <constraint firstItem="Uss-LP-Aol" firstAttribute="centerY" secondItem="vDP-TD-5jZ" secondAttribute="centerY" id="jxb-Yn-nCe"/>
                                                 <constraint firstItem="SRy-zK-W72" firstAttribute="leading" secondItem="vDP-TD-5jZ" secondAttribute="leadingMargin" id="t8Q-LP-T7q"/>
@@ -364,13 +367,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hk0-xS-1z7">
-                                                    <rect key="frame" x="100" y="5" width="253" height="34"/>
+                                                    <rect key="frame" x="100" y="5" width="237" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="hk0-xS-1z7" secondAttribute="trailing" id="Kcs-wf-9eG"/>
+                                                <constraint firstAttribute="trailing" secondItem="hk0-xS-1z7" secondAttribute="trailing" constant="16" id="Kcs-wf-9eG"/>
                                                 <constraint firstItem="clR-iP-F1p" firstAttribute="leading" secondItem="lvV-Pm-Dv1" secondAttribute="leadingMargin" id="gio-Qj-MVC"/>
                                                 <constraint firstItem="clR-iP-F1p" firstAttribute="centerY" secondItem="lvV-Pm-Dv1" secondAttribute="centerY" id="jsg-cg-aaT"/>
                                                 <constraint firstItem="hk0-xS-1z7" firstAttribute="centerY" secondItem="lvV-Pm-Dv1" secondAttribute="centerY" id="mvb-64-JL1"/>
@@ -386,7 +389,18 @@
                             <outlet property="delegate" destination="DQV-Xi-vZu" id="gMo-th-afL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="5K3-q5-lYC"/>
+                    <navigationItem key="navigationItem" id="5K3-q5-lYC">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="5AA-Z8-ebk">
+                            <connections>
+                                <action selector="isEditingBtn:" destination="DQV-Xi-vZu" id="zot-XY-19z"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="editBarButton" destination="5AA-Z8-ebk" id="xc6-g6-K4f"/>
+                        <outlet property="firstNameTextField" destination="Uss-LP-Aol" id="Epf-IZ-psb"/>
+                        <outlet property="lastNameTextField" destination="hk0-xS-1z7" id="bon-J9-cHU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oz2-4Q-4uD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

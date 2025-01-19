@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
     private let bottomSheetView = UIView()
     private let dragHandle = UIView()
     
-    var userName: String = "Voxite" // Default name; update it as needed
+    var userName: String = "\(UserDataModel.shared.getUser()?.firstName ?? "") \(UserDataModel.shared.getUser()?.lastName ?? "")" // Default name; update it as needed
     
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -127,7 +127,7 @@ class ProfileViewController: UIViewController {
         // Username label constraints
         userNameLabelLeadingConstraint = userNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16)
         userNameLabelCenterYConstraint = userNameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor)
-        userNameLabelTopConstraint = userNameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
+        userNameLabelTopConstraint = userNameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 4)
         let userNameLabelCenterXConstraint = userNameLabel.centerXAnchor.constraint(equalTo: avatarImageView.centerXAnchor)
         
         NSLayoutConstraint.activate([
@@ -324,7 +324,8 @@ class ProfileViewController: UIViewController {
             avatarHeightConstraint = avatarImageView.heightAnchor.constraint(equalToConstant: minSize)
             
 //            userNameLabelLeadingConstraint = userNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.centerXAnchor, constant: 100)
-            userNameLabelCenterYConstraint = userNameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor)
+            userNameLabel.isHidden = true
+//            userNameLabelCenterYConstraint = userNameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor)
             
             NSLayoutConstraint.activate([
                 avatarLeadingConstraint,
@@ -336,7 +337,8 @@ class ProfileViewController: UIViewController {
             ])
         } else {
             
-            
+            userNameLabel.isHidden = false
+
             // Collapsed state (centered larger avatar with label below)
             avatarCenterXConstraint = avatarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             avatarCenterYConstraint = avatarImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 120)
@@ -344,7 +346,7 @@ class ProfileViewController: UIViewController {
             avatarWidthConstraint = avatarImageView.widthAnchor.constraint(equalToConstant: maxSize)
             avatarHeightConstraint = avatarImageView.heightAnchor.constraint(equalToConstant: maxSize)
             
-            userNameLabelTopConstraint = userNameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
+            userNameLabelTopConstraint = userNameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 4)
             let userNameLabelCenterXConstraint = userNameLabel.centerXAnchor.constraint(equalTo: avatarImageView.centerXAnchor)
             
             NSLayoutConstraint.activate([

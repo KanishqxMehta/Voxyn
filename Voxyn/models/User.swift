@@ -13,7 +13,8 @@ import Foundation
 // MARK: - User
 struct User {
     var userId: Int
-    var fullName: String
+    var firstName: String
+    var lastName: String
     var email: String
     var dob: Date
     var profileImageURL: String?
@@ -22,11 +23,30 @@ struct User {
 }
 
 // MARK: - User Data Management
+// MARK: - User Data Management
 class UserDataModel {
     static let shared = UserDataModel() // Singleton instance
     private var currentUser: User?
 
-    private init() { }
+    private init() {
+        // Initialize with a sample user
+        currentUser = User(
+            userId: 1,
+            firstName: "Voxite",
+            lastName: "",
+            email: "voxite@gmail.com",
+            dob: Date(),
+            profileImageURL: nil,
+            accountCreatedOn: Date(),
+            progress: Progress(
+                userId: 1,
+                totalPracticeTime: TimeInterval(),
+                completedLessons: 2,
+                practicedVocabulary: 4,
+                recordingsCount: 2
+            )
+        )
+    }
 
     // Add or Set the Current User
     func setUser(_ user: User) {
@@ -38,16 +58,21 @@ class UserDataModel {
         return currentUser
     }
 
-    // Update User Details (Name, DOB, Email)
-    func updateUserDetails(newName: String?, newDob: Date?, newEmail: String?) -> Bool {
+    // Update User Details (First Name, Last Name, DOB, Email)
+    func updateUserDetails(newFirstName: String?, newLastName: String?, newDob: Date?, newEmail: String?) -> Bool {
         guard var user = currentUser else {
             print("No user found.")
             return false
         }
 
-        // Update Name
-        if let newName = newName, !newName.isEmpty {
-            user.fullName = newName
+        // Update First Name
+        if let newFirstName = newFirstName, !newFirstName.isEmpty {
+            user.firstName = newFirstName
+        }
+
+        // Update Last Name
+        if let newLastName = newLastName, !newLastName.isEmpty {
+            user.lastName = newLastName
         }
 
         // Update DOB

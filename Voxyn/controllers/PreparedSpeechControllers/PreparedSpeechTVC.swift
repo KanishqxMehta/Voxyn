@@ -28,7 +28,7 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return isSearching ? filteredSpeechPractices.count : preparedSpeechdataModel.getAllSpeechPractices().count
     }
@@ -48,11 +48,11 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         var practices = preparedSpeechdataModel.getAllSpeechPractices()
-        let movedPractice = practices[sourceIndexPath.row]
-        practices.remove(at: sourceIndexPath.row)
+        let movedPractice = practices.remove(at: sourceIndexPath.row)
         practices.insert(movedPractice, at: destinationIndexPath.row)
-//        preparedSpeechdataModel.updateSpeechPractices(with: practices)
-        tableView.reloadData()
+
+        // Update the model with the new order
+        preparedSpeechdataModel.updateSpeechPractice(movedPractice)
     }
 
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -62,10 +62,30 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let practices = isSearching ? filteredSpeechPractices : preparedSpeechdataModel.getAllSpeechPractices()
-            let practiceToDelete = practices[indexPath.row]
-            preparedSpeechdataModel.deleteSpeechPractice(by: practiceToDelete.id)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            // Handle delete for both normal and search states
+//            if isSearching {
+//                // Get the speech practice from filtered results
+//                let practiceToDelete = filteredSpeechPractices[indexPath.row]
+//                
+//                // Find the index in the main data source
+//                if let mainIndex = preparedSpeechdataModel.getAllSpeechPractices().firstIndex(where: { $0.id == practiceToDelete.id }) {
+//                    // Delete from data model
+//                    let deleted = preparedSpeechdataModel.deleteSpeechPractice(by: mainIndex)
+//                    
+//                    // Remove from filtered array
+//                    filteredSpeechPractices.remove(at: indexPath.row)
+//                    
+//                    print(deleted!.id)
+//                }
+//            } else {
+                // Delete directly from data model
+                let deleted = preparedSpeechdataModel.deleteSpeechPractice(by: indexPath.row)
+                print("else: \(deleted!.id)")
+
+//            }
+            
+            // Delete row from table view with animation
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
