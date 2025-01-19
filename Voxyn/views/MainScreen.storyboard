@@ -289,7 +289,7 @@ Speaking</string>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FSW-n0-QoQ">
                                                                 <rect key="frame" x="8" y="8" width="28" height="28"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1JU-84-KZr">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1JU-84-KZr">
                                                                         <rect key="frame" x="5.3333333333333321" y="5.3333333333334103" width="17.333333333333332" height="16.666666666666664"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="17" id="jzR-XU-psx"/>
@@ -437,7 +437,7 @@ Speaking</string>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZp-R6-7YX">
                                                                 <rect key="frame" x="8" y="8" width="28" height="28"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zfs-UO-WpL">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zfs-UO-WpL">
                                                                         <rect key="frame" x="5.3333333333333321" y="5.3333333333331829" width="17.333333333333332" height="16.666666666666664"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="17" id="jL5-I6-2rd"/>
@@ -626,38 +626,22 @@ Speaking</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="practiceModesCell" rowHeight="27" id="moM-3r-NqV" customClass="PracticeModesTableViewCell" customModule="Voxyn" customModuleProvider="target">
-                                <rect key="frame" x="20" y="55.333332061767578" width="353" height="27"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="practiceModesCell" textLabel="BbB-M7-caq" rowHeight="50" style="IBUITableViewCellStyleDefault" id="moM-3r-NqV" customClass="PracticeModesTableViewCell" customModule="Voxyn" customModuleProvider="target">
+                                <rect key="frame" x="20" y="55.333332061767578" width="353" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="moM-3r-NqV" id="vUy-6g-Ddv">
-                                    <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="27"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="co3-Zx-ZJY">
-                                            <rect key="frame" x="2" y="8" width="50" height="11"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="sTp-cG-2Ok"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQc-oK-STI">
-                                            <rect key="frame" x="68" y="3" width="42" height="21"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BbB-M7-caq">
+                                            <rect key="frame" x="20" y="0.0" width="294.66666666666669" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="co3-Zx-ZJY" secondAttribute="bottom" constant="8" id="G1p-iw-rfh"/>
-                                        <constraint firstItem="co3-Zx-ZJY" firstAttribute="top" secondItem="vUy-6g-Ddv" secondAttribute="top" constant="8" id="KR6-9Z-epN"/>
-                                        <constraint firstItem="hQc-oK-STI" firstAttribute="centerY" secondItem="vUy-6g-Ddv" secondAttribute="centerY" id="YgV-xr-4Sa"/>
-                                        <constraint firstItem="hQc-oK-STI" firstAttribute="leading" secondItem="co3-Zx-ZJY" secondAttribute="trailing" constant="16" id="pXn-Rl-FEx"/>
-                                        <constraint firstItem="co3-Zx-ZJY" firstAttribute="leading" secondItem="vUy-6g-Ddv" secondAttribute="leading" constant="2" id="rES-Jc-9G8"/>
-                                    </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="genreIconImage" destination="co3-Zx-ZJY" id="mOY-ze-e2p"/>
-                                    <outlet property="titleLabel" destination="hQc-oK-STI" id="hPq-mH-kjW"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -720,7 +704,7 @@ Speaking</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="m5d-qH-4Ml" style="IBUITableViewCellStyleDefault" id="aBA-wa-d1g">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="subCell" textLabel="m5d-qH-4Ml" style="IBUITableViewCellStyleDefault" id="aBA-wa-d1g">
                                 <rect key="frame" x="20" y="55.333332061767578" width="353" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aBA-wa-d1g" id="HO2-2R-XVr">
@@ -793,7 +777,6 @@ Speaking</string>
         <!--Item-->
         <scene sceneID="Ie6-NJ-Hc3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mhi-cI-DEw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m7A-yY-N9H" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="f8P-PN-tX5"/>
                     <toolbarItems/>
@@ -806,6 +789,7 @@ Speaking</string>
                         <segue destination="gwB-c2-7LA" kind="relationship" relationship="rootViewController" id="leS-8h-Tys"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mhi-cI-DEw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2104.5801526717555" y="729.57746478873241"/>
         </scene>
@@ -816,14 +800,15 @@ Speaking</string>
     <resources>
         <image name="Image 3" width="350" height="114"/>
         <image name="mic" catalog="system" width="110" height="128"/>
+        <image name="microphone" catalog="system" width="110" height="128"/>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

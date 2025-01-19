@@ -79,22 +79,18 @@ class PracticeModesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "practiceModesCell", for: indexPath) as! PracticeModesTableViewCell
-            cell.genreIconImage.image = UIImage(systemName: PracticeModesData.readAloudGenres[indexPath.row].iconName)
-            cell.titleLabel.text = PracticeModesData.readAloudGenres[indexPath.row].name
+            let cell = tableView.dequeueReusableCell(withIdentifier: "practiceModesCell", for: indexPath)
+            cell.imageView?.image = UIImage(systemName: PracticeModesData.readAloudGenres[indexPath.row].iconName)
+            cell.textLabel?.text = PracticeModesData.readAloudGenres[indexPath.row].name
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "practiceModesCell", for: indexPath) as! PracticeModesTableViewCell
-            cell.genreIconImage.image = UIImage(systemName: PracticeModesData.randomTopicGenres[indexPath.row].iconName)
-            cell.titleLabel.text = PracticeModesData.readAloudGenres[indexPath.row].name
+            let cell = tableView.dequeueReusableCell(withIdentifier: "practiceModesCell", for: indexPath)
+            cell.imageView?.image = UIImage(systemName: PracticeModesData.randomTopicGenres[indexPath.row].iconName)
+            cell.textLabel?.text = PracticeModesData.readAloudGenres[indexPath.row].name
             return cell
         default:
             return UITableViewCell()
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

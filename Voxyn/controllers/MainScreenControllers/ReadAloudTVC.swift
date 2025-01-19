@@ -40,17 +40,26 @@ class ReadAloudTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "subCell", for: indexPath)
         
         var content = cell.defaultContentConfiguration()
         
         content.text = news[indexPath.row].topicName
         
         cell.contentConfiguration = content
-        
-        
-        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "SpeakingTasks", bundle: nil)
+        
+        // Instantiate the view controller
+        if let speakingTaskVC = storyboard.instantiateViewController(withIdentifier: "SpeakingTasks") as? PracticeViewController {
+            // Navigate to the view controller
+            self.navigationController?.pushViewController(speakingTaskVC, animated: true)
+        } else {
+            print("Failed to instantiate LessonsViewController. Check its storyboard ID.")
+        }
     }
     
 }
