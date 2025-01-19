@@ -9,58 +9,23 @@ import UIKit
 
 class PracticeModesTableViewController: UITableViewController {
     
-    enum PracticeMode: String, CaseIterable {
-        case readAloud = "Read Aloud"
-        case randomTopic = "Random Topic"
-    }
+    private let readAloudDataModel = ReadAloudDataModel.shared
+    private let randomTopicDataModel = RandomTopicDataModel.shared
     
-    // MARK: - Genre Model
-    struct Genre {
-        let name: String
-        let iconName: String
-        let description: String
-    }
-    
-    struct Topic {
-        let topicName: String
-        let description: String
-    }
-    
-    // MARK: - Practice Modes Data
-    struct PracticeModesData {
-        static let readAloudGenres: [Genre] = [
-            Genre(name: "News", iconName: "newspaper.fill", description: ""),
-            Genre(name: "Business", iconName: "chart.line.uptrend.xyaxis", description: ""),
-            Genre(name: "Technology", iconName: "desktopcomputer", description: ""),
-            Genre(name: "Lifestyle", iconName: "house.fill", description: ""),
-            Genre(name: "Health", iconName: "heart.fill", description: "")
-        ]
-        
-        static let randomTopicGenres: [Genre] = [
-            Genre(name: "Personal Experiences", iconName: "person.fill", description: ""),
-            Genre(name: "Current Affairs", iconName: "globe", description: ""),
-            Genre(name: "Abstract Topics", iconName: "lightbulb.fill", description: ""),
-            Genre(name: "Motivational Topic", iconName: "sparkles", description: "")
-        ]
-        
-        static let news: [Topic] = [
-            Topic(topicName: "News 1", description: ""),
-            Topic(topicName: "News 2", description: ""),
-            Topic(topicName: "News 3", description: ""),
-            Topic(topicName: "News 4", description: ""),
-            Topic(topicName: "News 5", description: "")
-        ]
-    }
-    
-    
+    private var randomTopicGenres: [Genre] = []
+    private var readAloudGenres: [Genre] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        loadData()
+    }
+    
+    private func loadData() {
+        readAloudGenres = readAloudDataModel.getAllGenres()
+        randomTopicGenres = randomTopicDataModel.getAllGenres()
     }
     
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 2
@@ -69,28 +34,30 @@ class PracticeModesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         switch section {
-        case 0: return PracticeModesData.readAloudGenres.count
-        case 1: return PracticeModesData.randomTopicGenres.count
+        case 0: return readAloudGenres.count
+        case 1: return randomTopicGenres.count
         default:
             return 0
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeModesCell", for: indexPath)
+        
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "practiceModesCell", for: indexPath)
-            cell.imageView?.image = UIImage(systemName: PracticeModesData.readAloudGenres[indexPath.row].iconName)
-            cell.textLabel?.text = PracticeModesData.readAloudGenres[indexPath.row].name
-            return cell
+            let genre = readAloudGenres[indexPath.row]
+            cell.imageView?.image = UIImage(systemName: genre.iconName)
+            cell.textLabel?.text = genre.name
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "practiceModesCell", for: indexPath)
-            cell.imageView?.image = UIImage(systemName: PracticeModesData.randomTopicGenres[indexPath.row].iconName)
-            cell.textLabel?.text = PracticeModesData.readAloudGenres[indexPath.row].name
-            return cell
+            let genre = randomTopicGenres[indexPath.row]
+            cell.imageView?.image = UIImage(systemName: genre.iconName)
+            cell.textLabel?.text = genre.name
         default:
-            return UITableViewCell()
+            break
         }
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -107,9 +74,42 @@ class PracticeModesTableViewController: UITableViewController {
 
         switch indexPath.section {
         case 0: // Read Aloud
-            performSegue(withIdentifier: "readAloudSegue", sender: nil)
+            performSegue(withIdentifier: "readAloudSegue", sender: indexPath)
         case 1: // Random Topic
-            performSegue(withIdentifier: "randomTopicSegue", sender: nil)
+            performSegue(withIdentifier: "randomTopicSegue", sender: indexPath)
+        default:
+            break
+        }
+    }
+
+
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = sender as? IndexPath else { return }
+        
+        switch segue.identifier {
+        case "readAloudSegue":
+            if let destinationVC = segue.destination as? ReadAloudTVC {
+                // Convert selected Genre back to ReadAloudGenre enum
+                let selectedGenre = ReadAloudGenre.allCases[indexPath.row]
+                // Get all passages for this genre
+                let passages = readAloudDataModel.getPassages(for: selectedGenre)
+                // Configure the destination view controller
+                destinationVC.passages = passages
+                destinationVC.selectedGenre = selectedGenre
+            }
+            
+        case "randomTopicSegue":
+            if let destinationVC = segue.destination as? RandomTopicTVC {
+                // Convert selected Genre back to RandomTopicGenre enum
+                let selectedGenre = RandomTopicGenre.allCases[indexPath.row]
+                // Get all topics for this genre
+                let topics = randomTopicDataModel.getTopics(for: selectedGenre)
+                // Configure the destination view controller
+                destinationVC.topics = topics
+                destinationVC.selectedGenre = selectedGenre
+            }
+            
         default:
             break
         }

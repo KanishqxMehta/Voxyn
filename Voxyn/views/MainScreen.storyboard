@@ -626,7 +626,7 @@ Speaking</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="practiceModesCell" textLabel="BbB-M7-caq" rowHeight="50" style="IBUITableViewCellStyleDefault" id="moM-3r-NqV" customClass="PracticeModesTableViewCell" customModule="Voxyn" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PracticeModesCell" textLabel="BbB-M7-caq" rowHeight="50" style="IBUITableViewCellStyleDefault" id="moM-3r-NqV" customClass="PracticeModesTableViewCell" customModule="Voxyn" customModuleProvider="target">
                                 <rect key="frame" x="20" y="55.333332061767578" width="353" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="moM-3r-NqV" id="vUy-6g-Ddv">
@@ -667,7 +667,7 @@ Speaking</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="P7W-d8-I5v" style="IBUITableViewCellStyleDefault" id="U4F-As-HZS">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RandomTopicCell" textLabel="P7W-d8-I5v" style="IBUITableViewCellStyleDefault" id="U4F-As-HZS">
                                 <rect key="frame" x="20" y="55.333332061767578" width="353" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U4F-As-HZS" id="VhP-zl-Scf">
@@ -704,7 +704,7 @@ Speaking</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="subCell" textLabel="m5d-qH-4Ml" style="IBUITableViewCellStyleDefault" id="aBA-wa-d1g">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReadAloudCell" textLabel="m5d-qH-4Ml" style="IBUITableViewCellStyleDefault" id="aBA-wa-d1g">
                                 <rect key="frame" x="20" y="55.333332061767578" width="353" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aBA-wa-d1g" id="HO2-2R-XVr">

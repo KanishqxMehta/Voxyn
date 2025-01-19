@@ -9,22 +9,17 @@ import UIKit
 
 class ReadAloudTVC: UITableViewController {
     
-    struct Topic {
-        let topicName: String
-        let description: String
-    }
-    
-    let news: [Topic] = [
-        Topic(topicName: "News 1", description: ""),
-        Topic(topicName: "News 2", description: ""),
-        Topic(topicName: "News 3", description: ""),
-        Topic(topicName: "News 4", description: ""),
-        Topic(topicName: "News 5", description: "")
-    ]
-    
+    // MARK: - Properties
+    var passages: [ReadAloud] = [] // Passed from the segue
+    var selectedGenre: ReadAloudGenre? // To display genre-specific details
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set the title to the selected genre's name
+        if let selectedGenre = selectedGenre {
+            title = selectedGenre.rawValue
+        }
     }
     
     // MARK: - Table view data source
@@ -36,16 +31,14 @@ class ReadAloudTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return news.count
+        return passages.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "subCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReadAloudCell", for: indexPath)
         
         var content = cell.defaultContentConfiguration()
-        
-        content.text = news[indexPath.row].topicName
-        
+        content.text = passages[indexPath.row].title // Display the title of each passage
         cell.contentConfiguration = content
         return cell
     }
