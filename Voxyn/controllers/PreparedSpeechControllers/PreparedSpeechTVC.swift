@@ -11,51 +11,47 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
-    // This array will hold the filtered data for search results
+    private let preparedSpeechdataModel = SpeechPracticeDataModel.shared
     var filteredSpeechPractices: [SpeechPractice] = []
-    var isSearching: Bool = false // Flag to check if searching is active
+    var isSearching: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchBar.delegate = self
-        tableView.reloadData() // Reload the table with the updated data
+        tableView.reloadData()
 
-         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return SpeechPracticeDataModel.shared.getAllSpeechPractices().count
-        return isSearching ? filteredSpeechPractices.count : SpeechPracticeDataModel.shared.getAllSpeechPractices().count
+        return isSearching ? filteredSpeechPractices.count : preparedSpeechdataModel.getAllSpeechPractices().count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "preparedSpeech", for: indexPath)
 
-//        var content = cell.defaultContentConfiguration()
-        let speechPractices = SpeechPracticeDataModel.shared.getAllSpeechPractices()
+        let speechPractices = isSearching ? filteredSpeechPractices : preparedSpeechdataModel.getAllSpeechPractices()
         cell.textLabel?.text = speechPractices[indexPath.row].title
         cell.detailTextLabel?.text = speechPractices[indexPath.row].description
-//        cell.contentConfiguration = content
+
         cell.showsReorderControl = true
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let dataModel = SpeechPracticeDataModel.shared
-        var practices = dataModel.getAllSpeechPractices()
+        var practices = preparedSpeechdataModel.getAllSpeechPractices()
         let movedPractice = practices[sourceIndexPath.row]
         practices.remove(at: sourceIndexPath.row)
         practices.insert(movedPractice, at: destinationIndexPath.row)
-        dataModel.updateSpeechPractices(with: practices)
+//        preparedSpeechdataModel.updateSpeechPractices(with: practices)
         tableView.reloadData()
     }
 
@@ -66,25 +62,27 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            SpeechPracticeDataModel.shared.deleteSpeechPractice(by: indexPath.row)
-            
+            let practices = isSearching ? filteredSpeechPractices : preparedSpeechdataModel.getAllSpeechPractices()
+            let practiceToDelete = practices[indexPath.row]
+            preparedSpeechdataModel.deleteSpeechPractice(by: practiceToDelete.id)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-        } else if editingStyle == .insert {
         }
     }
     
     @IBAction func unwindToPreparedSpeechTVC(segue: UIStoryboardSegue) {
-        if let sourceVC = segue.source as? AddPreparedSpeechTVC {
+        if let sourceVC = segue.source as? AddPreparedSpeechViewController {
             // Validate input fields
-            guard let title = sourceVC.titleTextField.text, !title.isEmpty,
-                  let description = sourceVC.descTextField.text, !description.isEmpty,
-                  let speechText = sourceVC.speechTextField.text, !speechText.isEmpty else {
+            guard let title = sourceVC.titleTextView.text, !title.isEmpty,
+                  let description = sourceVC.descTextView.text, !description.isEmpty,
+                  let speechText = sourceVC.speechTextView.text, !speechText.isEmpty
+            else {
                 print("All fields are required.")
                 return
             }
 
             // Create a new SpeechPractice object
             let newSpeechPractice = SpeechPractice(
+                id: 0,
                 inputMode: .typed, // Assume user types the input for now
                 title: title,
                 description: description,
@@ -94,7 +92,7 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
             )
 
             // Add the new speech practice to the data model
-            SpeechPracticeDataModel.shared.addSpeechPractice(newSpeechPractice)
+            preparedSpeechdataModel.addSpeechPractice(newSpeechPractice)
 
             // Reload the table view to display the new entry
             tableView.reloadData()
@@ -106,7 +104,7 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
             isSearching = false
         } else {
             isSearching = true
-            let allPractices = SpeechPracticeDataModel.shared.getAllSpeechPractices()
+            let allPractices = preparedSpeechdataModel.getAllSpeechPractices()
             filteredSpeechPractices = allPractices.filter { practice in
                 practice.title.lowercased().contains(searchText.lowercased()) ||
                 practice.description.lowercased().contains(searchText.lowercased())
@@ -118,6 +116,24 @@ class PreparedSpeechTVC: UITableViewController, UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         isSearching = false
         searchBar.text = ""
+        searchBar.resignFirstResponder()
         tableView.reloadData()
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let speechPractices = isSearching ? filteredSpeechPractices : preparedSpeechdataModel.getAllSpeechPractices()
+        let selectedSpeech = speechPractices[indexPath.row]
+
+        performSegue(withIdentifier: "showSpeechDetail", sender: selectedSpeech)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSpeechDetail" {
+            if let detailVC = segue.destination as? SpeechDetailViewController,
+               let speech = sender as? SpeechPractice {
+                detailVC.speechPractice = speech
+            }
+        }
+    }
+
 }

@@ -7,6 +7,7 @@ enum InputMode: String {
 }
 
 struct SpeechPractice {
+    var id: Int
     var inputMode: InputMode
     var title: String
     var description: String
@@ -22,11 +23,13 @@ class SpeechPracticeDataModel {
     static let shared = SpeechPracticeDataModel()
     
     private var speechPractices: [SpeechPractice] = []
+    private var currentID: Int = 3
     
     private init() {
         // Initialize with some sample data
         speechPractices = [
             SpeechPractice(
+                id: 0,
                 inputMode: .typed,
                 title: "Introduction Speech",
                 description: "Practice introducing yourself in formal settings.",
@@ -36,6 +39,7 @@ class SpeechPracticeDataModel {
                 createdAt: ""
             ),
             SpeechPractice(
+                id: 1,
                 inputMode: .scanned,
                 title: "Interview Preparation",
                 description: "Common interview questions for practice.",
@@ -46,6 +50,7 @@ class SpeechPracticeDataModel {
                 createdAt: ""
             ),
             SpeechPractice(
+                id: 2,
                 inputMode: .typed,
                 title: "Vacation Story",
                 description: "Describe your last vacation to practice storytelling.",
@@ -73,21 +78,26 @@ class SpeechPracticeDataModel {
     }
 
     // MARK: - Add, Update and Delete Methods
-    func addSpeechPractice(_ speechPractice: SpeechPractice) {
-        speechPractices.append(speechPractice)
+    func addSpeechPractice(_ practice: SpeechPractice) {
+        var newPractice = practice
+        newPractice.id = currentID
+        currentID += 1
+        speechPractices.append(newPractice)
     }
     
-    func updateSpeechPractices(with practices: [SpeechPractice]) {
-        self.speechPractices = practices
+    func updateSpeechPractice(_ updatedPractice: SpeechPractice) {
+        if let index = speechPractices.firstIndex(where: { $0.id == updatedPractice.id }) {
+            speechPractices[index] = updatedPractice
+        }
     }
 
-    func deleteSpeechPractice(by title: String) -> Bool {
-        if let index = speechPractices.firstIndex(where: { $0.title == title }) {
-            speechPractices.remove(at: index)
-            return true
-        }
-        return false
-    }
+//    func deleteSpeechPractice(by title: String) -> Bool {
+//        if let index = speechPractices.firstIndex(where: { $0.title == title }) {
+//            speechPractices.remove(at: index)
+//            return true
+//        }
+//        return false
+//    }
     
     func deleteSpeechPractice(by index: Int) -> SpeechPractice? {
         guard index >= 0 && index < speechPractices.count else { return nil }
