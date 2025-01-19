@@ -11,7 +11,7 @@
         <!--Speech Community Hub-->
         <scene sceneID="zdo-Us-4j6">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="RkZ-rp-oLb" customClass="CommunityHubViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommunityTVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RkZ-rp-oLb" customClass="CommunityHubViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yv7-Zl-Frf">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -178,7 +178,7 @@
         <!--Navigation Controller-->
         <scene sceneID="BhA-zo-OOX">
             <objects>
-                <navigationController storyboardIdentifier="community" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hUY-d1-UGB" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="hUY-d1-UGB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Grg-0x-bDt">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>

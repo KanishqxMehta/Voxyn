@@ -30,11 +30,23 @@ class MainTabBarController: UITabBarController {
             preparedSpeechVC.tabBarItem.title = "My Speech"
             preparedSpeechVC.tabBarItem.image = UIImage(systemName: "book.pages")
             preparedSpeechVC.tabBarItem.selectedImage = UIImage(systemName: "book.pages.fill")
-                        
-//            let profileVC = viewControllers[3]
-//            profileVC.tabBarItem.title = "Profile"
-//            profileVC.tabBarItem.image = UIImage(systemName: "person")
-//            profileVC.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
+            
+            let profileVC = ProfileViewController()
+            profileVC.title = "Profile" // Set the title for the navigation bar
+            
+            // Embed ProfileViewController in a UINavigationController
+            let profileNavController = UINavigationController(rootViewController: profileVC)
+            profileNavController.tabBarItem = UITabBarItem(
+                title: "Profile",
+                image: UIImage(systemName: "person"),
+                selectedImage: UIImage(systemName: "person.fill")
+            )
+            
+            // Add the ProfileViewController as the 4th tab
+            if var viewControllers = self.viewControllers {
+                viewControllers.append(profileNavController) // Add the profile navigation controller
+                self.viewControllers = viewControllers // Update the tab bar's view controllers
+            }
         }
 
     }
