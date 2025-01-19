@@ -289,8 +289,9 @@ Speaking</string>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FSW-n0-QoQ">
                                                                 <rect key="frame" x="8" y="8" width="28" height="28"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1JU-84-KZr">
-                                                                        <rect key="frame" x="5.3333333333333321" y="5.3333333333334103" width="17.333333333333332" height="16.666666666666664"/>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waveform" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1JU-84-KZr">
+                                                                        <rect key="frame" x="4.3333333333333321" y="6.0000000000000746" width="19.333333333333332" height="16.333333333333336"/>
+                                                                        <color key="tintColor" systemColor="systemBlueColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="17" id="jzR-XU-psx"/>
                                                                         </constraints>
@@ -325,6 +326,8 @@ Speaking</string>
                                                             </stackView>
                                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Shz-Ij-vlq">
                                                                 <rect key="frame" x="8" y="79" width="345" height="4"/>
+                                                                <color key="progressTintColor" systemColor="systemBlueColor"/>
+                                                                <color key="trackTintColor" red="0.93725490570000003" green="0.96470588450000005" blue="0.99607843159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </progressView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your pronunciation is becoming more distinct and clear." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMc-M0-Qa9">
                                                                 <rect key="frame" x="8" y="97.666666666666742" width="345" height="14.333333333333329"/>
@@ -363,14 +366,15 @@ Speaking</string>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqI-7f-Cx2">
                                                                 <rect key="frame" x="8" y="8" width="28" height="28"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gG6-HH-BPs">
-                                                                        <rect key="frame" x="5.3333333333333321" y="5.3333333333334103" width="17.333333333333332" height="16.666666666666664"/>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gG6-HH-BPs">
+                                                                        <rect key="frame" x="7.0000000000000009" y="6.6666666666667407" width="14.333333333333336" height="15.666666666666666"/>
+                                                                        <color key="tintColor" systemColor="systemPurpleColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="17" id="Ra6-PQ-8tq"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" red="0.93092906480000004" green="0.96583944560000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.96078431610000004" green="0.93333333730000001" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="5vl-cn-kfc"/>
                                                                     <constraint firstItem="gG6-HH-BPs" firstAttribute="centerX" secondItem="IqI-7f-Cx2" secondAttribute="centerX" id="F64-Ss-dJI"/>
@@ -399,6 +403,8 @@ Speaking</string>
                                                             </stackView>
                                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WFz-ke-C3K">
                                                                 <rect key="frame" x="8" y="79.000000000000114" width="345" height="4"/>
+                                                                <color key="progressTintColor" systemColor="systemPurpleColor"/>
+                                                                <color key="trackTintColor" red="0.96078431610000004" green="0.93333333730000001" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </progressView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your pronunciation is becoming more distinct and clear." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBI-B2-Bfn">
                                                                 <rect key="frame" x="8" y="97.666666666666629" width="345" height="14.333333333333329"/>
@@ -406,8 +412,8 @@ Speaking</string>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clarity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReB-wi-GPM">
-                                                                <rect key="frame" x="44" y="13" width="46" height="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReB-wi-GPM">
+                                                                <rect key="frame" x="44" y="13" width="33.333333333333343" height="17"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -437,14 +443,15 @@ Speaking</string>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZp-R6-7YX">
                                                                 <rect key="frame" x="8" y="8" width="28" height="28"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zfs-UO-WpL">
-                                                                        <rect key="frame" x="5.3333333333333321" y="5.3333333333331829" width="17.333333333333332" height="16.666666666666664"/>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge.with.dots.needle.67percent" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zfs-UO-WpL">
+                                                                        <rect key="frame" x="4.3333333333333321" y="6.3333333333331812" width="19.666666666666668" height="15.66666666666667"/>
+                                                                        <color key="tintColor" systemColor="systemOrangeColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="17" id="jL5-I6-2rd"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" red="0.93092906480000004" green="0.96583944560000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.99215686274509807" green="0.95686274509803915" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="3Oc-px-uZ2"/>
                                                                     <constraint firstAttribute="width" constant="28" id="9MY-8H-YHR"/>
@@ -473,6 +480,8 @@ Speaking</string>
                                                             </stackView>
                                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ANt-qs-GjL">
                                                                 <rect key="frame" x="8" y="79" width="345" height="4"/>
+                                                                <color key="progressTintColor" systemColor="systemOrangeColor"/>
+                                                                <color key="trackTintColor" red="0.98431372640000003" green="0.95686274770000002" blue="0.90980386729999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </progressView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your pronunciation is becoming more distinct and clear." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BsM-mZ-u7W">
                                                                 <rect key="frame" x="8" y="97.666666666666515" width="345" height="14.333333333333329"/>
@@ -480,8 +489,8 @@ Speaking</string>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clarity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Irb-gr-Bir">
-                                                                <rect key="frame" x="44" y="13" width="46" height="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Irb-gr-Bir">
+                                                                <rect key="frame" x="44" y="13" width="33.666666666666657" height="17"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -511,14 +520,15 @@ Speaking</string>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tem-Pt-WiD">
                                                                 <rect key="frame" x="8" y="8" width="28" height="28"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sJj-Sq-Lhq">
-                                                                        <rect key="frame" x="5.3333333333333321" y="5.3333333333331829" width="17.333333333333332" height="16.666666666666664"/>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tachometer" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sJj-Sq-Lhq">
+                                                                        <rect key="frame" x="4.3333333333333321" y="7.333333333333182" width="19.666666666666668" height="13.666666666666668"/>
+                                                                        <color key="tintColor" systemColor="systemPinkColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="17" id="pG3-bM-eGz"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" red="0.93092906480000004" green="0.96583944560000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.98431372549019602" green="0.92156862745098034" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="1p0-nS-LLg"/>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="28" id="5at-WT-kgo"/>
@@ -547,6 +557,8 @@ Speaking</string>
                                                             </stackView>
                                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rpW-PM-EQJ">
                                                                 <rect key="frame" x="8" y="79" width="345" height="4"/>
+                                                                <color key="progressTintColor" systemColor="systemPinkColor"/>
+                                                                <color key="trackTintColor" red="0.97254902119999997" green="0.92156863209999995" blue="0.93333333730000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </progressView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your pronunciation is becoming more distinct and clear." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Q1-oy-Ebg">
                                                                 <rect key="frame" x="8" y="97.666666666666515" width="345" height="14.333333333333329"/>
@@ -554,8 +566,8 @@ Speaking</string>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clarity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeo-UZ-30o">
-                                                                <rect key="frame" x="44" y="13" width="46" height="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fluency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeo-UZ-30o">
+                                                                <rect key="frame" x="44" y="13" width="54" height="17"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -613,6 +625,23 @@ Speaking</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Hi, Voxite" id="M2w-0Z-kfl"/>
+                    <connections>
+                        <outlet property="chartView" destination="v0y-tn-I80" id="trG-uk-NsU"/>
+                        <outletCollection property="roundCornerViews" destination="3Zy-GT-bJF" collectionClass="NSMutableArray" id="Wba-tw-keK"/>
+                        <outletCollection property="roundCornerViews" destination="Kqf-pc-RAt" collectionClass="NSMutableArray" id="znp-cj-7zS"/>
+                        <outletCollection property="roundCornerViews" destination="tXU-nl-kWG" collectionClass="NSMutableArray" id="asi-Kk-7Ze"/>
+                        <outletCollection property="roundCornerViews" destination="mhs-bE-YXz" collectionClass="NSMutableArray" id="GQV-d0-7E1"/>
+                        <outletCollection property="roundCornerViews" destination="OUA-Xx-AvB" collectionClass="NSMutableArray" id="iaF-fm-IEg"/>
+                        <outletCollection property="roundCornerViews" destination="v0y-tn-I80" collectionClass="NSMutableArray" id="4te-hK-aIB"/>
+                        <outletCollection property="roundCornerViews" destination="ZOm-T4-4Ia" collectionClass="NSMutableArray" id="Sdy-Ls-BsF"/>
+                        <outletCollection property="roundCornerViews" destination="d72-wE-I9v" collectionClass="NSMutableArray" id="640-xG-ETB"/>
+                        <outletCollection property="roundCornerViews" destination="vqD-m1-zPs" collectionClass="NSMutableArray" id="iw2-IA-nC6"/>
+                        <outletCollection property="roundCornerViews" destination="u67-mi-wge" collectionClass="NSMutableArray" id="Rdq-iI-ONK"/>
+                        <outletCollection property="roundCornerViews" destination="FSW-n0-QoQ" collectionClass="NSMutableArray" id="O7s-6P-s9f"/>
+                        <outletCollection property="roundCornerViews" destination="IqI-7f-Cx2" collectionClass="NSMutableArray" id="3ZY-9j-KWX"/>
+                        <outletCollection property="roundCornerViews" destination="uZp-R6-7YX" collectionClass="NSMutableArray" id="uZ7-O7-HG1"/>
+                        <outletCollection property="roundCornerViews" destination="Tem-Pt-WiD" collectionClass="NSMutableArray" id="fV7-N5-5Aj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mrR-W8-Ve2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -799,16 +828,28 @@ Speaking</string>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Image 3" width="350" height="114"/>
+        <image name="gauge.with.dots.needle.67percent" catalog="system" width="128" height="123"/>
         <image name="mic" catalog="system" width="110" height="128"/>
-        <image name="microphone" catalog="system" width="110" height="128"/>
+        <image name="music.note" catalog="system" width="96" height="128"/>
+        <image name="tachometer" catalog="system" width="128" height="110"/>
+        <image name="waveform" catalog="system" width="125" height="128"/>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -8,16 +8,40 @@
 import Foundation
 
 // MARK: - Feedback
-enum FeedbackCategory {
-    case clarity, tone, pace, fluency
+enum FeedbackCategory: String {
+    case clarity = "clarity"
+    case tone = "tone"
+    case pace = "pace"
+    case fluency = "fluency"
+
+    var displayName: String {
+        switch self {
+        case .clarity:
+            return "Clarity"
+        case .tone:
+            return "Tone"
+        case .pace:
+            return "Pace"
+        case .fluency:
+            return "Fluency"
+        }
+    }
 }
 
 struct Feedback {
-    var feedbackId: Int
-    var recordingId: Int
-    var scores: [FeedbackCategory: Int] // Example: [.clarity: 8, .tone: 7]
-    var comments: [FeedbackCategory: String]? // Optional comments for each parameter
-    var overallComment: String? // Optional summary comment
+    let feedbackId: Int
+    let recordingId: Int
+    var scores: [FeedbackCategory: Int]
+    var comments: [FeedbackCategory: String]?
+    var overallComment: String?
+    
+    init(feedbackId: Int, recordingId: Int, scores: [FeedbackCategory: Int], comments: [FeedbackCategory: String]? = nil, overallComment: String? = nil) {
+        self.feedbackId = feedbackId
+        self.recordingId = recordingId
+        self.scores = scores
+        self.comments = comments
+        self.overallComment = overallComment
+    }
 }
 
 // MARK: - Feedback Data Management

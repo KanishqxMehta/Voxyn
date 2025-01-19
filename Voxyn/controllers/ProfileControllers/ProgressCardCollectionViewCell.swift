@@ -133,9 +133,9 @@ class ProgressCardCollectionViewCell: UICollectionViewCell {
         case .tone:
             return ("music.note", "Tone", UIColor.systemPurple)
         case .pace:
-            return ("speedometer", "Pace", UIColor.systemGreen)
+            return ("speedometer", "Pace", UIColor.systemOrange)
         case .fluency:
-            return ("tachometer", "Fluency", UIColor.systemOrange)
+            return ("tachometer", "Fluency", UIColor.systemPink)
         }
     }
 

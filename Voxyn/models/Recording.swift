@@ -58,13 +58,22 @@ class RecordingDataModel {
 
     private init() {
         // Static test data for recordings
+        let calendar = Calendar.current
+        let today = Date()
+        
+        // Get the start of the current week (Monday)
+        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+        let monday = startOfWeek
+        let tuesday = calendar.date(byAdding: .day, value: 1, to: monday)!
+        let wednesday = calendar.date(byAdding: .day, value: 2, to: monday)!
+
         recordings = [
             Recording(
                 recordingId: 1,
                 userId: 1,
                 title: "Read Aloud Topic",
                 audioFileURL: "",
-                timestamp: Date(timeIntervalSinceNow: -86400), // 1 day ago
+                timestamp: monday, // Monday
                 sessionType: .readAloud,
                 feedback: Feedback(
                     feedbackId: 1,
@@ -89,7 +98,7 @@ class RecordingDataModel {
                 userId: 1,
                 title: "Random Prompt topic",
                 audioFileURL: "",
-                timestamp: Date(timeIntervalSinceNow: -172800), // 2 days ago
+                timestamp: tuesday, // Tuesday
                 sessionType: .randomTopic,
                 feedback: Feedback(
                     feedbackId: 2,
@@ -114,7 +123,7 @@ class RecordingDataModel {
                 userId: 1,
                 title: "Prepared Speech topic",
                 audioFileURL: "",
-                timestamp: Date(timeIntervalSinceNow: -259200), // 3 days ago
+                timestamp: wednesday, // Wednesday
                 sessionType: .preparedSpeech,
                 feedback: Feedback(
                     feedbackId: 3,
@@ -136,7 +145,7 @@ class RecordingDataModel {
             )
         ]
     }
-    
+
     // Add a new recording
     func saveRecording(_ recording: Recording) {
         recordings.append(recording)
