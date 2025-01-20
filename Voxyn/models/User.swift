@@ -35,7 +35,7 @@ class UserDataModel {
             firstName: "Voxite",
             lastName: "",
             email: "voxite@gmail.com",
-            dob: Date(),
+            dob: Calendar.current.date(from: DateComponents(year: 2004, month: 4, day: 6)) ?? Date(),
             profileImageURL: nil,
             accountCreatedOn: Date(),
             progress: Progress(

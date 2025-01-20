@@ -12,9 +12,21 @@ class MainViewController: UIViewController {
 
     @IBOutlet var roundCornerViews: [UIView]!
     @IBOutlet weak var chartView: UIView!
+    @IBOutlet var startButton: [UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for startButton in startButton {
+            startButton.layer.shadowColor = UIColor.black.cgColor  // Shadow color
+            startButton.layer.shadowOpacity = 0.3                 // Shadow opacity (0.0 to 1.0)
+            startButton.layer.shadowOffset = CGSize(width: 0, height: 0) // Shadow offset
+            startButton.layer.shadowRadius = 3                    // Shadow blur radius
+            
+            // Optional: To make the shadow visible when the button is rounded
+            startButton.layer.masksToBounds = false
+        }
+
         
         // Round corners for specific views
         roundCornerViews.forEach { view in
@@ -68,15 +80,4 @@ class MainViewController: UIViewController {
         }
 
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-
 }

@@ -85,7 +85,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 236/255, green: 247/255, blue: 255/255, alpha: 1.0)
+        view.backgroundColor = UIColor.secondarySystemBackground
+//        view.backgroundColor = UIColor(red: 236/255, green: 247/255, blue: 255/255, alpha: 1.0)
 
         // Dynamically set the user's name
         userNameLabel.text = userName

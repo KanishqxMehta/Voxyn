@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVF-Zg-XYa">
-                                <rect key="frame" x="0.0" y="103" width="393" height="665.99999999999977"/>
+                                <rect key="frame" x="0.0" y="155" width="393" height="614"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDj-dp-3aE">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="1192.6666666666667"/>
@@ -103,6 +103,7 @@
                                                                     <constraint firstAttribute="height" constant="100" id="RU2-wE-yGk"/>
                                                                     <constraint firstAttribute="width" constant="100" id="ymk-nT-OAn"/>
                                                                 </constraints>
+                                                                <size key="titleShadowOffset" width="2" height="2"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="filled" title="" cornerStyle="capsule">
                                                                     <imageReference key="image" image="mic" catalog="system" symbolScale="large"/>
@@ -120,6 +121,7 @@
                                                                     <constraint firstAttribute="height" constant="32" id="J9i-or-6jP"/>
                                                                 </constraints>
                                                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <size key="titleShadowOffset" width="2" height="2"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="filled" title="   Start Practice" cornerStyle="capsule" titleAlignment="automatic">
                                                                     <fontDescription key="titleFontDescription" name="SFPro-Medium" family="SF Pro" pointSize="12"/>
@@ -641,6 +643,8 @@ Speaking</string>
                         <outletCollection property="roundCornerViews" destination="IqI-7f-Cx2" collectionClass="NSMutableArray" id="3ZY-9j-KWX"/>
                         <outletCollection property="roundCornerViews" destination="uZp-R6-7YX" collectionClass="NSMutableArray" id="uZ7-O7-HG1"/>
                         <outletCollection property="roundCornerViews" destination="Tem-Pt-WiD" collectionClass="NSMutableArray" id="fV7-N5-5Aj"/>
+                        <outletCollection property="startButton" destination="uzY-PW-mTo" collectionClass="NSMutableArray" id="ime-gG-bZ9"/>
+                        <outletCollection property="startButton" destination="4wS-ek-oQb" collectionClass="NSMutableArray" id="cbL-Ql-wxk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mrR-W8-Ve2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

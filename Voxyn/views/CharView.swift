@@ -14,19 +14,26 @@ struct ChartView: View {
             )
             .foregroundStyle(by: .value("Category", dataPoint.category.displayName))
         }
+        .chartForegroundStyleScale([
+            "Clarity": Color.blue,
+            "Tone": Color.purple,
+            "Pace": Color.orange,
+            "Fluency": Color.pink
+        ])
         .chartYAxis {
             AxisMarks(position: .leading, values: Array(stride(from: 0, to: 101, by: 25)))
         }
         .chartXAxis {
-                    AxisMarks(position: .bottom) { value in
-                        AxisValueLabel {
-                            if let day = value.as(String.self) {
-                                Text(day.prefix(3)) // Shortened day names (e.g., Mon, Tue)
-                                    .font(.caption) // Smaller font for x-axis labels
-                            }
-                        }
+            AxisMarks(position: .bottom) { value in
+                AxisValueLabel {
+                    if let day = value.as(String.self) {
+                        Text(day.prefix(3)) // Shortened day names (e.g., Mon, Tue)
+                            .font(.caption) // Smaller font for x-axis labels
                     }
-                }    }
+                }
+            }
+        }
+    }
     
     // Convert recording data into chart-friendly data points
     private func prepareChartData() -> [ChartDataPoint] {

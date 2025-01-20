@@ -9,6 +9,8 @@ class AddPreparedSpeechViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Add Speech"
 
         // Add a cancel button to the navigation bar
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))

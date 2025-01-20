@@ -80,7 +80,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         waveRecordingView.isHidden = true
 
         // Configure slider
-//        recordingSlider.setThumbImage(UIImage(named: "Ellipse 27"), for: .normal)
+        recordingSlider.setThumbImage(UIImage(named: "Ellipse 27"), for: .normal)
 //        recordingSlider.minimumValue = 0
 //        recordingSlider.maximumValue = 1
 //        recordingSlider.value = 0
