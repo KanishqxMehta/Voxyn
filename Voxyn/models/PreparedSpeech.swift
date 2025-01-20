@@ -31,9 +31,9 @@ class SpeechPracticeDataModel {
             SpeechPractice(
                 id: 0,
                 inputMode: .typed,
-                title: "Introduction Speech",
-                description: "Practice introducing yourself in formal settings.",
-                originalText: "Hello, my name is John. I am a software developer from New York.",
+                title: "Who I Am and What I Bring to the Table",
+                description: "A concise introduction to showcase your skills, experiences, and aspirations during a job interview.",
+                originalText: "Good morning, I’m Alex, a software engineer with a passion for developing efficient and innovative solutions. I specialize in web development and have experience leading projects that increased user engagement by 20%. I value collaboration and thrive in team environments. My goal is to bring both creativity and strategic thinking to your company, contributing to impactful projects that make a difference.",
 //                estimatedTime: 5,
                 userRecording: nil,
                 createdAt: ""
@@ -41,9 +41,9 @@ class SpeechPracticeDataModel {
             SpeechPractice(
                 id: 1,
                 inputMode: .scanned,
-                title: "Interview Preparation",
-                description: "Common interview questions for practice.",
-                originalText: "Why do you want to work at our company?",
+                title: "Grateful for the Honor",
+                description: "A short and gracious speech to thank those who supported you in receiving an award.",
+                originalText: "Thank you so much for this incredible honor. I am deeply humbled to be recognized and owe this achievement to the mentors and teammates who believed in me. This award is a reminder of the power of collaboration and dedication. I hope to continue making meaningful contributions and inspiring others just as I have been inspired by those around me. Thank you!",
 //                estimatedTime: 10,
 //                pronunciationGuide: "why doo yoo wan-tuh wurk at owr cuhm-puh-nee?",
                 userRecording: nil,
@@ -52,9 +52,9 @@ class SpeechPracticeDataModel {
             SpeechPractice(
                 id: 2,
                 inputMode: .typed,
-                title: "Vacation Story",
-                description: "Describe your last vacation to practice storytelling.",
-                originalText: "Last summer, I went to Italy. The food and architecture were amazing.",
+                title: "Driving Innovation Together",
+                description: "A motivational speech to encourage teamwork and creativity during a meeting.",
+                originalText: "Good morning, team. As we embark on this new project, I want to emphasize the importance of collaboration and innovation. Every idea matters, and together, we have the potential to create something truly exceptional. Let’s embrace challenges as opportunities to grow and push boundaries. I believe in this team’s talent and determination, and I am excited to see what we will achieve. Let’s make it happen!",
 //                estimatedTime: 8,
 //                pronunciationGuide: nil,
                 userRecording: nil,

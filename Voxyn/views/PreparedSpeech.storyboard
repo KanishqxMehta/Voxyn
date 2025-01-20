@@ -259,7 +259,6 @@
                     <connections>
                         <outlet property="descriptionTextView" destination="Nzt-GD-0al" id="2ft-5e-pz1"/>
                         <outlet property="editBarButton" destination="2lL-7T-tqy" id="xfF-Bx-5gb"/>
-                        <outlet property="practiceButton" destination="PVq-Oc-CHr" id="Vbe-k8-04O"/>
                         <outlet property="practiceCountLabel" destination="aef-xb-4Zb" id="zKG-lX-uoQ"/>
                         <outlet property="speechTextView" destination="Id9-PR-C4A" id="vMX-Wg-itD"/>
                         <outlet property="titleTextView" destination="4gI-fn-Dc3" id="V2R-tQ-a2g"/>
@@ -606,6 +605,9 @@
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="filled" image="microphone" catalog="system" title=" Practice Now" cornerStyle="capsule" buttonSize="small"/>
+                                                                <connections>
+                                                                    <action selector="practiceButtonTapped:" destination="Ngm-7O-IGj" eventType="touchUpInside" id="6l6-Zp-XV8"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>

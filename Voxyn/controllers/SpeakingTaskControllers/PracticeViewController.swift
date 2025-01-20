@@ -40,12 +40,26 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     @IBOutlet private weak var estimatedSpeakingTimeLabel: UILabel!
     @IBOutlet private weak var speakingTimeLabel: UILabel!
     
+    @IBOutlet var areaOfImprovementLabel: UILabel!
+    @IBOutlet var speechToTextLabel: UILabel!
+    
+    @IBOutlet var clarityProgressBar: UIProgressView!
+    @IBOutlet var paceProgressBar: UIProgressView!
+    @IBOutlet var toneProgressBar: UIProgressView!
+    @IBOutlet var fluencyProgressBar: UIProgressView!
+    
+    @IBOutlet var clarityPercentLabel: UILabel!
+    @IBOutlet var pacePercentLabel: UILabel!
+    @IBOutlet var tonePercentLabel: UILabel!
+    @IBOutlet var fluencyPercentLabel: UILabel!
+    
     var dataType: DataType?
     var selectedData: Any?
     
     enum DataType {
         case readAloud
         case randomTopic
+        case preparedSpeech
     }
 
     var waveBars: [UIView] = []
@@ -64,7 +78,6 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         pauseButton.isHidden = true
         recordingView.isHidden = true
         waveRecordingView.isHidden = true
-        timerLabel.text = "00:00"
 
         // Configure slider
 //        recordingSlider.setThumbImage(UIImage(named: "Ellipse 27"), for: .normal)
@@ -91,7 +104,8 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         case .randomTopic:
             // For random topic, we'll modify the instruction
             readInstructionLabel.text = "Speak about the following topic"
-            
+        case .preparedSpeech:
+            readInstructionLabel.text = "Read out your speech"
         case .none:
             print("No data type specified")
             return
@@ -102,14 +116,18 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             configureReadAloudContent(readAloudData)
         } else if let topicData = selectedData as? RandomTopic {
             configureRandomTopicContent(topicData)
+        } else if let preparedSpeechData = selectedData as? SpeechPractice {
+            configurePreparedSpeechContent(preparedSpeechData)
         }
     }
+
     
     private func configureReadAloudContent(_ data: ReadAloud) {
         // Update UI for read aloud passage
         title = data.title // Set navigation title
         passageTextView.text = data.selectedPassage
         speakingTimeLabel.text = "Estimated Speaking Time:"
+        speechToTextLabel.text = data.selectedPassage
         estimatedSpeakingTimeLabel.text = "\(data.estimatedSpeakingTime) seconds"
 
     }
@@ -119,9 +137,23 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         title = topic.title // Set navigation title
         passageTextView.text = topic.description
         speakingTimeLabel.text = "Minimum Speaking Time"
+        speechToTextLabel.text = topic.description
         estimatedSpeakingTimeLabel.text = "\(topic.minimumSpeakingTime) seconds"
     }
 
+    private func configurePreparedSpeechContent(_ speech: SpeechPractice) {
+        // Update UI for random topic
+        title = speech.title // Set navigation title
+        passageTextView.text = speech.originalText
+        speakingTimeLabel.text = "Minimum Speaking Time"
+        speechToTextLabel.text = speech.originalText
+        estimatedSpeakingTimeLabel.text = "\(50) seconds"
+//        estimatedSpeakingTimeLabel.text = "\(topic.minimumSpeakingTime) seconds"
+    }
+    @IBAction func speakerButtonTapped(_ sender: Any) {
+        
+    }
+    
 //    private func setupAudioSession() {
 //        let audioSession = AVAudioSession.sharedInstance()
 //        do {
@@ -176,6 +208,60 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
 //           recordingSlider.value = Float(player.currentTime / player.duration)
 //        }
 //    }
+    
+    // MARK: - Performance Metrics
+       
+   private func updatePerformanceMetrics() {
+       // Generate random values between 70 and 100
+       let clarityScore = Double.random(in: 70...100)
+       let paceScore = Double.random(in: 70...100)
+       let toneScore = Double.random(in: 70...100)
+       let fluencyScore = Double.random(in: 70...100)
+       
+       // Update progress views (values must be between 0 and 1)
+       clarityProgressBar.progress = Float(clarityScore / 100)
+       paceProgressBar.progress = Float(paceScore / 100)
+       toneProgressBar.progress = Float(toneScore / 100)
+       fluencyProgressBar.progress = Float(fluencyScore / 100)
+       
+       // Update labels with percentage values
+       clarityPercentLabel.text = "\(Int(clarityScore))%"
+       pacePercentLabel.text = "\(Int(paceScore))%"
+       tonePercentLabel.text = "\(Int(toneScore))%"
+       fluencyPercentLabel.text = "\(Int(fluencyScore))%"
+       
+       // Generate and set feedback based on scores
+       areaOfImprovementLabel.text = generateFeedback(
+           clarity: clarityScore,
+           pace: paceScore,
+           tone: toneScore,
+           fluency: fluencyScore
+       )
+   }
+   
+   private func generateFeedback(clarity: Double, pace: Double, tone: Double, fluency: Double) -> String {
+       var feedback = ""
+       
+       // Add specific feedback based on the lowest scores
+       let metrics = [
+           (score: clarity, name: "clarity", advice: "Try to articulate words more clearly and avoid mumbling. Focus on proper pronunciation."),
+           (score: pace, name: "pace", advice: "Work on maintaining a steady speaking rhythm. Avoid rushing through important points."),
+           (score: tone, name: "tone", advice: "Practice varying your pitch and emphasis to make your speech more engaging."),
+           (score: fluency, name: "fluency", advice: "Reduce filler words and practice smooth transitions between sentences.")
+       ]
+       
+       // Sort metrics by score (ascending) and take the lowest 2
+       let lowestMetrics = metrics.sorted { $0.score < $1.score }.prefix(2)
+       
+       for (index, metric) in lowestMetrics.enumerated() {
+           feedback += "\(index + 1). \(metric.advice)\n"
+       }
+       
+       // Add a positive note at the end
+       feedback += "\nOverall, your speech shows good potential. Keep practicing these areas for even better results!"
+       
+       return feedback
+   }
 
         
     func roundEdgesOfViews() {
@@ -275,7 +361,8 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             feedbackView2.isHidden = false
             speechToTextView.isHidden = false
             playButton.isHidden = false
-        
+            
+            self.updatePerformanceMetrics()
             // Setup audio player for playback
 //            self.setupAudioPlayer()
 //            self.recordingSlider.isEnabled = true

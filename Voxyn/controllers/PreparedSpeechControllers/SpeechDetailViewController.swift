@@ -122,6 +122,21 @@ class SpeechDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func practiceButtonTapped(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "SpeakingTasks", bundle: nil)
+        if let practiceVC = storyboard.instantiateViewController(withIdentifier: "SpeakingTasks") as? PracticeViewController {
+            guard let speech = speechPractice else { return }
+            
+            // Configure practice view controller with the speech practice data
+            practiceVC.dataType = .readAloud  // or create a new case for prepared speech if needed
+            practiceVC.selectedData = speech   // Pass the SpeechPractice object directly
+            
+            navigationController?.pushViewController(practiceVC, animated: true)
+        } else {
+            print("Failed to instantiate SpeakingTasks. Check its storyboard ID.")
+        }
+    }
+    
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         isEditingSpeech.toggle()
     }
