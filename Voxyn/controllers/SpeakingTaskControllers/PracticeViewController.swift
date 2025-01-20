@@ -11,11 +11,8 @@ import AVFoundation
 class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate  {
 
     // MARK: - Properties
-//    private var audioRecorder: AVAudioRecorder?
-//    private var audioPlayer: AVAudioPlayer?
     private var timer: Timer?
     private var isRecording = false
-//    private let audioFileName = "recording.m4a"
 
     @IBOutlet var contentView: UIView!
     @IBOutlet var curveContainerEdges: [UIView]!
@@ -37,7 +34,19 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     @IBOutlet var feedbackView2: UIView!
     @IBOutlet var speechToTextView: UIView!
     @IBOutlet weak var timerLabel: UILabel!
-
+    
+    @IBOutlet private weak var readInstructionLabel: UILabel!
+    @IBOutlet private weak var passageTextView: UITextView!
+    @IBOutlet private weak var estimatedSpeakingTimeLabel: UILabel!
+    @IBOutlet private weak var speakingTimeLabel: UILabel!
+    
+    var dataType: DataType?
+    var selectedData: Any?
+    
+    enum DataType {
+        case readAloud
+        case randomTopic
+    }
 
     var waveBars: [UIView] = []
 
@@ -68,6 +77,49 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         speechToTextView.isHidden = true
         roundEdgesOfViews()
 //        startWaveAnimation()
+        updateContentBasedOnDataType()
+    }
+    
+    // MARK: - Content Update Methods
+    private func updateContentBasedOnDataType() {
+        // First, set the general instruction based on data type
+        switch dataType {
+        case .readAloud:
+            // For read aloud, we'll keep the default instruction
+            readInstructionLabel.text = "Read the below text to get feedback"
+            
+        case .randomTopic:
+            // For random topic, we'll modify the instruction
+            readInstructionLabel.text = "Speak about the following topic"
+            
+        case .none:
+            print("No data type specified")
+            return
+        }
+        
+        // Then update the content based on the specific data
+        if let readAloudData = selectedData as? ReadAloud {
+            configureReadAloudContent(readAloudData)
+        } else if let topicData = selectedData as? RandomTopic {
+            configureRandomTopicContent(topicData)
+        }
+    }
+    
+    private func configureReadAloudContent(_ data: ReadAloud) {
+        // Update UI for read aloud passage
+        title = data.title // Set navigation title
+        passageTextView.text = data.selectedPassage
+        speakingTimeLabel.text = "Estimated Speaking Time:"
+        estimatedSpeakingTimeLabel.text = "\(data.estimatedSpeakingTime) seconds"
+
+    }
+    
+    private func configureRandomTopicContent(_ topic: RandomTopic) {
+        // Update UI for random topic
+        title = topic.title // Set navigation title
+        passageTextView.text = topic.description
+        speakingTimeLabel.text = "Minimum Speaking Time"
+        estimatedSpeakingTimeLabel.text = "\(topic.minimumSpeakingTime) seconds"
     }
 
 //    private func setupAudioSession() {

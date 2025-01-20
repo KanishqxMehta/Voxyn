@@ -46,10 +46,9 @@ class RandomTopicTVC: UITableViewController {
     // MARK: - Navigation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "SpeakingTasks", bundle: nil)
-        
         if let speakingTaskVC = storyboard.instantiateViewController(withIdentifier: "SpeakingTasks") as? PracticeViewController {
-            // Pass the selected topic to the next view controller
-//            speakingTaskVC.selectedTopic = topics[indexPath.row]
+            speakingTaskVC.dataType = .randomTopic
+            speakingTaskVC.selectedData = topics[indexPath.row] // Pass the selected topic
             navigationController?.pushViewController(speakingTaskVC, animated: true)
         } else {
             print("Failed to instantiate SpeakingTasks. Check its storyboard ID.")

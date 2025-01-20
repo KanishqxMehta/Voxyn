@@ -45,13 +45,12 @@ class ReadAloudTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "SpeakingTasks", bundle: nil)
-        
-        // Instantiate the view controller
         if let speakingTaskVC = storyboard.instantiateViewController(withIdentifier: "SpeakingTasks") as? PracticeViewController {
-            // Navigate to the view controller
-            self.navigationController?.pushViewController(speakingTaskVC, animated: true)
+            speakingTaskVC.dataType = .readAloud
+            speakingTaskVC.selectedData = passages[indexPath.row] // Pass the selected passage
+            navigationController?.pushViewController(speakingTaskVC, animated: true)
         } else {
-            print("Failed to instantiate LessonsViewController. Check its storyboard ID.")
+            print("Failed to instantiate SpeakingTasks. Check its storyboard ID.")
         }
     }
     
