@@ -7,8 +7,14 @@ class AddPreparedSpeechViewController: UIViewController {
     @IBOutlet var speechTextView: UITextView!
     @IBOutlet var saveButton: UIBarButtonItem!
     
+    var speechPlaceholder: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let speechPlaceholder = speechPlaceholder {
+            speechTextView.text = speechPlaceholder
+        }
         
         title = "Add Speech"
 
@@ -34,6 +40,8 @@ class AddPreparedSpeechViewController: UIViewController {
             textView.clipsToBounds = true
         }
     }
+    
+
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         view.endEditing(true)

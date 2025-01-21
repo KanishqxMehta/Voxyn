@@ -271,7 +271,7 @@
         <!--Select Mode-->
         <scene sceneID="2Lb-Cv-uAJ">
             <objects>
-                <tableViewController id="0IN-Y5-VT0" sceneMemberID="viewController">
+                <tableViewController id="0IN-Y5-VT0" customClass="SelectModeTableViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="yS2-Kx-i8Z">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -287,9 +287,6 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <listContentConfiguration key="contentConfiguration" style="groupedHeader" text="Write Text" secondaryText="Write your speech"/>
-                                        <connections>
-                                            <segue destination="Ono-EK-WJV" kind="show" id="UqU-kU-YNe"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -313,10 +310,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Select Mode" id="ncd-IM-zXp"/>
+                    <connections>
+                        <segue destination="Ono-EK-WJV" kind="show" identifier="showAddSpeech" id="Hji-Sl-rlO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OU2-w9-759" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="995" y="44"/>
+            <point key="canvasLocation" x="880" y="44"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m8q-UP-41Z">
@@ -464,7 +464,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dy1-be-E8P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="zgW-1h-eI1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2960" y="44"/>
+            <point key="canvasLocation" x="2531" y="44"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="k8W-Qg-n8x">
@@ -483,7 +483,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbL-nl-mFd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1950" y="44"/>
+            <point key="canvasLocation" x="1688" y="44"/>
         </scene>
         <!--Speech Detail View Controller-->
         <scene sceneID="nqB-eh-pdf">
