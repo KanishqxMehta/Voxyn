@@ -3,8 +3,10 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -105,6 +107,9 @@
                                                                     </constraints>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="filled" title="Join Room"/>
+                                                                    <connections>
+                                                                        <segue destination="Jic-O9-x6H" kind="show" id="WZy-33-HgG"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
@@ -175,6 +180,122 @@
             </objects>
             <point key="canvasLocation" x="2508.9552238805968" y="-998.85583524027447"/>
         </scene>
+        <!--Community Room-->
+        <scene sceneID="900-VH-sck">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="Jic-O9-x6H" customClass="RoomViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="96b-vy-Ci5">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WqE-oI-y59">
+                                <rect key="frame" x="0.0" y="722" width="393" height="130"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKC-AH-ur7">
+                                        <rect key="frame" x="40" y="40" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="711-ew-NQJ"/>
+                                            <constraint firstAttribute="height" constant="50" id="VA3-8a-ZQK"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" image="microphone" catalog="system"/>
+                                        <connections>
+                                            <action selector="micBtnTapped:" destination="Jic-O9-x6H" eventType="touchUpInside" id="07q-Lq-6l8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMK-Zg-mdP">
+                                        <rect key="frame" x="115" y="40" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="FSu-8v-HsT"/>
+                                            <constraint firstAttribute="height" constant="50" id="uqg-nq-xkk"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" image="speaker.wave.3" catalog="system"/>
+                                        <connections>
+                                            <action selector="speakerBtnTapped:" destination="Jic-O9-x6H" eventType="touchUpInside" id="D9t-lP-xWT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QgM-yX-qBd">
+                                        <rect key="frame" x="210" y="40" width="150.66666666666663" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="YOi-vm-3G3"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="systemRedColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="Leave Session" imagePadding="4">
+                                            <imageReference key="image" image="x.circle" catalog="system" symbolScale="medium"/>
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                            <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="leaveBtnTapped:" destination="Jic-O9-x6H" eventType="touchUpInside" id="G1q-o2-K0j"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="yKC-AH-ur7" firstAttribute="leading" secondItem="WqE-oI-y59" secondAttribute="leading" constant="40" id="L3B-Jh-qgt"/>
+                                    <constraint firstItem="AMK-Zg-mdP" firstAttribute="centerY" secondItem="WqE-oI-y59" secondAttribute="centerY" id="M4X-yF-zFg"/>
+                                    <constraint firstItem="QgM-yX-qBd" firstAttribute="leading" secondItem="AMK-Zg-mdP" secondAttribute="trailing" constant="45" id="Qji-oX-jfq"/>
+                                    <constraint firstItem="yKC-AH-ur7" firstAttribute="centerY" secondItem="WqE-oI-y59" secondAttribute="centerY" id="eFm-BA-D8x"/>
+                                    <constraint firstAttribute="height" constant="130" id="i4R-JK-cEj"/>
+                                    <constraint firstItem="AMK-Zg-mdP" firstAttribute="leading" secondItem="yKC-AH-ur7" secondAttribute="trailing" constant="25" id="u4z-b4-TTP"/>
+                                    <constraint firstItem="QgM-yX-qBd" firstAttribute="centerY" secondItem="WqE-oI-y59" secondAttribute="centerY" id="wqQ-rE-isW"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pxB-Hl-rDk">
+                                <rect key="frame" x="0.0" y="103" width="393" height="619"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bfm-Lp-z9M">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="LBk-FV-3Wq">
+                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6KF-3m-g9r">
+                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1wu-Db-3cd">
+                                                    <rect key="frame" x="-39" y="-15" width="240" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OHy-eE-Imh"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OHy-eE-Imh" firstAttribute="trailing" secondItem="pxB-Hl-rDk" secondAttribute="trailing" id="2Pb-D8-Ho0"/>
+                            <constraint firstItem="pxB-Hl-rDk" firstAttribute="top" secondItem="OHy-eE-Imh" secondAttribute="top" id="Szu-9f-Chp"/>
+                            <constraint firstItem="pxB-Hl-rDk" firstAttribute="leading" secondItem="OHy-eE-Imh" secondAttribute="leading" id="YnF-yH-Tvv"/>
+                            <constraint firstItem="OHy-eE-Imh" firstAttribute="trailing" secondItem="WqE-oI-y59" secondAttribute="trailing" id="dY7-Lc-gQ9"/>
+                            <constraint firstAttribute="bottom" secondItem="WqE-oI-y59" secondAttribute="bottom" id="e1x-aH-GYw"/>
+                            <constraint firstItem="WqE-oI-y59" firstAttribute="leading" secondItem="OHy-eE-Imh" secondAttribute="leading" id="m8X-vE-7Rw"/>
+                            <constraint firstItem="WqE-oI-y59" firstAttribute="top" secondItem="pxB-Hl-rDk" secondAttribute="bottom" id="zVy-r2-goS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Community Room" id="ppk-M6-CzB">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="rQK-SH-s1W"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bottomBarView" destination="WqE-oI-y59" id="hUZ-mu-FHZ"/>
+                        <outlet property="leaveBtn" destination="QgM-yX-qBd" id="1jd-A0-DRc"/>
+                        <outlet property="micButton" destination="yKC-AH-ur7" id="kH9-9y-adq"/>
+                        <outlet property="speakerButton" destination="AMK-Zg-mdP" id="xwJ-fq-fHa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zUT-iZ-vST" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3402" y="-999"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="BhA-zo-OOX">
             <objects>
@@ -195,14 +316,23 @@
         </scene>
     </scenes>
     <resources>
+        <image name="microphone" catalog="system" width="110" height="128"/>
+        <image name="speaker.wave.3" catalog="system" width="128" height="84"/>
+        <image name="x.circle" catalog="system" width="128" height="123"/>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
