@@ -71,7 +71,7 @@ class RecordingDataModel {
             Recording(
                 recordingId: 1,
                 userId: 1,
-                title: "Read Aloud Topic",
+                title: "Read Aloud 1",
                 audioFileURL: "",
                 timestamp: monday, // Monday
                 sessionType: .readAloud,
@@ -96,7 +96,7 @@ class RecordingDataModel {
             Recording(
                 recordingId: 2,
                 userId: 1,
-                title: "Random Prompt topic",
+                title: "Random Prompt 1",
                 audioFileURL: "",
                 timestamp: tuesday, // Tuesday
                 sessionType: .randomTopic,
@@ -121,7 +121,82 @@ class RecordingDataModel {
             Recording(
                 recordingId: 3,
                 userId: 1,
-                title: "Prepared Speech topic",
+                title: "Prepared Speech 1",
+                audioFileURL: "",
+                timestamp: wednesday, // Wednesday
+                sessionType: .preparedSpeech,
+                feedback: Feedback(
+                    feedbackId: 3,
+                    recordingId: 3,
+                    scores: [.clarity: 88, .tone: 92, .pace: 85, .fluency: 90],
+                    comments: [.tone: "Excellent modulation", .fluency: "Smooth delivery"],
+                    overallComment: "Great delivery"
+                ),
+                analytics: RecordingAnalytics(
+                    duration: 180,
+                    wordsPerMinute: 130,
+                    silenceDuration: 8,
+                    volumeVariation: 0.9,
+                    pronunciationAccuracy: 96,
+                    transcription: "Prepared speech sample transcription.",
+                    keyPhrases: ["Prepared speech"],
+                    improvementSuggestions: ["Maintain pace"]
+                )
+            ),
+            Recording(
+                recordingId: 4,
+                userId: 1,
+                title: "Read Aloud 2",
+                audioFileURL: "",
+                timestamp: monday, // Monday
+                sessionType: .readAloud,
+                feedback: Feedback(
+                    feedbackId: 1,
+                    recordingId: 1,
+                    scores: [.clarity: 85, .tone: 90, .pace: 80, .fluency: 75],
+                    comments: [.clarity: "Good clarity", .tone: "Great tone"],
+                    overallComment: "Excellent progress"
+                ),
+                analytics: RecordingAnalytics(
+                    duration: 120,
+                    wordsPerMinute: 110,
+                    silenceDuration: 10,
+                    volumeVariation: 0.8,
+                    pronunciationAccuracy: 95,
+                    transcription: "This is a sample transcription.",
+                    keyPhrases: ["Current Affairs", "Important topics"],
+                    improvementSuggestions: ["Work on pacing", "Reduce pauses"]
+                )
+            ),
+            Recording(
+                recordingId: 5,
+                userId: 1,
+                title: "Random Prompt 2",
+                audioFileURL: "",
+                timestamp: tuesday, // Tuesday
+                sessionType: .randomTopic,
+                feedback: Feedback(
+                    feedbackId: 2,
+                    recordingId: 2,
+                    scores: [.clarity: 70, .tone: 75, .pace: 85, .fluency: 80],
+                    comments: [.clarity: "Needs improvement", .pace: "Better pacing"],
+                    overallComment: "Good effort"
+                ),
+                analytics: RecordingAnalytics(
+                    duration: 150,
+                    wordsPerMinute: 120,
+                    silenceDuration: 15,
+                    volumeVariation: 0.7,
+                    pronunciationAccuracy: 90,
+                    transcription: "This is a random topic transcription.",
+                    keyPhrases: ["Prompt response"],
+                    improvementSuggestions: ["Enhance clarity", "Focus on tone"]
+                )
+            ),
+            Recording(
+                recordingId: 6,
+                userId: 1,
+                title: "Prepared Speech 2",
                 audioFileURL: "",
                 timestamp: wednesday, // Wednesday
                 sessionType: .preparedSpeech,
@@ -143,9 +218,15 @@ class RecordingDataModel {
                     improvementSuggestions: ["Maintain pace"]
                 )
             )
+
         ]
     }
-
+    
+    // get all the recordings
+    func getAllRecordings() -> [Recording] {
+        return recordings
+    }
+    
     // Add a new recording
     func saveRecording(_ recording: Recording) {
         recordings.append(recording)

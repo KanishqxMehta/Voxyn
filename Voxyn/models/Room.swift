@@ -9,6 +9,7 @@ import Foundation
 
 struct Room {
     let title: String
+//    let userIds: [Int]
     var participantsJoined: Int
     let totalParticipants: Int
     let topic: String

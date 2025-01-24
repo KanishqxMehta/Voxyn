@@ -7,32 +7,11 @@
 
 import UIKit
 
-class RecordingTableViewController: UITableViewController, UISearchBarDelegate {
+class RecordingTableViewController: UITableViewController {
     // MARK: - Properties
     let recordingDataModel = RecordingDataModel.shared
     var recordings: [Recording] = []
-    var filteredRecordings: [Recording] = []
-    var isSearching = false
 
-    let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search"
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        return searchBar
-    }()
-    
-    // MARK: - Sections
-    enum Section: Int, CaseIterable {
-        case readAloud = 0, randomPrompt, preparedSpeech
-
-        var title: String {
-            switch self {
-            case .readAloud: return "READ ALOUD"
-            case .randomPrompt: return "RANDOM PROMPT"
-            case .preparedSpeech: return "PREPARED SPEECH"
-            }
-        }
-    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -43,19 +22,11 @@ class RecordingTableViewController: UITableViewController, UISearchBarDelegate {
 
         // Load data
         loadData()
-
-        // Setup search bar
-        setupSearchBar()
     }
 
     // MARK: - Setup Methods
     private func setupTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "RecordingCell")
-    }
-
-    private func setupSearchBar() {
-        searchBar.delegate = self
-        tableView.tableHeaderView = searchBar
     }
 
     private func loadData() {
@@ -66,72 +37,60 @@ class RecordingTableViewController: UITableViewController, UISearchBarDelegate {
 
     // MARK: - TableView Data Source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.allCases.count
+        return 1
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Section(rawValue: section)?.title
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let filtered = isSearching ? filteredRecordings : recordings
-        switch Section(rawValue: section)! {
-        case .readAloud:
-            return filtered.filter { $0.sessionType == .readAloud }.count
-        case .randomPrompt:
-            return filtered.filter { $0.sessionType == .randomTopic }.count
-        case .preparedSpeech:
-            return filtered.filter { $0.sessionType == .preparedSpeech }.count
-        }
+        return RecordingDataModel.shared.getAllRecordings().count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecordingCell", for: indexPath)
-        let filtered = isSearching ? filteredRecordings : recordings
+        
 
-        let sectionType = Section(rawValue: indexPath.section)!
-        let sectionRecordings = filtered.filter { $0.sessionType == sessionType(for: sectionType) }
-
-        let recording = sectionRecordings[indexPath.row]
-        cell.textLabel?.text = recording.title
-        cell.detailTextLabel?.text = DateFormatter.localizedString(from: recording.timestamp, dateStyle: .long, timeStyle: .none)
+        let recording = RecordingDataModel.shared.getRecording(by:indexPath.row + 1)
+        
+        if let recording {
+            cell.textLabel?.text = recording.title
+            cell.detailTextLabel?.text = DateFormatter.localizedString(from: recording.timestamp, dateStyle: .long, timeStyle: .none)
+        }
         cell.accessoryType = .disclosureIndicator
 
         return cell
     }
-
-    // MARK: - Helper Methods
-    private func sessionType(for section: Section) -> SessionType {
-        switch section {
-        case .readAloud: return .readAloud
-        case .randomPrompt: return .randomTopic
-        case .preparedSpeech: return .preparedSpeech
-        }
-    }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        // Handle row selection
-        // Example: Navigate to a detailed view
-    }
-
-    // MARK: - UISearchBarDelegate
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            isSearching = false
-        } else {
-            isSearching = true
-            filteredRecordings = recordings.filter {
-                $0.title.lowercased().contains(searchText.lowercased())
-            }
+        // Fetch the selected recording
+        let recording = RecordingDataModel.shared.getRecording(by: indexPath.row + 1)
+        
+        // Check if the recording exists
+        guard let selectedRecording = recording else {
+            print("Recording not found for row \(indexPath.row)")
+            return
         }
-        tableView.reloadData()
-    }
 
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
-        tableView.reloadData()
+        // Instantiate the RecordingViewController
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil) // Replace "Main" with your storyboard name
+        if let recordingVC = storyboard.instantiateViewController(withIdentifier: "recordings") as? RecordingViewController {
+            
+            // Pass the recording data
+            recordingVC.selectedData = selectedRecording
+            
+            // Set the data type based on the sessionType
+            switch selectedRecording.sessionType {
+            case .readAloud:
+                recordingVC.dataType = .readAloud
+            case .randomTopic:
+                recordingVC.dataType = .randomTopic
+            case .preparedSpeech:
+                recordingVC.dataType = .preparedSpeech
+            }
+
+            // Push the RecordingViewController
+            navigationController?.pushViewController(recordingVC, animated: true)
+        } else {
+            print("Failed to instantiate RecordingViewController. Check its storyboard ID.")
+        }
     }
 }
