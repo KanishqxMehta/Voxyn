@@ -314,7 +314,7 @@
                                                             </buttonConfiguration>
                                                             <connections>
                                                                 <action selector="checkButtonTapped:" destination="y8u-T1-ZBA" eventType="touchUpInside" id="cPF-ic-F0o"/>
-                                                                <segue destination="3ZK-vo-2Rk" kind="show" id="ehh-e6-mxu"/>
+                                                                <action selector="checkSentenceButtonTapped:" destination="y8u-T1-ZBA" eventType="touchUpInside" id="cS1-J2-ZyD"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -360,6 +360,7 @@
                         <outletCollection property="tagButtons" destination="xCV-zt-x57" collectionClass="NSMutableArray" id="8Db-9G-M2f"/>
                         <outletCollection property="tagButtons" destination="tvA-pX-k4Z" collectionClass="NSMutableArray" id="IuX-hv-VW8"/>
                         <outletCollection property="tagButtons" destination="3kt-Op-1UI" collectionClass="NSMutableArray" id="2M7-zF-52n"/>
+                        <segue destination="3ZK-vo-2Rk" kind="show" identifier="showVocabFeedback" id="AWR-dO-aZO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Zs-up-1gU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -558,7 +559,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bUq-f8-dyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8431.3432835820895" y="-286.27002288329516"/>
+            <point key="canvasLocation" x="8424" y="-277"/>
         </scene>
         <!--Vocabulary-->
         <scene sceneID="CLa-JI-DMo">

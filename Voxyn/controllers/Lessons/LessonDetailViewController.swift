@@ -14,15 +14,19 @@ protocol LessonDetailDelegate: AnyObject {
 
 class LessonDetailViewController: UIViewController, UIScrollViewDelegate {
 
-    var lesson: Lesson?
-    weak var delegate: LessonDetailDelegate?
-    private let speechSynthesizer = AVSpeechSynthesizer()
-    
+    @IBOutlet var speakerButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    
+    var lesson: Lesson?
+    weak var delegate: LessonDetailDelegate?
+    private let speechSynthesizer = AVSpeechSynthesizer()
+    private var isSpeaking = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +43,7 @@ class LessonDetailViewController: UIViewController, UIScrollViewDelegate {
         progressView.progress = 0.0 // Start at 0
         
         updateCompleteButtonState()
+        updateSpeakerButtonTitle()
     }
     
     // Update the complete button's state and appearance
@@ -80,18 +85,34 @@ class LessonDetailViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func playContent(_ sender: UIButton) {
         guard let text = contentTextView.text, !text.isEmpty else { return }
-        pronounceText(text)
+        if isSpeaking {
+            // Stop speaking if currently speaking
+            speechSynthesizer.stopSpeaking(at: .immediate)
+            isSpeaking = false
+        } else {
+            // Start speaking the content
+            pronounceText(text)
+            isSpeaking = true
+        }
+        
+        // Update the button title
+        updateSpeakerButtonTitle()
+    }
+    
+    // Update the speaker button's title
+    func updateSpeakerButtonTitle() {
+        let title = isSpeaking ? "speaker.slash.fill" : "speaker.wave.3.fill"
+        speakerButton.setImage(UIImage(systemName: title), for: .normal)
     }
     
     // MARK: - UIScrollViewDelegate Method
-        
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentHeight = scrollView.contentSize.height - scrollView.bounds.height
         guard contentHeight > 0 else { return } // Avoid division by zero
         
         let offset = scrollView.contentOffset.y
         let progress = Float(offset / contentHeight)
-        progressView.progress = max(0, min(progress, 1.0)) // Ensure progress is between 0 and 1
+        progressView.progress = max(0, min(progress, 1.0))
     }
     
 }

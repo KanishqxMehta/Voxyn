@@ -144,4 +144,17 @@ class VocabularyDetailTableViewController: UITableViewController {
         view.endEditing(true)
     }
     
+    @IBAction func checkSentenceButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "showVocabFeedback", sender: VocabularyDataModel.shared.getVocabulary(by: selectedWordId!))
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showVocabFeedback" {
+            if let destinationVC = segue.destination as? VocabularyResultsViewController {
+                if let sender = sender as? Vocabulary {
+                    destinationVC.title = sender.word
+                }
+            }
+        }
+    }
 }

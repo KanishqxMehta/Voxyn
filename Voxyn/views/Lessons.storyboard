@@ -129,7 +129,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lzt-bb-mlS">
-                                        <rect key="frame" x="302.66666666666669" y="0.0" width="58.333333333333314" height="34.333333333333336"/>
+                                        <rect key="frame" x="326" y="0.0" width="35" height="34.333333333333336"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="LCA-WL-4qM"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <imageReference key="image" image="speaker.wave.3" catalog="system" symbolScale="large"/>
@@ -217,6 +220,7 @@
                         <outlet property="contentTextView" destination="7S5-Oc-Ov5" id="q4Q-e3-PyN"/>
                         <outlet property="progressView" destination="eXI-lB-O8D" id="DJl-PA-iNi"/>
                         <outlet property="scrollView" destination="36F-ne-Ov2" id="9SJ-wN-gUX"/>
+                        <outlet property="speakerButton" destination="Lzt-bb-mlS" id="Chu-ZN-z6h"/>
                         <outlet property="titleLabel" destination="ZhN-e2-8Y2" id="Yye-ny-PfD"/>
                     </connections>
                 </viewController>
@@ -226,7 +230,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="speaker.wave.3" catalog="system" width="32" height="32"/>
+        <image name="speaker.wave.3" catalog="system" width="128" height="84"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
