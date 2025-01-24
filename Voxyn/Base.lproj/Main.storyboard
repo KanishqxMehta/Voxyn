@@ -114,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="4582" y="-1623"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up View Controller-->
         <scene sceneID="Vbn-Lm-1hK">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="6kA-TW-TXN" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="6kA-TW-TXN" customClass="SignUpViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wOT-Zu-a7h">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -213,7 +213,7 @@
                                                     <color key="baseBackgroundColor" red="0.28627452250000002" green="0.63529413940000001" blue="0.84313726430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="vlt-tw-Zrr" kind="show" id="YRo-n2-12L"/>
+                                                    <action selector="registerButtonTapped:" destination="6kA-TW-TXN" eventType="touchUpInside" id="AeD-fp-0iu"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4v-PU-xP5">
@@ -245,7 +245,7 @@
                                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="vlt-tw-Zrr" kind="show" id="0CR-2w-ThR"/>
+                                                    <segue destination="vlt-tw-Zrr" kind="show" id="wPb-ml-Yhs"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -296,15 +296,21 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ic1-RI-u6G"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="KUm-4l-WPW" id="1u8-8S-X0k"/>
+                        <outlet property="nameTextField" destination="coe-xf-rlA" id="uSi-Pw-kFp"/>
+                        <outlet property="passwordTextField" destination="tgA-zw-ddS" id="vZ7-dv-2PK"/>
+                        <segue destination="vlt-tw-Zrr" kind="showDetail" identifier="showLogin" id="U31-id-YIo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wf2-g2-b5j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4628" y="-892"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="Q0f-F4-9Cr">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="vlt-tw-Zrr" customClass="ViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="vlt-tw-Zrr" customClass="LoginViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AKU-wc-YG4">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -360,7 +366,7 @@
                                                     <color key="baseBackgroundColor" red="0.28627452250000002" green="0.63529413940000001" blue="0.84313726430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="UfG-Pg-5WY" kind="show" id="HNa-7z-SsV"/>
+                                                    <action selector="signInButtonTapped:" destination="vlt-tw-Zrr" eventType="touchUpInside" id="4NU-wW-XMw"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6k-eL-RdM">
@@ -415,6 +421,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oN9-0q-zbc"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="lJx-c1-ETc" id="8LP-2M-7y9"/>
+                        <outlet property="passwordTextField" destination="9CS-tM-8yy" id="piH-mD-R1p"/>
+                        <segue destination="UfG-Pg-5WY" kind="showDetail" identifier="showHome" id="bS5-fv-vVG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3g-Oc-Mjz" sceneMemberID="firstResponder"/>
             </objects>
@@ -422,9 +433,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0CR-2w-ThR"/>
+        <segue reference="U31-id-YIo"/>
         <segue reference="5ff-nz-E7o"/>
-        <segue reference="HNa-7z-SsV"/>
+        <segue reference="bS5-fv-vVG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="IMG_9576-removebg-preview" width="737" height="200"/>

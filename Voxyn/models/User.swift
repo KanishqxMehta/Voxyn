@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import Security
+import Foundation
+import CommonCrypto
 
 // MARK: - User
 import Foundation
@@ -19,7 +22,8 @@ struct User {
     var dob: Date
     var profileImageURL: String?
     var accountCreatedOn: Date
-    var progress: Progress
+    var password: String
+   // var progress: Progress
 }
 
 // MARK: - User Data Management
@@ -27,25 +31,114 @@ struct User {
 class UserDataModel {
     static let shared = UserDataModel() // Singleton instance
     private var currentUser: User?
-
-    private init() {
-        // Initialize with a sample user
-        currentUser = User(
-            userId: 1,
+    
+    private var users: [User] = [
+        User(
+            userId: 0,
             firstName: "Voxite",
             lastName: "",
             email: "voxite@gmail.com",
             dob: Calendar.current.date(from: DateComponents(year: 2004, month: 4, day: 6)) ?? Date(),
             profileImageURL: nil,
             accountCreatedOn: Date(),
-            progress: Progress(
-                userId: 1,
-                totalPracticeTime: TimeInterval(),
-                completedLessons: 2,
-                practicedVocabulary: 4,
-                recordingsCount: 2
-            )
+            password: "123456"
+        ),
+    ]
+    
+    private init() {
+        // Initialize with a sample user
+//        currentUser = User(
+//            userId: 1,
+//            firstName: "Voxite",
+//            lastName: "",
+//            email: "voxite@gmail.com",
+//            dob: Calendar.current.date(from: DateComponents(year: 2004, month: 4, day: 6)) ?? Date(),
+//            profileImageURL: nil,
+//            accountCreatedOn: Date(),
+//            password: "123456"
+//        )
+    }
+    
+    
+    
+    // Add to UserDataModel
+
+    func signUp(firstName: String, lastName: String, email: String, dob: Date, password: String) -> Bool {
+        // Validate input
+        guard !firstName.isEmpty, !email.isEmpty, !password.isEmpty else {
+            print("Invalid input fields")
+            return false
+        }
+
+        // Hash the password for security (use Keychain in real apps)
+        let hashedPassword = hashPassword(password)
+
+        // Create new user
+        let newUser = User(
+            userId: users.count,  // Generate a unique ID (can be based on your logic)
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            dob: dob,
+            profileImageURL: nil,  // Optional
+            accountCreatedOn: Date(),
+            password: password
         )
+        
+        users.append(newUser)
+        
+        // Store new user in data model
+//        setUser(newUser)
+
+        // Save the password securely using Keychain (for now using UserDefaults for simplicity)
+       // savePasswordToKeychain(email: email, password: hashedPassword)
+
+        return true
+    }
+    
+    func login(email: String, password: String) -> Bool {
+          // Check if user with the given email and password exists
+          for user in users {
+              if user.email == email && user.password == password {
+                  //return user
+                  setUser(user)// Return the user if credentials are correct
+                  print(user.email)
+                  print(user.password)
+                  return true
+              }
+          }
+          return false // Return nil if no matching user is found
+      }
+  
+    
+//    func savePasswordToKeychain(email: String, password: String) {
+//        let passwordData = password.data(using: .utf8)!
+//        
+//        let query: [CFString: Any] = [
+//            kSecClass: kSecClassGenericPassword,
+//            kSecAttrAccount: email,
+//            kSecValueData: passwordData
+//        ]
+//        
+//        SecItemAdd(query as CFDictionary, nil)
+//    }
+    
+    func hashPassword(_ password: String) -> String {
+        // Convert password string to Data
+        let passwordData = password.data(using: .utf8)!
+        
+        // Create a mutable buffer to hold the hash result
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+        
+        // Perform the SHA-256 hash
+        _ = passwordData.withUnsafeBytes {
+            CC_SHA256($0.baseAddress, CC_LONG(passwordData.count), &hash)
+        }
+        
+        // Convert hash to hexadecimal string
+        let hashString = hash.map { String(format: "%02x", $0) }.joined()
+        
+        return hashString
     }
 
     // Add or Set the Current User
@@ -99,6 +192,7 @@ class UserDataModel {
 // MARK: - Progress Implementation
 struct Progress {
     let userId: Int
+    let progressId: Int
     var totalPracticeTime: TimeInterval
     var completedLessons: Int
     var practicedVocabulary: Int
