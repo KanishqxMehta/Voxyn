@@ -15,8 +15,29 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        // Add gesture to dismiss keyboard when tapping outside
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
 
         // Do any additional setup after loading the view.
+    }
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            self.view.frame.origin.y = -keyboardHeight / 2  // Adjust this value as needed
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        self.view.frame.origin.y = 0  // Reset the view back
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
 
@@ -26,6 +47,10 @@ class LoginViewController: UIViewController {
                    showAlert(message: "Please enter both email and password.")
                    return
                }
+        if !isValidEmail(email) {
+            showAlert(message: "Please enter a valid email address.")
+            return
+        }
                
                // Attempt to login with the provided credentials
         if userDataModel.login(email: email, password: password) {
@@ -45,6 +70,12 @@ class LoginViewController: UIViewController {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = #"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
     }
 
     /*

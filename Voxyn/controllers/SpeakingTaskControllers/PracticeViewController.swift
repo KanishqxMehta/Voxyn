@@ -13,12 +13,16 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     // MARK: - Properties
     private var timer: Timer?
     private var isRecording = false
+    private var isAudioPlaying = false
 
     @IBOutlet var contentView: UIView!
     @IBOutlet var curveContainerEdges: [UIView]!
     @IBOutlet var estimatedTimeView: UIView!
+    
+    @IBOutlet weak var playRecordingButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
+    
     @IBOutlet weak var bookSymbol: UIView!
     @IBOutlet weak var recordingSlider: UISlider!
 
@@ -53,6 +57,13 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     @IBOutlet var tonePercentLabel: UILabel!
     @IBOutlet var fluencyPercentLabel: UILabel!
     
+    
+    
+    var audioRecorder: AVAudioRecorder?
+    var audioPlayer: AVAudioPlayer?
+   // var isRecording = false
+    var audioFileName: URL?
+    
     var dataType: DataType?
     var selectedData: Any?
     
@@ -67,7 +78,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitialState()
-//        setupAudioSession()
+        setUpAudioSession()
 //        configureAudioRecorder()
     }
 
@@ -154,34 +165,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         
     }
     
-//    private func setupAudioSession() {
-//        let audioSession = AVAudioSession.sharedInstance()
-//        do {
-//           try audioSession.setCategory(.playAndRecord, mode: .default)
-//           try audioSession.setActive(true)
-//        } catch {
-//           showAlert(message: "Failed to set up audio session: \(error.localizedDescription)")
-//        }
-//    }
-//
-//    private func configureAudioRecorder() {
-//        let audioFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(audioFileName)
-//
-//        let settings: [String: Any] = [
-//           AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-//           AVSampleRateKey: 44100.0,
-//           AVNumberOfChannelsKey: 2,
-//           AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-//        ]
-//
-//        do {
-//           audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: settings)
-//           audioRecorder?.delegate = self
-//           audioRecorder?.prepareToRecord()
-//        } catch {
-//           showAlert(message: "Failed to initialize audio recorder: \(error.localizedDescription)")
-//        }
-//    }
+
 
     // MARK: - Timer Methods
 //    private func startTimer() {
@@ -296,6 +280,65 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             wave.transform = CGAffineTransform(scaleX: 1.0, y: randomScale) // Only scale vertically
         }, completion: nil)
     }
+    
+    
+    
+    
+    func setUpAudioSession() {
+        let audioSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try audioSession.setActive(true)
+        } catch {
+            print("Failed to set up audio session: \(error)")
+        }
+    }
+    
+    // Set up the audio recorder to save the recording as a .m4a file
+    func setUpAudioRecorder() {
+//        let fileManager = FileManager.default
+//        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//        audioFileName = documentsDirectory.appendingPathComponent("audioRecording.m4a")
+//        
+//        let settings = [
+//            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//            AVSampleRateKey: 44100.0,
+//            AVNumberOfChannelsKey: 1,
+//            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+//        ] as [String : Any]
+//        
+//        do {
+//            audioRecorder = try AVAudioRecorder(url: audioFileName!, settings: settings)
+//            audioRecorder?.delegate = self // Set the delegate to self to handle finishing recording
+//            audioRecorder?.prepareToRecord()
+//        } catch {
+//            print("Failed to set up recorder: \(error)")
+//        }
+        
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        // Generate a unique filename using timestamp
+        let timestamp = Int(Date().timeIntervalSince1970)
+        audioFileName = documentsDirectory.appendingPathComponent("audioRecording_\(timestamp).m4a")
+
+        let settings: [String: Any] = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 44100.0,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+
+        do {
+            audioRecorder = try AVAudioRecorder(url: audioFileName!, settings: settings)
+            audioRecorder?.delegate = self
+            audioRecorder?.prepareToRecord()
+        } catch {
+            print("Failed to set up recorder: \(error)")
+        }
+    }
+    
 
     @IBAction func playButton(_ sender: Any) {
         if !isRecording {
@@ -317,17 +360,14 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     }
 
     private func startRecording() {
-//        guard let audioRecorder = audioRecorder else {
-//            showAlert(message: "Audio recorder not initialized")
-//            return }
-//
-//        audioRecorder.record()
+        setUpAudioRecorder()
+        
+        // Start recording
+        audioRecorder?.record()
+        
+        
         isRecording = true
-
-
         playButton.isHidden = true
-        pauseButton.isHidden = false
-        waveRecordingView.isHidden = false
         readyView.isHidden = true
         recordingView.isHidden = true
         analyzingYourSpeech.isHidden = true
@@ -335,15 +375,18 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         feedbackView1.isHidden = true
         feedbackView2.isHidden = true
         speechToTextView.isHidden = true
+        
+        pauseButton.isHidden = false
+        waveRecordingView.isHidden = false
         startWaveAnimation()
-
 
 //        startTimer()
     }
 
     private func stopRecording() {
-//        guard let recorder = audioRecorder else { return }
 
+        audioRecorder?.stop()
+     //   isRecording = false
 //        recorder.stop()
         isRecording = false
 //        stopTimer()
@@ -366,6 +409,8 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             // Setup audio player for playback
 //            self.setupAudioPlayer()
 //            self.recordingSlider.isEnabled = true
+            
+            playRecordingButton.isEnabled = true
         }
 
 
@@ -377,7 +422,53 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
 
 
     }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, to outputFileURL: URL, successfully flag: Bool) {
+        if flag {
+            print("Recording successfully finished!")
+            // Optionally, you can show a message to the user or perform additional actions
+        } else {
+            print("Recording failed.")
+        }
+    }
+    @IBAction func playRecordingButtonTapped(_ sender: Any) {
+        guard let audioFileName = audioFileName else {
+               print("No audio file to play.")
+               return
+           }
 
+           if isAudioPlaying {
+               // Pause the audio if it is currently playing
+               audioPlayer?.pause()
+               isAudioPlaying = false
+               playRecordingButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+           } else {
+               // Resume or start playing
+               do {
+                   if audioPlayer == nil {
+                       // Initialize the audio player if it doesn't exist yet
+                       audioPlayer = try AVAudioPlayer(contentsOf: audioFileName)
+                       audioPlayer?.delegate = self
+                   }
+                   audioPlayer?.play()
+                   isAudioPlaying = true
+                   playRecordingButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+               } catch {
+                   print("Error playing audio: \(error)")
+               }
+           }
+    }
+
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if flag {
+            print("Audio playback finished successfully.")
+            isAudioPlaying = false
+            playRecordingButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else {
+            print("Audio playback failed.")
+        }
+    }
+    
 //    private func setupAudioPlayer() {
 //        let audioFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(audioFileName)
 //        

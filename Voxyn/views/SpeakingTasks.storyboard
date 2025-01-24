@@ -278,6 +278,9 @@
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="playRecordingButtonTapped:" destination="YZM-hN-9sa" eventType="touchUpInside" id="TTg-pS-Bhs"/>
+                                                                </connections>
                                                             </button>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="21" minValue="0.0" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="hwc-3a-bJY">
                                                                 <rect key="frame" x="8" y="68" width="345.33333333333331" height="30"/>
@@ -690,6 +693,7 @@
                         <outlet property="passageTextView" destination="89c-ue-5Cv" id="Poh-w0-u1P"/>
                         <outlet property="pauseButton" destination="uRQ-Tz-Be0" id="Gve-jM-rrN"/>
                         <outlet property="playButton" destination="tNB-lT-BzU" id="SFj-zk-MbV"/>
+                        <outlet property="playRecordingButton" destination="ryQ-uR-eET" id="t9i-YZ-f2D"/>
                         <outlet property="readInstructionLabel" destination="TXf-Dv-qNu" id="hRL-PP-c4Y"/>
                         <outlet property="readyView" destination="RTw-bI-T8s" id="jLk-2a-qlQ"/>
                         <outlet property="recordingSlider" destination="hwc-3a-bJY" id="gsi-be-txr"/>
