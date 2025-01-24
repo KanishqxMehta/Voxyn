@@ -1,0 +1,8 @@
+# Xcode specific
+xcuserdata/
+*.xcworkspace
+project.pbxproj
+
+# macOS
+.DS_Store
+
