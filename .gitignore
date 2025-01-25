@@ -1,6 +1,5 @@
 # Xcode specific
 xcuserdata/
-*.xcworkspace
 project.pbxproj
 
 # macOS
