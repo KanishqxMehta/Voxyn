@@ -1,6 +1,8 @@
 import UIKit
 
-class ProfileTableViewController: UITableViewController {
+class ProfileTableViewController: UITableViewController, ProfileUpdateDelegate {
+    
+    
     let dobLabelIndexPath = IndexPath(row: 2, section: 0)
     let dobDatePickerIndexPath = IndexPath(row: 3, section: 0)
     
@@ -9,7 +11,15 @@ class ProfileTableViewController: UITableViewController {
             dobDatePicker.isHidden = !dobDatePickerIsVisible
         }
     }
-
+    
+    func didUpdateProfile() {
+        if let user = UserDataModel.shared.getUser() {
+                nameLabel.text = "\(user.firstName) \(user.lastName)"
+            } else {
+                nameLabel.text = "Guest"
+            }
+    }
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dobLabel: UILabel!
     @IBOutlet weak var dobDatePicker: UIDatePicker!
@@ -52,7 +62,7 @@ class ProfileTableViewController: UITableViewController {
             tableView.endUpdates()
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath {
         case dobDatePickerIndexPath where !dobDatePickerIsVisible:
@@ -71,12 +81,12 @@ class ProfileTableViewController: UITableViewController {
         }
     }
     
-    /// Updates the date of birth label with the formatted date
+    // Updates the date of birth label with the formatted date
     private func updateDoBLabel(with date: Date) {
         dobLabel.text = date.formatted(date: .abbreviated, time: .omitted)
     }
     
-    /// Updates the user's date of birth in UserDataModel
+    // Updates the user's date of birth in UserDataModel
     private func updateUserDob(with date: Date) {
         if UserDataModel.shared.updateUserDetails(newFirstName: nil, newLastName: nil, newDob: date, newEmail: nil) {
             print("Date of birth updated successfully.")
@@ -84,4 +94,19 @@ class ProfileTableViewController: UITableViewController {
             print("Failed to update date of birth.")
         }
     }
+    
+    @IBAction func signOutButtonTapped(_ sender: Any) {
+        UserDataModel.shared.clearUser()
+        
+        performSegue(withIdentifier: "signoutSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditNameSegue",
+           let nameChangeVC = segue.destination as? UpdateNameTableViewController {
+            nameChangeVC.delegate = self // Set the delegate
+        }
+    }
+
+    
 }
