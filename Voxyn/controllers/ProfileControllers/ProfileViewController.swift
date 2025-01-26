@@ -97,6 +97,24 @@ class ProfileViewController: UIViewController {
         setupPanGesture()
         setupGridCollectionView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateProfileInfo()
+    }
+    
+    // MARK: - update UserName
+    private func updateProfileInfo() {
+        if let user = UserDataModel.shared.getUser() {
+            userName = "\(user.firstName) \(user.lastName)"
+            userNameLabel.text = userName
+        } else {
+            userName = "Guest"
+            userNameLabel.text = userName
+        }
+    }
+
+
 
     // MARK: - Avatar Setup
     private func setupAvatar() {

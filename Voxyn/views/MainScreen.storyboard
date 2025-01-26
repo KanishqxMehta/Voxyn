@@ -787,6 +787,16 @@ Speaking</string>
             </objects>
             <point key="canvasLocation" x="1088" y="1151"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="g2f-Ak-fQ4">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="v4Q-DZ-fWw" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Rk8-6U-Wer"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hKl-zc-630" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1375" y="1155"/>
+        </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="zib-Lw-0Bb">
             <objects>
@@ -801,6 +811,7 @@ Speaking</string>
                         <segue destination="m7A-yY-N9H" kind="relationship" relationship="viewControllers" id="NtC-45-T2X"/>
                         <segue destination="UTn-60-gIz" kind="relationship" relationship="viewControllers" id="ZMo-YG-1PM"/>
                         <segue destination="Qy8-Yi-i9y" kind="relationship" relationship="viewControllers" id="8fP-xw-8pY"/>
+                        <segue destination="v4Q-DZ-fWw" kind="relationship" relationship="viewControllers" id="0lW-qP-Ykv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7Q-eg-VPS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -71,8 +71,8 @@ class RecordingTableViewController: UITableViewController {
         }
 
         // Instantiate the RecordingViewController
-        let storyboard = UIStoryboard(name: "Profile", bundle: nil) // Replace "Main" with your storyboard name
-        if let recordingVC = storyboard.instantiateViewController(withIdentifier: "recordings") as? RecordingViewController {
+//        let storyboard = UIStoryboard(name: "Profile", bundle: nil) // Replace "Main" with your stofryboard name
+        if let recordingVC = self.storyboard?.instantiateViewController(withIdentifier: "recordings") as? RecordingViewController {
             
             // Pass the recording data
             recordingVC.selectedData = selectedRecording

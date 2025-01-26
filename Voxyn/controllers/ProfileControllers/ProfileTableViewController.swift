@@ -14,12 +14,15 @@ class ProfileTableViewController: UITableViewController, ProfileUpdateDelegate {
     
     func didUpdateProfile() {
         if let user = UserDataModel.shared.getUser() {
-                nameLabel.text = "\(user.firstName) \(user.lastName)"
-            } else {
-                nameLabel.text = "Guest"
-            }
+            nameLabel.text = "\(user.firstName) \(user.lastName)"
+            dobDatePicker.date = user.dob
+            updateDoBLabel(with: user.dob) // Ensure DoB label is updated
+        } else {
+            nameLabel.text = "Guest"
+            dobLabel.text = "N/A"
+        }
     }
-    
+
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dobLabel: UILabel!
     @IBOutlet weak var dobDatePicker: UIDatePicker!
@@ -57,12 +60,13 @@ class ProfileTableViewController: UITableViewController, ProfileUpdateDelegate {
         if indexPath == dobLabelIndexPath {
             dobDatePickerIsVisible.toggle()
             
-            // Animate the updates to the table view
+            // Reload the specific section
             tableView.beginUpdates()
+            tableView.reloadRows(at: [dobDatePickerIndexPath], with: .fade)
             tableView.endUpdates()
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath {
         case dobDatePickerIndexPath where !dobDatePickerIsVisible:
@@ -96,11 +100,13 @@ class ProfileTableViewController: UITableViewController, ProfileUpdateDelegate {
     }
     
     @IBAction func signOutButtonTapped(_ sender: Any) {
+        // Clear the user data from the data model
         UserDataModel.shared.clearUser()
         
-        performSegue(withIdentifier: "signoutSegue", sender: nil)
+        // Navigate back to the sign-in screen
+        navigationController?.popToRootViewController(animated: true)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditNameSegue",
            let nameChangeVC = segue.destination as? UpdateNameTableViewController {

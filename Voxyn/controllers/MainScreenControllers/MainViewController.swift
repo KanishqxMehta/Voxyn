@@ -53,6 +53,15 @@ class MainViewController: UIViewController {
         
         hostingController.didMove(toParent: self) // Notify the hosting controller that it's moved to a parent
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUserName()
+    }
+
+    private func updateUserName() {
+        self.navigationItem.title = "Hi, \(UserDataModel.shared.getUser()?.firstName ?? "Guest")"
+    }
 
 
     @IBAction func lessonsBtnClicked(_ sender: Any) {
