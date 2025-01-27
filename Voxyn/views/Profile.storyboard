@@ -136,7 +136,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Yxw-bF-zLh" kind="show" id="fjf-wn-SrL"/>
+                                            <segue destination="Yxw-bF-zLh" kind="show" id="4LX-zB-SMz"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="RNP-qx-2KS" style="IBUITableViewCellStyleDefault" id="5Ay-34-RwH">
@@ -276,7 +276,7 @@
             </objects>
             <point key="canvasLocation" x="1042" y="32"/>
         </scene>
-        <!--Recording Table View Controller-->
+        <!--Records-->
         <scene sceneID="jaI-Ag-dps">
             <objects>
                 <tableViewController id="Yxw-bF-zLh" customClass="RecordingTableViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
@@ -303,11 +303,11 @@
                             <outlet property="delegate" destination="Yxw-bF-zLh" id="c9c-pP-Bhu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="qoE-ae-rbH"/>
+                    <navigationItem key="navigationItem" title="Records" id="qoE-ae-rbH"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5SA-Mc-ZXK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1041.9847328244275" y="748.59154929577471"/>
+            <point key="canvasLocation" x="1042" y="768"/>
         </scene>
         <!--Update Name Table View Controller-->
         <scene sceneID="VFx-Km-ZxQ">
@@ -1100,6 +1100,7 @@
                         <outlet property="playButton" destination="dvu-bM-o4I" id="pdZ-30-JhY"/>
                         <outlet property="readInstructionLabel" destination="y3i-nm-ym4" id="CH7-K5-LAd"/>
                         <outlet property="readyView" destination="O8M-s0-y8v" id="y7F-l9-vEy"/>
+                        <outlet property="recodButtonView" destination="tN3-L7-dsE" id="Cos-xS-a5t"/>
                         <outlet property="recordingSlider" destination="Irx-v5-SRH" id="eOv-lb-27i"/>
                         <outlet property="recordingView" destination="feL-RZ-cLC" id="Nj1-9N-num"/>
                         <outlet property="speakingTimeLabel" destination="UNy-DS-SRn" id="9dP-Tl-aHD"/>
@@ -1133,7 +1134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zqo-G0-q1R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2100" y="749"/>
+            <point key="canvasLocation" x="2100" y="768"/>
         </scene>
     </scenes>
     <resources>

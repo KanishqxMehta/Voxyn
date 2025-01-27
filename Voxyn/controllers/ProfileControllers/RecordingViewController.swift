@@ -62,7 +62,8 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, AVAudi
             case randomTopic
             case preparedSpeech
         }
-
+    @IBOutlet weak var recodButtonView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitialState()
@@ -70,8 +71,8 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, AVAudi
         // Use selectedData to update the UI
         if let recording = selectedData {
             title = recording.title
-            passageTextView.text = recording.feedback.overallComment
-            speakingTimeLabel.text = "Duration: \(Int(recording.analytics.duration)) seconds"
+           // passageTextView.text = recording.feedback.overallComment
+            //speakingTimeLabel.text = "Duration: \(Int(recording.analytics.duration)) seconds"
             speechToTextLabel.text = recording.analytics.transcription ?? "Transcription not available"
             estimatedSpeakingTimeLabel.text = "\(Int(recording.analytics.duration)) seconds"
         }
@@ -83,20 +84,17 @@ class RecordingViewController: UIViewController, AVAudioRecorderDelegate, AVAudi
             analyzingYourSpeech.isHidden = true
             pauseButton.isHidden = true
             recordingView.isHidden = true
+            readyView.isHidden = true
             waveRecordingView.isHidden = true
-
+            recodButtonView.isHidden = true
             // Configure slider
+            recordingView.isHidden = false;
             recordingSlider.setThumbImage(UIImage(named: "Ellipse 27"), for: .normal)
-    //        recordingSlider.minimumValue = 0
-    //        recordingSlider.maximumValue = 1
-    //        recordingSlider.value = 0
-            areasOfImprovementView.isHidden = true
-            feedbackView1.isHidden = true
-            feedbackView2.isHidden = true
-            speechToTextView.isHidden = true
+    
             roundEdgesOfViews()
     //        startWaveAnimation()
             updateContentBasedOnDataType()
+            updatePerformanceMetrics()
         }
         
         
