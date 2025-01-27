@@ -46,7 +46,7 @@ class SpeechDetailTableViewController: UITableViewController {
         titleTextView.text = speech.title
         descriptionTextView.text = speech.description
         speechTextView.text = speech.originalText
-        practiceCountLabel.text = "Practiced X times" // Placeholder for future count management
+        practiceCountLabel.text = "3" // Placeholder for future count management
     }
     
     private func saveChanges() {
@@ -111,7 +111,22 @@ class SpeechDetailTableViewController: UITableViewController {
     }
     
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
-        isEditingSpeech.toggle()
+        // When entering edit mode, just toggle
+        if !isEditingSpeech {
+            isEditingSpeech = true
+            return
+        }
+        
+        // When exiting edit mode, validate fields
+        guard let title = titleTextView.text, !title.isEmpty,
+              let description = descriptionTextView.text, !description.isEmpty,
+              let text = speechTextView.text, !text.isEmpty else {
+            showAlert(message: "All fields must be filled.")
+            return
+        }
+        
+        // If all fields are valid, toggle off editing state
+        isEditingSpeech = false
     }
     
 }
