@@ -30,18 +30,7 @@ class ProfileTableViewController: UITableViewController, ProfileUpdateDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Fetch the user from UserDataModel
-        if let user = UserDataModel.shared.getUser() {
-            // Combine the first and last name to display
-            nameLabel.text = "\(user.firstName) \(user.lastName)"
-            // Set the initial value for the date picker and label
-            dobDatePicker.date = user.dob
-            updateDoBLabel(with: user.dob)
-        } else {
-            // Handle the case where no user exists
-            nameLabel.text = "Guest"
-            dobLabel.text = "N/A"
-        }
+        didUpdateProfile()
         
         // Set the maximum date for the date picker
         dobDatePicker.maximumDate = Date()
@@ -103,8 +92,17 @@ class ProfileTableViewController: UITableViewController, ProfileUpdateDelegate {
         // Clear the user data from the data model
         UserDataModel.shared.clearUser()
         
-        // Navigate back to the sign-in screen
-        navigationController?.popToRootViewController(animated: true)
+        // Instantiate the sign-in view controller
+        let storyboard = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your storyboard name
+        let signInVC = storyboard.instantiateViewController(withIdentifier: "Main") // Replace with your sign-in VC identifier
+        
+        // Find the active window scene
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            // Set the sign-in view controller as the root
+            window.rootViewController = signInVC
+            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil, completion: nil)
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -113,6 +111,4 @@ class ProfileTableViewController: UITableViewController, ProfileUpdateDelegate {
             nameChangeVC.delegate = self // Set the delegate
         }
     }
-
-    
 }

@@ -27,7 +27,7 @@ class UpdateNameTableViewController: UITableViewController {
         
         // Configure text fields
         [firstNameTextField, lastNameTextField].forEach { textField in
-//            textField?.borderStyle = .none
+            textField?.borderStyle = .none
             textField?.isEnabled = false // Initially disabled
 //            textField?.autocapitalizationType = .words
 //            textField?.autocorrectionType = .no
@@ -55,8 +55,9 @@ class UpdateNameTableViewController: UITableViewController {
         
         [firstNameTextField, lastNameTextField].forEach { textField in
             textField?.isEnabled = isEditingName
+            textField?.borderStyle = isEditingName ? .roundedRect : .none
 //            textField?.isUserInteractionEnabled = isEditingName
-            textField?.backgroundColor = isEditingName ? .systemGray6 : .clear
+//            textField?.backgroundColor = .clear
         }
         
         if isEditingName {

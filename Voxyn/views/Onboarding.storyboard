@@ -74,10 +74,10 @@
             </objects>
             <point key="canvasLocation" x="4530" y="-2285"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up View Controller-->
         <scene sceneID="Pcl-Bm-K8C">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="Sbe-q9-6fN" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="Sbe-q9-6fN" customClass="SignUpViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yXN-pu-RIO">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -256,10 +256,10 @@
             </objects>
             <point key="canvasLocation" x="4575" y="-1554"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="mc1-49-QzK">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="uwD-UW-AW5" customClass="ViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="uwD-UW-AW5" customClass="LoginViewController" customModule="Voxyn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ab0-ba-g7p">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
