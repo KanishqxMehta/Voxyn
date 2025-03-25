@@ -6,29 +6,39 @@ struct ChartView: View {
     let recordings = RecordingDataModel.shared.findRecordings(by: 1) // Assuming userId = 1
     
     var body: some View {
-        let chartData = prepareChartData()
-        Chart(chartData) { dataPoint in
-            LineMark(
-                x: .value("Day", dataPoint.day),
-                y: .value("Score", dataPoint.score)
-            )
-            .foregroundStyle(by: .value("Category", dataPoint.category.displayName))
-        }
-        .chartForegroundStyleScale([
-            "Clarity": Color.blue,
-            "Tone": Color.purple,
-            "Pace": Color.orange,
-            "Fluency": Color.pink
-        ])
-        .chartYAxis {
-            AxisMarks(position: .leading, values: Array(stride(from: 0, to: 101, by: 25)))
-        }
-        .chartXAxis {
-            AxisMarks(position: .bottom) { value in
-                AxisValueLabel {
-                    if let day = value.as(String.self) {
-                        Text(day.prefix(3)) // Shortened day names (e.g., Mon, Tue)
-                            .font(.caption) // Smaller font for x-axis labels
+        if recordings.isEmpty {
+            VStack {
+                Text("No data")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+                    .padding()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else {
+            let chartData = prepareChartData()
+            Chart(chartData) { dataPoint in
+                LineMark(
+                    x: .value("Day", dataPoint.day),
+                    y: .value("Score", dataPoint.score)
+                )
+                .foregroundStyle(by: .value("Category", dataPoint.category.displayName))
+            }
+            .chartForegroundStyleScale([
+                "Clarity": Color.blue,
+                "Tone": Color.purple,
+                "Pace": Color.orange,
+                "Fluency": Color.pink
+            ])
+            .chartYAxis {
+                AxisMarks(position: .leading, values: Array(stride(from: 0, to: 101, by: 25)))
+            }
+            .chartXAxis {
+                AxisMarks(position: .bottom) { value in
+                    AxisValueLabel {
+                        if let day = value.as(String.self) {
+                            Text(day.prefix(3)) // Shortened day names (e.g., Mon, Tue)
+                                .font(.caption)
+                        }
                     }
                 }
             }
@@ -48,7 +58,7 @@ struct ChartView: View {
         // Get all days of the current week (Monday to Sunday)
         var weekDays: [String] = []
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE" // Format to display the day of the week
+        dateFormatter.dateFormat = "EEEE"
         
         for i in 0..<7 {
             if let day = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
@@ -56,10 +66,8 @@ struct ChartView: View {
             }
         }
         
-        // Create a dictionary to store scores for each day and category
         var weeklyScores: [String: [FeedbackCategory: Int]] = [:]
         
-        // Initialize the dictionary with default zero scores
         for dayName in weekDays {
             weeklyScores[dayName] = [
                 .clarity: 0,
@@ -69,7 +77,6 @@ struct ChartView: View {
             ]
         }
         
-        // Fill in actual scores from the recordings for the current week
         for recording in recordings {
             let dayOfWeek = dateFormatter.string(from: recording.timestamp)
             if weeklyScores.keys.contains(dayOfWeek) {
@@ -79,14 +86,12 @@ struct ChartView: View {
             }
         }
         
-        // Convert the dictionary into ChartDataPoints
         for (day, scores) in weeklyScores {
             for (category, score) in scores {
                 dataPoints.append(ChartDataPoint(day: day, category: category, score: score))
             }
         }
         
-        // Sort the data points to match the weekDays order
         dataPoints.sort { data1, data2 in
             if let index1 = weekDays.firstIndex(of: data1.day), let index2 = weekDays.firstIndex(of: data2.day) {
                 return index1 < index2
@@ -105,7 +110,6 @@ struct ChartDataPoint: Identifiable {
     let category: FeedbackCategory
     let score: Int
 }
-
 
 // Preview
 #Preview {

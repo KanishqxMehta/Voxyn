@@ -14,6 +14,17 @@ class MainViewController: UIViewController {
     @IBOutlet weak var chartView: UIView!
     @IBOutlet var startButton: [UIButton]!
     
+    @IBOutlet weak var clarityProgressLabel: UILabel!
+    @IBOutlet weak var toneProgressField: UILabel!
+    @IBOutlet weak var paceProgressLabel: UILabel!
+    @IBOutlet weak var fluencyProgressLabel: UILabel!
+    
+    @IBOutlet weak var clarityProgressBar: UIProgressView!
+    @IBOutlet weak var toneProgressBar: UIProgressView!
+    @IBOutlet weak var paceProgressBar: UIProgressView!
+    @IBOutlet weak var fluencyProgressBar: UIProgressView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,6 +72,10 @@ class MainViewController: UIViewController {
 
     private func updateUserName() {
         self.navigationItem.title = "Hi, \(UserDataModel.shared.getUser()?.firstName ?? "Guest")"
+    }
+    
+    private func updateProgress() {
+        
     }
 
 
