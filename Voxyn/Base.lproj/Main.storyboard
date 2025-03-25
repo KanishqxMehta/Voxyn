@@ -57,17 +57,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_9576-removebg-preview" translatesAutoresizingMaskIntoConstraints="NO" id="6nc-AJ-SJY">
-                                <rect key="frame" x="81" y="362" width="240" height="128"/>
+                                <rect key="frame" x="81" y="362" width="231" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="DBl-lk-0Sm"/>
                                     <constraint firstAttribute="height" constant="128" id="uNl-I0-WTr"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gbK-aO-wBw">
-                                <rect key="frame" x="16" y="656" width="370" height="96"/>
+                                <rect key="frame" x="16" y="656" width="361" height="96"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQP-MC-QTa">
-                                        <rect key="frame" x="0.0" y="0.0" width="370" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="vJk-ot-50e"/>
                                         </constraints>
@@ -80,7 +80,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1x-Yv-sme">
-                                        <rect key="frame" x="0.0" y="56" width="370" height="40"/>
+                                        <rect key="frame" x="0.0" y="56" width="361" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="R2W-vZ-OWD"/>
                                         </constraints>
@@ -434,8 +434,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uDe-PC-lgV"/>
-        <segue reference="UPT-gd-XoR"/>
+        <segue reference="gbA-zY-9ZL"/>
+        <segue reference="LyI-EJ-OqG"/>
         <segue reference="3qr-el-SBI"/>
     </inferredMetricsTieBreakers>
     <resources>

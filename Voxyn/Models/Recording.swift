@@ -16,7 +16,7 @@ struct Recording {
     var timestamp: Date
     var sessionType: SessionType
     var feedback: Feedback // Link to Feedback by ID
-    var analytics: RecordingAnalytics  // New: Detailed analytics
+  //  var analytics: RecordingAnalytics  // New: Detailed analytics
     
     // New: Computed property for overall score
     var overallScore: Double {
@@ -38,16 +38,16 @@ struct Recording {
 
 
 // MARK: - Recording Analytics
-struct RecordingAnalytics {
-    let duration: TimeInterval
-    let wordsPerMinute: Double?
-    let silenceDuration: TimeInterval
-    let volumeVariation: Double
-    let pronunciationAccuracy: Double
-    var transcription: String?    // New: Store speech-to-text
-    var keyPhrases: [String]     // New: Important phrases detected
-    var improvementSuggestions: [String] // New: AI-generated suggestions
-}
+//struct RecordingAnalytics {
+//    let duration: TimeInterval
+//    let wordsPerMinute: Double?
+//    let silenceDuration: TimeInterval
+//    let volumeVariation: Double
+//    let pronunciationAccuracy: Double
+//    var transcription: String?    // New: Store speech-to-text
+//    var keyPhrases: [String]     // New: Important phrases detected
+//    var improvementSuggestions: [String] // New: AI-generated suggestions
+//}
 
 
 // MARK: - Recording Data Management

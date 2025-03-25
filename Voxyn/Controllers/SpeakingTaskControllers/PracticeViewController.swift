@@ -413,15 +413,34 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             playRecordingButton.isEnabled = true
         }
 
-
+        saveNewRecording(userId: <#T##Int#>, title: <#T##String#>, audioFileURL: <#T##String#>, sessionType: <#T##SessionType#>, feedback: <#T##Feedback#>)
         pauseButton.isHidden = true
         playButton.isHidden = true
         waveRecordingView.isHidden = true
         analyzingYourSpeech.isHidden = false
         recordingView.isHidden = false
+        
 
 
     }
+    
+    func saveNewRecording(userId: Int, title: String, audioFileURL: String, sessionType: SessionType, feedback: Feedback) {
+        let newRecording = Recording(
+            recordingId: (RecordingDataModel.shared.getAllRecordings().last?.recordingId ?? 0) + 1, // Auto-increment ID
+            userId: userId,
+            title: title,
+            audioFileURL: audioFileURL,
+            timestamp: Date(),
+            sessionType: sessionType,
+            feedback: feedback,
+            analytics: analytics
+        )
+        
+        RecordingDataModel.shared.saveRecording(newRecording)
+    }
+    
+    // in this audio play back only first recording is gettig played back
+    // if done multiple recording on the same screen only first one will be played back
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, to outputFileURL: URL, successfully flag: Bool) {
         if flag {
