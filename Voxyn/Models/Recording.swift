@@ -15,25 +15,11 @@ struct Recording {
     var audioFileURL: String
     var timestamp: Date
     var sessionType: SessionType
-    var feedback: Feedback // Link to Feedback by ID
+ //   var feedback: Feedback // Link to Feedback by ID
   //  var analytics: RecordingAnalytics  // New: Detailed analytics
     
     // New: Computed property for overall score
-    var overallScore: Double {
-        let scores = feedback.scores
-        let weights: [FeedbackCategory: Double] = [
-            .clarity: 0.3,
-            .tone: 0.25,
-            .pace: 0.25,
-            .fluency: 0.2
-        ]
-        
-        var weightedSum = 0.0
-        for (category, score) in scores {
-            weightedSum += Double(score) * (weights[category] ?? 0)
-        }
-        return weightedSum
-    }
+   
 }
 
 

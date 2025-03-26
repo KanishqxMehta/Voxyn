@@ -42,6 +42,22 @@ struct Feedback {
         self.comments = comments
         self.overallComment = overallComment
     }
+    
+    var overallScore: Double {
+        let scores = scores
+        let weights: [FeedbackCategory: Double] = [
+            .clarity: 0.3,
+            .tone: 0.25,
+            .pace: 0.25,
+            .fluency: 0.2
+        ]
+        
+        var weightedSum = 0.0
+        for (category, score) in scores {
+            weightedSum += Double(score) * (weights[category] ?? 0)
+        }
+        return weightedSum
+    }
 }
 
 // MARK: - Feedback Data Management
@@ -61,6 +77,11 @@ class FeedbackDataModel {
     func findFeedbacks(by recordingId: Int) -> [Feedback] {
         return feedbacks.filter { $0.recordingId == recordingId }
     }
+    
+    func findFeedbacks(by recordingIds: [Int]) -> [Feedback] {
+        return feedbacks.filter { recordingIds.contains($0.recordingId) }
+    }
+
 
     // Fetch feedback by feedback ID
     func getFeedback(by feedbackId: Int) -> Feedback? {

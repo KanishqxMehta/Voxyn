@@ -87,6 +87,10 @@ class UserDataModel {
         
         users.append(newUser)
         
+        UserDefaults.standard.set(newUser.userId, forKey: "userId")
+        
+        //return userId
+        
         // Store new user in data model
 //        setUser(newUser)
 
@@ -104,6 +108,7 @@ class UserDataModel {
                   setUser(user)// Return the user if credentials are correct
                   print(user.email)
                   print(user.password)
+                  UserDefaults.standard.set(user.userId, forKey: "userId")
                   return true
               }
           }
@@ -212,21 +217,44 @@ struct Progress {
     }
     
     // New: Track category-wise improvements
+//    var categoryProgress: [FeedbackCategory: Double] {
+//        // Calculate average scores for each category from recordings
+//        let recordings = RecordingDataModel.shared.findRecordings(by: userId)
+//        var categorySums: [FeedbackCategory: (total: Double, count: Int)] = [:]
+//        
+//        recordings.forEach { recording in
+//            recording.feedback.scores.forEach { category, score in
+//                let current = categorySums[category] ?? (total: 0, count: 0)
+//                categorySums[category] = (total: current.total + Double(score),
+//                                       count: current.count + 1)
+//            }
+//        }
+//        
+//        return categorySums.mapValues { $0.count > 0 ? $0.total / Double($0.count) : 0 }
+//    }
+    
+    
     var categoryProgress: [FeedbackCategory: Double] {
-        // Calculate average scores for each category from recordings
-        let recordings = RecordingDataModel.shared.findRecordings(by: userId)
+        // Step 1: Find all recordings for the given user
+        let userRecordings = RecordingDataModel.shared.findRecordings(by: userId)
+        let recordingIds = userRecordings.map { $0.recordingId }
+
+        // Step 2: Fetch feedback entries using recordingIds
+        let feedbackEntries = FeedbackDataModel.shared.findFeedbacks(by: recordingIds)
+
+        // Step 3: Compute average scores per category
         var categorySums: [FeedbackCategory: (total: Double, count: Int)] = [:]
-        
-        recordings.forEach { recording in
-            recording.feedback.scores.forEach { category, score in
+
+        feedbackEntries.forEach { feedback in
+            feedback.scores.forEach { category, score in
                 let current = categorySums[category] ?? (total: 0, count: 0)
-                categorySums[category] = (total: current.total + Double(score),
-                                       count: current.count + 1)
+                categorySums[category] = (total: current.total + Double(score), count: current.count + 1)
             }
         }
-        
+
         return categorySums.mapValues { $0.count > 0 ? $0.total / Double($0.count) : 0 }
     }
+
     
     
     // Overall progress considering different aspects

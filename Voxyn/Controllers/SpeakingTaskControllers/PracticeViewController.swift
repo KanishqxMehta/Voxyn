@@ -63,6 +63,8 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     var audioPlayer: AVAudioPlayer?
    // var isRecording = false
     var audioFileName: URL?
+    var audioFileDirectory: String = ""
+    var audioFileTitle: String = ""
     
     var dataType: DataType?
     var selectedData: Any?
@@ -79,6 +81,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         super.viewDidLoad()
         setupInitialState()
         setUpAudioSession()
+        print("Practice View Controller Loaded")
 //        configureAudioRecorder()
     }
 
@@ -131,6 +134,20 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             configurePreparedSpeechContent(preparedSpeechData)
         }
     }
+    
+    // Get session type based on current data type
+        private func getSessionType() -> SessionType {
+            switch dataType {
+            case .readAloud:
+                return .readAloud
+            case .randomTopic:
+                return .randomTopic
+            case .preparedSpeech:
+                return .preparedSpeech
+            case .none:
+                return .readAloud // Default fallback
+            }
+        }
 
     
     private func configureReadAloudContent(_ data: ReadAloud) {
@@ -297,32 +314,15 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     
     // Set up the audio recorder to save the recording as a .m4a file
     func setUpAudioRecorder() {
-//        let fileManager = FileManager.default
-//        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        audioFileName = documentsDirectory.appendingPathComponent("audioRecording.m4a")
-//        
-//        let settings = [
-//            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-//            AVSampleRateKey: 44100.0,
-//            AVNumberOfChannelsKey: 1,
-//            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-//        ] as [String : Any]
-//        
-//        do {
-//            audioRecorder = try AVAudioRecorder(url: audioFileName!, settings: settings)
-//            audioRecorder?.delegate = self // Set the delegate to self to handle finishing recording
-//            audioRecorder?.prepareToRecord()
-//        } catch {
-//            print("Failed to set up recorder: \(error)")
-//        }
+
         
         let fileManager = FileManager.default
         let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
+        audioFileDirectory = documentsDirectory.path
         // Generate a unique filename using timestamp
         let timestamp = Int(Date().timeIntervalSince1970)
         audioFileName = documentsDirectory.appendingPathComponent("audioRecording_\(timestamp).m4a")
-
+        audioFileTitle = audioFileName!.path
         let settings: [String: Any] = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 44100.0,
@@ -391,49 +391,88 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         isRecording = false
 //        stopTimer()
         // Second transition: After delay, show analysis results
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            guard let self = self else { return }
-            
-     
-            // Hide analyzing state
-            analyzingYourSpeech.isHidden = true
-            
-            // Show analysis results
-            areasOfImprovementView.isHidden = false
-            feedbackView1.isHidden = false
-            feedbackView2.isHidden = false
-            speechToTextView.isHidden = false
-            playButton.isHidden = false
-            
-            self.updatePerformanceMetrics()
-            // Setup audio player for playback
-//            self.setupAudioPlayer()
-//            self.recordingSlider.isEnabled = true
-            
-            playRecordingButton.isEnabled = true
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+//            guard let self = self else { return }
+//            
+//     
+//            // Hide analyzing state
+//            analyzingYourSpeech.isHidden = true
+//            
+//            // Show analysis results
+////            areasOfImprovementView.isHidden = false
+////            feedbackView1.isHidden = false
+////            feedbackView2.isHidden = false
+////            speechToTextView.isHidden = false
+////            playButton.isHidden = false
+//            
+//            self.updatePerformanceMetrics()
+//            // Setup audio player for playback
+////            self.setupAudioPlayer()
+////            self.recordingSlider.isEnabled = true
+//            
+//            playRecordingButton.isEnabled = true
+//        }
+        
+            let userIdFromDefault = UserDefaults.standard.integer(forKey: "userId")
+           
+            saveNewRecording(userId: userIdFromDefault, title: audioFileTitle, audioFileURL: audioFileDirectory, sessionType: getSessionType() )
+        
 
-        saveNewRecording(userId: <#T##Int#>, title: <#T##String#>, audioFileURL: <#T##String#>, sessionType: <#T##SessionType#>, feedback: <#T##Feedback#>)
+
+//        pauseButton.isHidden = true
+//        playButton.isHidden = true
+//        waveRecordingView.isHidden = true
+//        analyzingYourSpeech.isHidden = false
+//        recordingView.isHidden = false
+        
+        updateUIAfterRecordingStop()
+           
+           // Delay analysis results display
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+               self?.showAnalysisResults()
+           }
+    
+
+    }
+    
+    private func updateUIAfterRecordingStop() {
         pauseButton.isHidden = true
         playButton.isHidden = true
         waveRecordingView.isHidden = true
         analyzingYourSpeech.isHidden = false
         recordingView.isHidden = false
-        
+    }
 
+    private func showAnalysisResults() {
+        analyzingYourSpeech.isHidden = true
 
+        areasOfImprovementView.isHidden = false
+        feedbackView1.isHidden = false
+        feedbackView2.isHidden = false
+        speechToTextView.isHidden = false
+        playButton.isHidden = false
+
+        updatePerformanceMetrics()
+        playRecordingButton.isEnabled = true
     }
     
-    func saveNewRecording(userId: Int, title: String, audioFileURL: String, sessionType: SessionType, feedback: Feedback) {
+    func saveNewRecording(userId: Int, title: String, audioFileURL: String, sessionType: SessionType) {
+        
+        print("Saving new recording...")
+            print("User ID: \(userId)")
+            print("Title: \(title)")
+            print("Audio File URL: \(audioFileURL)")
+            print("Session Type: \(sessionType)")
+        
         let newRecording = Recording(
             recordingId: (RecordingDataModel.shared.getAllRecordings().last?.recordingId ?? 0) + 1, // Auto-increment ID
             userId: userId,
             title: title,
             audioFileURL: audioFileURL,
             timestamp: Date(),
-            sessionType: sessionType,
-            feedback: feedback,
-            analytics: analytics
+            sessionType: sessionType
+         //   feedback: feedback
+           // analytics: analytics
         )
         
         RecordingDataModel.shared.saveRecording(newRecording)

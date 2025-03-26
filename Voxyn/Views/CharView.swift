@@ -46,6 +46,63 @@ struct ChartView: View {
     }
     
     // Convert recording data into chart-friendly data points
+    //    private func prepareChartData() -> [ChartDataPoint] {
+    //        var dataPoints: [ChartDataPoint] = []
+    //        
+    //        let calendar = Calendar.current
+    //        let today = Date()
+    //        
+    //        // Get the start of the current week (Monday)
+    //        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+    //        
+    //        // Get all days of the current week (Monday to Sunday)
+    //        var weekDays: [String] = []
+    //        let dateFormatter = DateFormatter()
+    //        dateFormatter.dateFormat = "EEEE"
+    //        
+    //        for i in 0..<7 {
+    //            if let day = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
+    //                weekDays.append(dateFormatter.string(from: day))
+    //            }
+    //        }
+    //        
+    //        var weeklyScores: [String: [FeedbackCategory: Int]] = [:]
+    //        
+    //        for dayName in weekDays {
+    //            weeklyScores[dayName] = [
+    //                .clarity: 0,
+    //                .tone: 0,
+    //                .pace: 0,
+    //                .fluency: 0
+    //            ]
+    //        }
+    //        
+    //        for recording in recordings {
+    //            let dayOfWeek = dateFormatter.string(from: recording.timestamp)
+    //            if weeklyScores.keys.contains(dayOfWeek) {
+    //                for (category, score) in recording.feedback.scores {
+    //                    weeklyScores[dayOfWeek]?[category] = score
+    //                }
+    //            }
+    //        }
+    //        
+    //        for (day, scores) in weeklyScores {
+    //            for (category, score) in scores {
+    //                dataPoints.append(ChartDataPoint(day: day, category: category, score: score))
+    //            }
+    //        }
+    //        
+    //        dataPoints.sort { data1, data2 in
+    //            if let index1 = weekDays.firstIndex(of: data1.day), let index2 = weekDays.firstIndex(of: data2.day) {
+    //                return index1 < index2
+    //            }
+    //            return false
+    //        }
+    //        
+    //        return dataPoints
+    //    }
+    //}
+    
     private func prepareChartData() -> [ChartDataPoint] {
         var dataPoints: [ChartDataPoint] = []
         
@@ -68,6 +125,7 @@ struct ChartView: View {
         
         var weeklyScores: [String: [FeedbackCategory: Int]] = [:]
         
+        // Initialize scores for each day
         for dayName in weekDays {
             weeklyScores[dayName] = [
                 .clarity: 0,
@@ -77,21 +135,31 @@ struct ChartView: View {
             ]
         }
         
+        // Fetch all recording IDs for the week
+        let recordingIds = recordings.map { $0.recordingId }
+        
+        // Fetch all feedbacks for the recordings
+        let feedbackEntries = FeedbackDataModel.shared.findFeedbacks(by: recordingIds)
+        
         for recording in recordings {
             let dayOfWeek = dateFormatter.string(from: recording.timestamp)
-            if weeklyScores.keys.contains(dayOfWeek) {
-                for (category, score) in recording.feedback.scores {
+            
+            // Find feedback for the current recording
+            if let feedback = feedbackEntries.first(where: { $0.recordingId == recording.recordingId }) {
+                for (category, score) in feedback.scores {
                     weeklyScores[dayOfWeek]?[category] = score
                 }
             }
         }
         
+        // Convert weeklyScores into ChartDataPoint array
         for (day, scores) in weeklyScores {
             for (category, score) in scores {
                 dataPoints.append(ChartDataPoint(day: day, category: category, score: score))
             }
         }
         
+        // Sort data points in correct week order
         dataPoints.sort { data1, data2 in
             if let index1 = weekDays.firstIndex(of: data1.day), let index2 = weekDays.firstIndex(of: data2.day) {
                 return index1 < index2
