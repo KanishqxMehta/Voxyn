@@ -31,7 +31,11 @@ class RecordingTableViewController: UITableViewController {
 
     private func loadData() {
         // Fetch all recordings
-        recordings = recordingDataModel.findRecordings(by: 1) // Replace `1` with the current user ID
+        if let currentUserId = UserDataModel.shared.getUser()?.userId {
+            recordings = recordingDataModel.findRecordings(by: currentUserId)
+        } else {
+            recordings = []
+        }
         tableView.reloadData()
     }
 
@@ -42,7 +46,7 @@ class RecordingTableViewController: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RecordingDataModel.shared.getAllRecordings().count
+        return recordings.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

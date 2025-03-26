@@ -60,23 +60,36 @@ class StreakDataModel {
 //            }
 //        }
     
-    func updateStreakIfValid( userId: Int) {
-           let currentTimestamp = Int(Date().timeIntervalSince1970)
-           let oneDayInSeconds = 86400 // 24 hours
-
-           if let index = streaks.firstIndex(where: { $0.userId == userId }) {
-               let lastRecording = streaks[index].lastRecordingDate
-
-               if currentTimestamp - lastRecording >= oneDayInSeconds {
-                   // Increase streak if more than 24 hours have passed
-                   streaks[index].streakCount += 1
-                   streaks[index].lastRecordingDate = currentTimestamp
-                   print("Streak increased to \(streaks[index].streakCount) for user \(userId)")
-               } else {
-                   print("Streak unchanged. Last recording was within 24 hours.")
-               }
-           }
-       }
+    func updateStreakIfValid(userId: Int) {
+        let currentTimestamp = Int(Date().timeIntervalSince1970)
+        let oneDayInSeconds = 86400 // 24 hours
+        
+        if let index = streaks.firstIndex(where: { $0.userId == userId }) {
+            let lastRecording = streaks[index].lastRecordingDate
+            let timeDifference = currentTimestamp - lastRecording
+            
+            // If this is the first recording of the day (more than 24 hours from last recording)
+            if timeDifference >= oneDayInSeconds && timeDifference < (oneDayInSeconds * 2) {
+                streaks[index].streakCount += 1
+                streaks[index].lastRecordingDate = currentTimestamp
+                print("Streak increased to \(streaks[index].streakCount) for user \(userId)")
+            }
+            // If more than 48 hours have passed, reset streak
+            else if timeDifference >= (oneDayInSeconds * 2) {
+                streaks[index].streakCount = 1 // Start new streak
+                streaks[index].lastRecordingDate = currentTimestamp
+                print("Streak reset to 1 for user \(userId) - new streak started")
+            }
+            // If less than 24 hours, maintain current streak
+            else {
+                print("Streak maintained at \(streaks[index].streakCount) for user \(userId)")
+            }
+        } else {
+            // Create new streak for new user
+            streaks.append(Streak(userId: userId, streakCount: 1, lastRecordingDate: currentTimestamp))
+            print("New streak started for user \(userId)")
+        }
+    }
     
     
     

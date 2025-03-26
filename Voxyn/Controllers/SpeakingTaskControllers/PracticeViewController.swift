@@ -491,7 +491,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             print("Session Type: \(sessionType)")
         
         let newRecording = Recording(
-            recordingId: (RecordingDataModel.shared.getAllRecordings().last?.recordingId ?? 0) + 1, // Auto-increment ID
+            recordingId: (RecordingDataModel.shared.findRecordings(by: UserDataModel.shared.getUser()?.userId ?? 0).last?.recordingId ?? 0) + 1, // Auto-increment ID per user
             userId: userId,
             title: title,
             audioFileURL: audioFileURL,
