@@ -611,6 +611,7 @@ Speaking</string>
                         <outlet property="fluencyProgressLabel" destination="Bz1-Qy-eKR" id="tKO-bU-VPh"/>
                         <outlet property="paceProgressBar" destination="WFz-ke-C3K" id="QuR-QD-4Za"/>
                         <outlet property="paceProgressLabel" destination="nbv-5q-Zgz" id="6jI-eO-JF4"/>
+                        <outlet property="sessionValueLabel" destination="tHj-Yw-ZFF" id="OCA-1c-3HQ"/>
                         <outlet property="streakValueLabel" destination="ufi-Kd-hIZ" id="Zui-hq-z4q"/>
                         <outlet property="toneProgressBar" destination="ANt-qs-GjL" id="H3G-dw-UfB"/>
                         <outlet property="toneProgressField" destination="4vj-h4-ja7" id="WfI-6z-8Lp"/>

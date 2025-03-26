@@ -499,6 +499,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         
         RecordingDataModel.shared.saveRecording(newRecording)
         StreakDataModel.shared.updateStreakIfValid(userId: userId)
+        SessionDataModel.shared.updateSessionCount(for: userId)
         
     }
     

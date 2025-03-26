@@ -10,6 +10,7 @@ import SwiftUI
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var sessionValueLabel: UILabel!
     @IBOutlet weak var streakValueLabel: UILabel!
     @IBOutlet var roundCornerViews: [UIView]!
     @IBOutlet weak var chartView: UIView!
@@ -115,6 +116,9 @@ class MainViewController: UIViewController {
         
          let streak = StreakDataModel.shared.fetchStreakCount(userId: userId)
             streakValueLabel.text = ("\(streak)")
+        
+        let session = SessionDataModel.shared.fetchSessionCount(for: userId)
+        sessionValueLabel.text = "\(session)"
         
     }
 }
