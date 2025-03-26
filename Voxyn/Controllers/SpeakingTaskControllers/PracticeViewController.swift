@@ -82,12 +82,17 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpAudioSession()
+        recordingSlider.setThumbImage(UIImage(named: "Ellipse 27"), for: .normal)
+        print("Button is enabled:", playRecordingButton.isEnabled)
+
         if let data = selectedData as? Recording {
             configureRecordsData(selectedData)
+            print("Button enabled after configureRecordsData:", playRecordingButton.isEnabled)
             
         } else {
             setupInitialState()
-            setUpAudioSession()
+          
             print("Practice View Controller Loaded")
         }
 //        configureAudioRecorder()
@@ -102,7 +107,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         waveRecordingView.isHidden = true
 
         // Configure slider
-        recordingSlider.setThumbImage(UIImage(named: "Ellipse 27"), for: .normal)
+       
 //        recordingSlider.minimumValue = 0
 //        recordingSlider.maximumValue = 1
 //        recordingSlider.value = 0
@@ -171,7 +176,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         pauseButton.isHidden = true
 
         updatePerformanceMetrics()
-        playRecordingButton.isEnabled = false
+        playRecordingButton.isEnabled = true
         waveRecordingView.isHidden = true
         readyView.isHidden = true
         
@@ -179,6 +184,8 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             print("Error: data is not a Recording object.")
             return
         }
+        
+        audioFileName = URL(fileURLWithPath: recording.title)
 
         // Extract sessionType and topicId
         let sessionType = recording.sessionType
@@ -197,11 +204,6 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             }
         }
 
-
-        
-        
-        
-        
     }
 
 
@@ -403,6 +405,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         if !isRecording {
             startRecording()
         }
+        
     }
 
     @IBAction func pauseButton(_ sender: Any) {
@@ -492,29 +495,30 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             timestamp: Date(),
             sessionType: sessionType,
             topicId: topicId
-         //   feedback: feedback
-           // analytics: analytics
         )
         
         RecordingDataModel.shared.saveRecording(newRecording)
+        StreakDataModel.shared.updateStreakIfValid(userId: userId)
+        
     }
     
     // in this audio play back only first recording is gettig played back
     // if done multiple recording on the same screen only first one will be played back
-    
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, to outputFileURL: URL, successfully flag: Bool) {
-        if flag {
-            print("Recording successfully finished!")
-            // Optionally, you can show a message to the user or perform additional actions
-        } else {
-            print("Recording failed.")
-        }
-    }
+//    
+//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, to outputFileURL: URL, successfully flag: Bool) {
+//        if flag {
+//            print("Recording successfully finished!")
+//            // Optionally, you can show a message to the user or perform additional actions
+//        } else {
+//            print("Recording failed.")
+//        }
+//    }
     @IBAction func playRecordingButtonTapped(_ sender: Any) {
         guard let audioFileName = audioFileName else {
                print("No audio file to play.")
                return
            }
+        print("audioFileName == \(audioFileName)")
 
            if isAudioPlaying {
                // Pause the audio if it is currently playing

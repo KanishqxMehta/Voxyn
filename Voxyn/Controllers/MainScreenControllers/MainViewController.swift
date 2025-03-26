@@ -10,6 +10,7 @@ import SwiftUI
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var streakValueLabel: UILabel!
     @IBOutlet var roundCornerViews: [UIView]!
     @IBOutlet weak var chartView: UIView!
     @IBOutlet var startButton: [UIButton]!
@@ -27,6 +28,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateStreakAndSessions()
         
         for startButton in startButton {
             startButton.layer.shadowColor = UIColor.black.cgColor  // Shadow color
@@ -68,6 +70,7 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUserName()
+        updateStreakAndSessions()
     }
 
     private func updateUserName() {
@@ -103,5 +106,15 @@ class MainViewController: UIViewController {
             print("Failed to instantiate LessonsViewController. Check its storyboard ID.")
         }
 
+    }
+    
+    func updateStreakAndSessions(){
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        
+        StreakDataModel.shared.checkAndResetStreak(userId: userId)
+        
+         let streak = StreakDataModel.shared.fetchStreakCount(userId: userId)
+            streakValueLabel.text = ("\(streak)")
+        
     }
 }

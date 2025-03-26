@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVF-Zg-XYa">
-                                <rect key="frame" x="0.0" y="103" width="393" height="665.99999999999977"/>
+                                <rect key="frame" x="0.0" y="155" width="393" height="614"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDj-dp-3aE">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="1192.6666666666667"/>
@@ -611,6 +611,7 @@ Speaking</string>
                         <outlet property="fluencyProgressLabel" destination="Bz1-Qy-eKR" id="tKO-bU-VPh"/>
                         <outlet property="paceProgressBar" destination="WFz-ke-C3K" id="QuR-QD-4Za"/>
                         <outlet property="paceProgressLabel" destination="nbv-5q-Zgz" id="6jI-eO-JF4"/>
+                        <outlet property="streakValueLabel" destination="ufi-Kd-hIZ" id="Zui-hq-z4q"/>
                         <outlet property="toneProgressBar" destination="ANt-qs-GjL" id="H3G-dw-UfB"/>
                         <outlet property="toneProgressField" destination="4vj-h4-ja7" id="WfI-6z-8Lp"/>
                         <outletCollection property="roundCornerViews" destination="3Zy-GT-bJF" collectionClass="NSMutableArray" id="Wba-tw-keK"/>
@@ -833,22 +834,22 @@ Speaking</string>
         <image name="tachometer" catalog="system" width="128" height="110"/>
         <image name="waveform" catalog="system" width="125" height="128"/>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
-            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPurpleColor">
-            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
