@@ -2,106 +2,71 @@ import SwiftUI
 import Charts
 
 struct ChartView: View {
-    // Fetch recordings from the data model
-    let recordings = RecordingDataModel.shared.findRecordings(by: 1) // Assuming userId = 1
+    // Recordings passed from parent view
+    let recordings: [Recording]
+    
+    // Initialize with provided recordings or fetch them if not provided
+    init(recordings: [Recording]? = nil) {
+        if let providedRecordings = recordings {
+            self.recordings = providedRecordings
+        } else if let currentUserId = UserDataModel.shared.getUser()?.userId {
+            self.recordings = RecordingDataModel.shared.findRecordings(by: currentUserId)
+        } else {
+            self.recordings = []
+        }
+        
+        // Debug print to check recordings
+        print("Total Recordings: \(self.recordings.count)")
+        print("Recording IDs: \(self.recordings.map { $0.recordingId })")
+    }
     
     var body: some View {
-        if recordings.isEmpty {
-            VStack {
-                Text("No data")
-                    .font(.headline)
+        VStack {
+            if recordings.isEmpty {
+                Text("No data found")
+                    .foregroundColor(.red)
+            } else {
+                let chartData = prepareChartData()
+                
+                // Debug print chart data
+                Text("Chart Data Points: \(chartData.count)")
+                    .font(.caption)
                     .foregroundColor(.gray)
-                    .padding()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else {
-            let chartData = prepareChartData()
-            Chart(chartData) { dataPoint in
-                LineMark(
-                    x: .value("Day", dataPoint.day),
-                    y: .value("Score", dataPoint.score)
-                )
-                .foregroundStyle(by: .value("Category", dataPoint.category.displayName))
-            }
-            .chartForegroundStyleScale([
-                "Clarity": Color.blue,
-                "Tone": Color.purple,
-                "Pace": Color.orange,
-                "Fluency": Color.pink
-            ])
-            .chartYAxis {
-                AxisMarks(position: .leading, values: Array(stride(from: 0, to: 101, by: 25)))
-            }
-            .chartXAxis {
-                AxisMarks(position: .bottom) { value in
-                    AxisValueLabel {
-                        if let day = value.as(String.self) {
-                            Text(day.prefix(3)) // Shortened day names (e.g., Mon, Tue)
-                                .font(.caption)
+                
+                if chartData.isEmpty {
+                    Text("No feedback data available")
+                        .foregroundColor(.red)
+                } else {
+                    Chart(chartData) { dataPoint in
+                        LineMark(
+                            x: .value("Day", dataPoint.day),
+                            y: .value("Score", dataPoint.score)
+                        )
+                        .foregroundStyle(by: .value("Category", dataPoint.category.displayName))
+                    }
+                    .chartForegroundStyleScale([
+                        "Clarity": Color.blue,
+                        "Tone": Color.purple,
+                        "Pace": Color.orange,
+                        "Fluency": Color.pink
+                    ])
+                    .chartYAxis {
+                        AxisMarks(position: .leading, values: Array(stride(from: 0, to: 101, by: 25)))
+                    }
+                    .chartXAxis {
+                        AxisMarks(position: .bottom) { value in
+                            AxisValueLabel {
+                                if let day = value.as(String.self) {
+                                    Text(day.prefix(3))
+                                        .font(.caption)
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     }
-    
-    // Convert recording data into chart-friendly data points
-    //    private func prepareChartData() -> [ChartDataPoint] {
-    //        var dataPoints: [ChartDataPoint] = []
-    //        
-    //        let calendar = Calendar.current
-    //        let today = Date()
-    //        
-    //        // Get the start of the current week (Monday)
-    //        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
-    //        
-    //        // Get all days of the current week (Monday to Sunday)
-    //        var weekDays: [String] = []
-    //        let dateFormatter = DateFormatter()
-    //        dateFormatter.dateFormat = "EEEE"
-    //        
-    //        for i in 0..<7 {
-    //            if let day = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
-    //                weekDays.append(dateFormatter.string(from: day))
-    //            }
-    //        }
-    //        
-    //        var weeklyScores: [String: [FeedbackCategory: Int]] = [:]
-    //        
-    //        for dayName in weekDays {
-    //            weeklyScores[dayName] = [
-    //                .clarity: 0,
-    //                .tone: 0,
-    //                .pace: 0,
-    //                .fluency: 0
-    //            ]
-    //        }
-    //        
-    //        for recording in recordings {
-    //            let dayOfWeek = dateFormatter.string(from: recording.timestamp)
-    //            if weeklyScores.keys.contains(dayOfWeek) {
-    //                for (category, score) in recording.feedback.scores {
-    //                    weeklyScores[dayOfWeek]?[category] = score
-    //                }
-    //            }
-    //        }
-    //        
-    //        for (day, scores) in weeklyScores {
-    //            for (category, score) in scores {
-    //                dataPoints.append(ChartDataPoint(day: day, category: category, score: score))
-    //            }
-    //        }
-    //        
-    //        dataPoints.sort { data1, data2 in
-    //            if let index1 = weekDays.firstIndex(of: data1.day), let index2 = weekDays.firstIndex(of: data2.day) {
-    //                return index1 < index2
-    //            }
-    //            return false
-    //        }
-    //        
-    //        return dataPoints
-    //    }
-    //}
     
     private func prepareChartData() -> [ChartDataPoint] {
         var dataPoints: [ChartDataPoint] = []
@@ -123,9 +88,8 @@ struct ChartView: View {
             }
         }
         
+        // Initialize scores for each day with zero values
         var weeklyScores: [String: [FeedbackCategory: Int]] = [:]
-        
-        // Initialize scores for each day
         for dayName in weekDays {
             weeklyScores[dayName] = [
                 .clarity: 0,
@@ -135,17 +99,14 @@ struct ChartView: View {
             ]
         }
         
-        // Fetch all recording IDs for the week
-        let recordingIds = recordings.map { $0.recordingId }
-        
-        // Fetch all feedbacks for the recordings
-        let feedbackEntries = FeedbackDataModel.shared.findFeedbacks(by: recordingIds)
+        // Find all feedbacks for the recordings
+        let allFeedbacks = FeedbackDataModel.shared.findFeedbacks(by: recordings.map { $0.recordingId })
         
         for recording in recordings {
             let dayOfWeek = dateFormatter.string(from: recording.timestamp)
             
             // Find feedback for the current recording
-            if let feedback = feedbackEntries.first(where: { $0.recordingId == recording.recordingId }) {
+            if let feedback = allFeedbacks.first(where: { $0.recordingId == recording.recordingId }) {
                 for (category, score) in feedback.scores {
                     weeklyScores[dayOfWeek]?[category] = score
                 }

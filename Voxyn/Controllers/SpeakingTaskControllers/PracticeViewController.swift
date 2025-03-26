@@ -299,6 +299,9 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
            tone: toneScore,
            fluency: fluencyScore
        )
+       
+       // Save feedback data for the latest recording
+       saveFeedbackData(clarity: Int(clarityScore), pace: Int(paceScore), tone: Int(toneScore), fluency: Int(fluencyScore))
    }
    
    private func generateFeedback(clarity: Double, pace: Double, tone: Double, fluency: Double) -> String {
@@ -501,6 +504,50 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         StreakDataModel.shared.updateStreakIfValid(userId: userId)
         SessionDataModel.shared.updateSessionCount(for: userId)
         
+        // Store the recording ID for feedback creation
+        self.lastRecordingId = newRecording.recordingId
+    }
+    
+    // Store the last created recording ID for feedback association
+    private var lastRecordingId: Int = 0
+    
+    // Save feedback data for the recording
+    private func saveFeedbackData(clarity: Int, pace: Int, tone: Int, fluency: Int) {
+        guard lastRecordingId > 0 else {
+            print("Error: No recording ID available for feedback")
+            return
+        }
+        
+        // Create feedback scores dictionary
+        let scores: [FeedbackCategory: Int] = [
+            .clarity: clarity,
+            .tone: tone,
+            .pace: pace,
+            .fluency: fluency
+        ]
+        
+        // Create feedback comments
+        let comments: [FeedbackCategory: String] = [
+            .clarity: "Work on articulation",
+            .tone: "Good tone variation",
+            .pace: "Maintain consistent pace",
+            .fluency: "Reduce filler words"
+        ]
+        
+        // Create a new feedback object
+        let feedbackId = (FeedbackDataModel.shared.getAllFeedbacks().last?.feedbackId ?? 0) + 1
+        let feedback = Feedback(
+            feedbackId: feedbackId,
+            recordingId: lastRecordingId,
+            scores: scores,
+            comments: comments,
+            overallComment: "Good progress overall. Keep practicing!"
+        )
+        
+        // Save the feedback
+        FeedbackDataModel.shared.addFeedback(feedback)
+        print("Feedback saved for recording ID: \(lastRecordingId)")
+        print("Feedback scores: \(scores)")
     }
     
     // in this audio play back only first recording is gettig played back

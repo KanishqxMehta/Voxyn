@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     @IBOutlet var startButton: [UIButton]!
     
     @IBOutlet weak var clarityProgressLabel: UILabel!
-    @IBOutlet weak var toneProgressField: UILabel!
+    @IBOutlet weak var toneProgressLabel: UILabel!
     @IBOutlet weak var paceProgressLabel: UILabel!
     @IBOutlet weak var fluencyProgressLabel: UILabel!
     
@@ -51,12 +51,47 @@ class MainViewController: UIViewController {
         // Set the navigation title with the user's name
         self.navigationItem.title = "Hi, \(UserDataModel.shared.getUser()?.firstName ?? "Guest")"
         
-        // Embed the SwiftUI chart into the chartView
-        let hostingController = UIHostingController(rootView: ChartView())
-        addChild(hostingController) // Add the hosting controller as a child
-        chartView.addSubview(hostingController.view) // Add its view to the chartView
+        updateChart()
+        updateProgress()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUserName()
+        updateStreakAndSessions()
         
-        // Set up constraints for the hosting controller's view
+        updateChart()
+        updateProgress()
+    }
+
+    private func updateUserName() {
+        self.navigationItem.title = "Hi, \(UserDataModel.shared.getUser()?.firstName ?? "Guest")"
+    }
+    
+    private func removePreviousChart() {
+        for subview in chartView.subviews {
+            subview.removeFromSuperview()
+        }
+    }
+    
+    func updateChart() {
+        removePreviousChart()  // Clean existing charts
+        
+        // Get fresh recordings data for the current user
+        var freshRecordings: [Recording] = []
+        if let userId = UserDataModel.shared.getUser()?.userId {
+            freshRecordings = RecordingDataModel.shared.findRecordings(by: userId)
+            print("[Debug] Found \(freshRecordings.count) fresh recordings for user \(userId)")
+        }
+        
+        // Create a new instance of ChartView with fresh recordings
+        let chartViewInstance = ChartView(recordings: freshRecordings)
+        
+        // Create and configure the hosting controller
+        let hostingController = UIHostingController(rootView: chartViewInstance)
+        addChild(hostingController)
+        chartView.addSubview(hostingController.view)
+
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             hostingController.view.topAnchor.constraint(equalTo: chartView.topAnchor, constant: 10),
@@ -65,21 +100,54 @@ class MainViewController: UIViewController {
             hostingController.view.trailingAnchor.constraint(equalTo: chartView.trailingAnchor, constant: -10),
         ])
         
-        hostingController.didMove(toParent: self) // Notify the hosting controller that it's moved to a parent
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateUserName()
-        updateStreakAndSessions()
+        hostingController.didMove(toParent: self)
     }
 
-    private func updateUserName() {
-        self.navigationItem.title = "Hi, \(UserDataModel.shared.getUser()?.firstName ?? "Guest")"
-    }
-    
     private func updateProgress() {
+        guard let userId = UserDataModel.shared.getUser()?.userId else {
+            print("No user ID found. Resetting progress.")
+            resetProgressBars()
+            return
+        }
+        let recordings = RecordingDataModel.shared.findRecordings(by: userId)
         
+        guard !recordings.isEmpty else {
+            print("No recordings found. Resetting progress.")
+            resetProgressBars()
+            return
+        }
+        
+        let averageScores = RecordingDataModel.shared.calculateAverageScores(for: recordings)
+        updateProgressBars(with: averageScores)
+    }
+
+    private func resetProgressBars() {
+        clarityProgressBar.progress = 0
+        toneProgressBar.progress = 0
+        paceProgressBar.progress = 0
+        fluencyProgressBar.progress = 0
+        
+        clarityProgressLabel.text = "0%"
+        toneProgressLabel.text = "0%"
+        paceProgressLabel.text = "0%"
+        fluencyProgressLabel.text = "0%"
+    }
+
+    private func updateProgressBars(with averageScores: [FeedbackCategory: Double]) {
+        let avgClarity = averageScores[.clarity] ?? 0
+        let avgTone = averageScores[.tone] ?? 0
+        let avgPace = averageScores[.pace] ?? 0
+        let avgFluency = averageScores[.fluency] ?? 0
+        
+        clarityProgressBar.progress = Float(avgClarity / 100.0)
+        toneProgressBar.progress = Float(avgTone / 100.0)
+        paceProgressBar.progress = Float(avgPace / 100.0)
+        fluencyProgressBar.progress = Float(avgFluency / 100.0)
+        
+        clarityProgressLabel.text = "\(Int(avgClarity))%"
+        toneProgressLabel.text = "\(Int(avgTone))%"
+        paceProgressLabel.text = "\(Int(avgPace))%"
+        fluencyProgressLabel.text = "\(Int(avgFluency))%"
     }
 
 

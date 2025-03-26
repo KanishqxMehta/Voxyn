@@ -58,154 +58,30 @@ class RecordingDataModel {
 //            Recording(
 //                recordingId: 1,
 //                userId: 1,
-//                title: "Read Aloud 1",
+//                title: "Monday Practice",
 //                audioFileURL: "",
-//                timestamp: monday, // Monday
+//                timestamp: monday,
 //                sessionType: .readAloud,
-//                feedback: Feedback(
-//                    feedbackId: 1,
-//                    recordingId: 1,
-//                    scores: [.clarity: 85, .tone: 90, .pace: 80, .fluency: 75],
-//                    comments: [.clarity: "Good clarity", .tone: "Great tone"],
-//                    overallComment: "Excellent progress"
-//                ),
-//                analytics: RecordingAnalytics(
-//                    duration: 120,
-//                    wordsPerMinute: 110,
-//                    silenceDuration: 10,
-//                    volumeVariation: 0.8,
-//                    pronunciationAccuracy: 95,
-//                    transcription: "This is a sample transcription.",
-//                    keyPhrases: ["Current Affairs", "Important topics"],
-//                    improvementSuggestions: ["Work on pacing", "Reduce pauses"]
-//                )
+//                topicId: 1
 //            ),
 //            Recording(
 //                recordingId: 2,
 //                userId: 1,
-//                title: "Random Prompt 1",
+//                title: "Tuesday Practice",
 //                audioFileURL: "",
-//                timestamp: tuesday, // Tuesday
+//                timestamp: tuesday,
 //                sessionType: .randomTopic,
-//                feedback: Feedback(
-//                    feedbackId: 2,
-//                    recordingId: 2,
-//                    scores: [.clarity: 70, .tone: 75, .pace: 85, .fluency: 80],
-//                    comments: [.clarity: "Needs improvement", .pace: "Better pacing"],
-//                    overallComment: "Good effort"
-//                ),
-//                analytics: RecordingAnalytics(
-//                    duration: 150,
-//                    wordsPerMinute: 120,
-//                    silenceDuration: 15,
-//                    volumeVariation: 0.7,
-//                    pronunciationAccuracy: 90,
-//                    transcription: "This is a random topic transcription.",
-//                    keyPhrases: ["Prompt response"],
-//                    improvementSuggestions: ["Enhance clarity", "Focus on tone"]
-//                )
+//                topicId: 2
 //            ),
 //            Recording(
 //                recordingId: 3,
 //                userId: 1,
-//                title: "Prepared Speech 1",
+//                title: "Wednesday Practice",
 //                audioFileURL: "",
-//                timestamp: wednesday, // Wednesday
+//                timestamp: wednesday,
 //                sessionType: .preparedSpeech,
-//                feedback: Feedback(
-//                    feedbackId: 3,
-//                    recordingId: 3,
-//                    scores: [.clarity: 88, .tone: 92, .pace: 85, .fluency: 90],
-//                    comments: [.tone: "Excellent modulation", .fluency: "Smooth delivery"],
-//                    overallComment: "Great delivery"
-//                ),
-//                analytics: RecordingAnalytics(
-//                    duration: 180,
-//                    wordsPerMinute: 130,
-//                    silenceDuration: 8,
-//                    volumeVariation: 0.9,
-//                    pronunciationAccuracy: 96,
-//                    transcription: "Prepared speech sample transcription.",
-//                    keyPhrases: ["Prepared speech"],
-//                    improvementSuggestions: ["Maintain pace"]
-//                )
-//            ),
-//            Recording(
-//                recordingId: 4,
-//                userId: 1,
-//                title: "Read Aloud 2",
-//                audioFileURL: "",
-//                timestamp: monday, // Monday
-//                sessionType: .readAloud,
-//                feedback: Feedback(
-//                    feedbackId: 1,
-//                    recordingId: 1,
-//                    scores: [.clarity: 85, .tone: 90, .pace: 80, .fluency: 75],
-//                    comments: [.clarity: "Good clarity", .tone: "Great tone"],
-//                    overallComment: "Excellent progress"
-//                ),
-//                analytics: RecordingAnalytics(
-//                    duration: 120,
-//                    wordsPerMinute: 110,
-//                    silenceDuration: 10,
-//                    volumeVariation: 0.8,
-//                    pronunciationAccuracy: 95,
-//                    transcription: "This is a sample transcription.",
-//                    keyPhrases: ["Current Affairs", "Important topics"],
-//                    improvementSuggestions: ["Work on pacing", "Reduce pauses"]
-//                )
-//            ),
-//            Recording(
-//                recordingId: 5,
-//                userId: 1,
-//                title: "Random Prompt 2",
-//                audioFileURL: "",
-//                timestamp: tuesday, // Tuesday
-//                sessionType: .randomTopic,
-//                feedback: Feedback(
-//                    feedbackId: 2,
-//                    recordingId: 2,
-//                    scores: [.clarity: 70, .tone: 75, .pace: 85, .fluency: 80],
-//                    comments: [.clarity: "Needs improvement", .pace: "Better pacing"],
-//                    overallComment: "Good effort"
-//                ),
-//                analytics: RecordingAnalytics(
-//                    duration: 150,
-//                    wordsPerMinute: 120,
-//                    silenceDuration: 15,
-//                    volumeVariation: 0.7,
-//                    pronunciationAccuracy: 90,
-//                    transcription: "This is a random topic transcription.",
-//                    keyPhrases: ["Prompt response"],
-//                    improvementSuggestions: ["Enhance clarity", "Focus on tone"]
-//                )
-//            ),
-//            Recording(
-//                recordingId: 6,
-//                userId: 1,
-//                title: "Prepared Speech 2",
-//                audioFileURL: "",
-//                timestamp: wednesday, // Wednesday
-//                sessionType: .preparedSpeech,
-//                feedback: Feedback(
-//                    feedbackId: 3,
-//                    recordingId: 3,
-//                    scores: [.clarity: 88, .tone: 92, .pace: 85, .fluency: 90],
-//                    comments: [.tone: "Excellent modulation", .fluency: "Smooth delivery"],
-//                    overallComment: "Great delivery"
-//                ),
-//                analytics: RecordingAnalytics(
-//                    duration: 180,
-//                    wordsPerMinute: 130,
-//                    silenceDuration: 8,
-//                    volumeVariation: 0.9,
-//                    pronunciationAccuracy: 96,
-//                    transcription: "Prepared speech sample transcription.",
-//                    keyPhrases: ["Prepared speech"],
-//                    improvementSuggestions: ["Maintain pace"]
-//                )
+//                topicId: 3
 //            )
-//
         ]
     }
     
@@ -240,5 +116,37 @@ class RecordingDataModel {
             return true
         }
         return false
+    }
+    
+    func calculateAverageScores(for recordings: [Recording]) -> [FeedbackCategory: Double] {
+        var totalScores: [FeedbackCategory: Int] = [
+            .clarity: 0,
+            .tone: 0,
+            .pace: 0,
+            .fluency: 0
+        ]
+        
+        var recordingCount = 0
+        
+        for recording in recordings {
+            // Find feedbacks for the specific recording
+            let feedbacks = FeedbackDataModel.shared.findFeedbacks(by: recording.recordingId)
+            
+            // If feedback exists for the recording
+            if let feedback = feedbacks.first {
+                for (category, score) in feedback.scores {
+                    totalScores[category, default: 0] += score
+                }
+                recordingCount += 1
+            }
+        }
+        
+        // If no recordings have feedback, return zero scores
+        guard recordingCount > 0 else {
+            return [.clarity: 0, .tone: 0, .pace: 0, .fluency: 0]
+        }
+        
+        // Calculate average scores
+        return totalScores.mapValues { Double($0) / Double(recordingCount) }
     }
 }

@@ -61,31 +61,77 @@ struct Feedback {
 }
 
 // MARK: - Feedback Data Management
-class FeedbackDataModel {
+import Foundation
 
+class FeedbackDataModel {
     static let shared = FeedbackDataModel()
     private var feedbacks: [Feedback] = []
 
-    private init() { }
+    private init() {
+        // Add dummy feedback data for testing
+        feedbacks = [
+//            Feedback(
+//                feedbackId: 1,
+//                recordingId: 1,
+//                scores: [.clarity: 85, .tone: 90, .pace: 80, .fluency: 75],
+//                comments: [.clarity: "Good clarity", .tone: "Great tone"],
+//                overallComment: "Excellent progress"
+//            ),
+//            Feedback(
+//                feedbackId: 2,
+//                recordingId: 2,
+//                scores: [.clarity: 70, .tone: 75, .pace: 85, .fluency: 80],
+//                comments: [.clarity: "Needs improvement", .pace: "Better pacing"],
+//                overallComment: "Good effort"
+//            ),
+//            Feedback(
+//                feedbackId: 3,
+//                recordingId: 3,
+//                scores: [.clarity: 88, .tone: 92, .pace: 85, .fluency: 90],
+//                comments: [.tone: "Excellent modulation", .fluency: "Smooth delivery"],
+//                overallComment: "Great delivery"
+//            )
+        ]
+        print("FeedbackDataModel initialized with (feedbacks.count) dummy records")
+    }
 
+    func getAllFeedbacks() -> [Feedback] {
+        return feedbacks
+    }
+    
     // Add new feedback
     func addFeedback(_ feedback: Feedback) {
+        print("Adding Feedback - Recording ID: \(feedback.recordingId)")
+        print("Feedback Scores: \(feedback.scores)")
         feedbacks.append(feedback)
     }
 
     // Fetch feedback by recording ID
     func findFeedbacks(by recordingId: Int) -> [Feedback] {
-        return feedbacks.filter { $0.recordingId == recordingId }
+        let matchedFeedbacks = feedbacks.filter { $0.recordingId == recordingId }
+        print("Finding Feedbacks for Recording ID: \(recordingId)")
+        print("Matched Feedbacks Count: \(matchedFeedbacks.count)")
+        return matchedFeedbacks
     }
     
     func findFeedbacks(by recordingIds: [Int]) -> [Feedback] {
-        return feedbacks.filter { recordingIds.contains($0.recordingId) }
+        let matchedFeedbacks = feedbacks.filter { recordingIds.contains($0.recordingId) }
+        print("Finding Feedbacks for Recording IDs: \(recordingIds)")
+        print("Matched Feedbacks Count: \(matchedFeedbacks.count)")
+        return matchedFeedbacks
     }
-
 
     // Fetch feedback by feedback ID
     func getFeedback(by feedbackId: Int) -> Feedback? {
         return feedbacks.first { $0.feedbackId == feedbackId }
     }
-}
 
+    // Debug method to print all current feedbacks
+    func printAllFeedbacks() {
+        print("Total Feedbacks: \(feedbacks.count)")
+        for feedback in feedbacks {
+            print("Feedback ID: \(feedback.feedbackId), Recording ID: \(feedback.recordingId)")
+            print("Scores: \(feedback.scores)")
+        }
+    }
+}

@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVF-Zg-XYa">
-                                <rect key="frame" x="0.0" y="155" width="393" height="614"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="665.99999999999977"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDj-dp-3aE">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="1192.6666666666667"/>
@@ -609,12 +609,12 @@ Speaking</string>
                         <outlet property="clarityProgressLabel" destination="YN0-4G-076" id="8g8-BV-Gs9"/>
                         <outlet property="fluencyProgressBar" destination="rpW-PM-EQJ" id="3w2-GP-D8M"/>
                         <outlet property="fluencyProgressLabel" destination="Bz1-Qy-eKR" id="tKO-bU-VPh"/>
-                        <outlet property="paceProgressBar" destination="WFz-ke-C3K" id="QuR-QD-4Za"/>
+                        <outlet property="paceProgressBar" destination="ANt-qs-GjL" id="fk5-Om-Cat"/>
                         <outlet property="paceProgressLabel" destination="nbv-5q-Zgz" id="6jI-eO-JF4"/>
                         <outlet property="sessionValueLabel" destination="tHj-Yw-ZFF" id="OCA-1c-3HQ"/>
                         <outlet property="streakValueLabel" destination="ufi-Kd-hIZ" id="Zui-hq-z4q"/>
-                        <outlet property="toneProgressBar" destination="ANt-qs-GjL" id="H3G-dw-UfB"/>
-                        <outlet property="toneProgressField" destination="4vj-h4-ja7" id="WfI-6z-8Lp"/>
+                        <outlet property="toneProgressBar" destination="WFz-ke-C3K" id="cww-eX-wO1"/>
+                        <outlet property="toneProgressLabel" destination="4vj-h4-ja7" id="sKx-f6-MsT"/>
                         <outletCollection property="roundCornerViews" destination="3Zy-GT-bJF" collectionClass="NSMutableArray" id="Wba-tw-keK"/>
                         <outletCollection property="roundCornerViews" destination="Kqf-pc-RAt" collectionClass="NSMutableArray" id="znp-cj-7zS"/>
                         <outletCollection property="roundCornerViews" destination="tXU-nl-kWG" collectionClass="NSMutableArray" id="asi-Kk-7Ze"/>
