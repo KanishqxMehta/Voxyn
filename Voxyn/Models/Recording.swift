@@ -15,6 +15,7 @@ struct Recording {
     var audioFileURL: String
     var timestamp: Date
     var sessionType: SessionType
+    var topicId: Int
  //   var feedback: Feedback // Link to Feedback by ID
   //  var analytics: RecordingAnalytics  // New: Detailed analytics
     

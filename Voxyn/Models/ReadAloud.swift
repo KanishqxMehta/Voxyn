@@ -180,6 +180,13 @@ class ReadAloudDataModel {
         return passages
     }
     
+    
+    func searchPassage(by passageId: Int) -> ReadAloud? {
+        return passages.first { $0.passageId == passageId }
+    }
+
+
+    
     // Search Passages by Title
     func searchPassages(by title: String) -> [ReadAloud] {
         return passages.filter { $0.title.lowercased().contains(title.lowercased()) }

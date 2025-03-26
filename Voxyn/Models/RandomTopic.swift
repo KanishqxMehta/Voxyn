@@ -145,6 +145,12 @@ class RandomTopicDataModel {
         return topics.filter { $0.genre == genre }
     }
     
+    // Search Topics by topicId
+    func searchTopic(by id: Int) -> RandomTopic? {
+        return topics.first { $0.topicId == id }
+    }
+
+    
     // Search Topics by Title
     func searchTopics(by title: String) -> [RandomTopic] {
         return topics.filter { $0.title.lowercased().contains(title.lowercased()) }

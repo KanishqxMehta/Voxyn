@@ -9,7 +9,9 @@ import UIKit
 import AVFoundation
 
 class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate  {
-
+    
+    var selectedPassageId: Int = 0
+    
     // MARK: - Properties
     private var timer: Timer?
     private var isRecording = false
@@ -69,6 +71,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     var dataType: DataType?
     var selectedData: Any?
     
+    
     enum DataType {
         case readAloud
         case randomTopic
@@ -79,9 +82,14 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupInitialState()
-        setUpAudioSession()
-        print("Practice View Controller Loaded")
+        if let data = selectedData as? Recording {
+            configureRecordsData(selectedData)
+            
+        } else {
+            setupInitialState()
+            setUpAudioSession()
+            print("Practice View Controller Loaded")
+        }
 //        configureAudioRecorder()
     }
 
@@ -148,10 +156,59 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
                 return .readAloud // Default fallback
             }
         }
+    
+    
+    
+    private func configureRecordsData(_ data: Any?) {
+        roundEdgesOfViews()
+        analyzingYourSpeech.isHidden = true
+
+        areasOfImprovementView.isHidden = false
+        feedbackView1.isHidden = false
+        feedbackView2.isHidden = false
+        speechToTextView.isHidden = false
+        playButton.isHidden = true
+        pauseButton.isHidden = true
+
+        updatePerformanceMetrics()
+        playRecordingButton.isEnabled = false
+        waveRecordingView.isHidden = true
+        readyView.isHidden = true
+        
+        guard let recording = data as? Recording else {
+            print("Error: data is not a Recording object.")
+            return
+        }
+
+        // Extract sessionType and topicId
+        let sessionType = recording.sessionType
+        let topicId = recording.topicId
+        if sessionType == .readAloud {
+            if let sessionData = ReadAloudDataModel.shared.searchPassage(by: topicId) {
+                passageTextView.text = sessionData.selectedPassage
+                title = sessionData.title// Display in the UI
+            } else {
+                print("Passage not found for topicId: \(topicId)")
+            }
+        } else if sessionType == .randomTopic {
+            if let sessionData = RandomTopicDataModel.shared.searchTopic(by: topicId) {
+                passageTextView.text = sessionData.description
+                title = sessionData.title
+            }
+        }
+
+
+        
+        
+        
+        
+    }
+
 
     
     private func configureReadAloudContent(_ data: ReadAloud) {
         // Update UI for read aloud passage
+        selectedPassageId = data.passageId
         title = data.title // Set navigation title
         passageTextView.text = data.selectedPassage
         speakingTimeLabel.text = "Estimated Speaking Time:"
@@ -162,6 +219,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     
     private func configureRandomTopicContent(_ topic: RandomTopic) {
         // Update UI for random topic
+        selectedPassageId = topic.topicId
         title = topic.title // Set navigation title
         passageTextView.text = topic.description
         speakingTimeLabel.text = "Minimum Speaking Time"
@@ -171,6 +229,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
 
     private func configurePreparedSpeechContent(_ speech: SpeechPractice) {
         // Update UI for random topic
+        selectedPassageId = speech.id
         title = speech.title // Set navigation title
         passageTextView.text = speech.originalText
         speakingTimeLabel.text = "Minimum Speaking Time"
@@ -384,55 +443,16 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     }
 
     private func stopRecording() {
-
         audioRecorder?.stop()
-     //   isRecording = false
-//        recorder.stop()
         isRecording = false
-//        stopTimer()
-        // Second transition: After delay, show analysis results
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-//            guard let self = self else { return }
-//            
-//     
-//            // Hide analyzing state
-//            analyzingYourSpeech.isHidden = true
-//            
-//            // Show analysis results
-////            areasOfImprovementView.isHidden = false
-////            feedbackView1.isHidden = false
-////            feedbackView2.isHidden = false
-////            speechToTextView.isHidden = false
-////            playButton.isHidden = false
-//            
-//            self.updatePerformanceMetrics()
-//            // Setup audio player for playback
-////            self.setupAudioPlayer()
-////            self.recordingSlider.isEnabled = true
-//            
-//            playRecordingButton.isEnabled = true
-//        }
-        
-            let userIdFromDefault = UserDefaults.standard.integer(forKey: "userId")
-           
-            saveNewRecording(userId: userIdFromDefault, title: audioFileTitle, audioFileURL: audioFileDirectory, sessionType: getSessionType() )
-        
-
-
-//        pauseButton.isHidden = true
-//        playButton.isHidden = true
-//        waveRecordingView.isHidden = true
-//        analyzingYourSpeech.isHidden = false
-//        recordingView.isHidden = false
-        
+        let userIdFromDefault = UserDefaults.standard.integer(forKey: "userId")
+        saveNewRecording(userId: userIdFromDefault, title: audioFileTitle, audioFileURL: audioFileDirectory, sessionType: getSessionType(), topicId: selectedPassageId )
         updateUIAfterRecordingStop()
-           
+
            // Delay analysis results display
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-               self?.showAnalysisResults()
-           }
-    
-
+            self?.showAnalysisResults()
+        }
     }
     
     private func updateUIAfterRecordingStop() {
@@ -456,7 +476,7 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         playRecordingButton.isEnabled = true
     }
     
-    func saveNewRecording(userId: Int, title: String, audioFileURL: String, sessionType: SessionType) {
+    func saveNewRecording(userId: Int, title: String, audioFileURL: String, sessionType: SessionType, topicId: Int) {
         
         print("Saving new recording...")
             print("User ID: \(userId)")
@@ -470,7 +490,8 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             title: title,
             audioFileURL: audioFileURL,
             timestamp: Date(),
-            sessionType: sessionType
+            sessionType: sessionType,
+            topicId: topicId
          //   feedback: feedback
            // analytics: analytics
         )
