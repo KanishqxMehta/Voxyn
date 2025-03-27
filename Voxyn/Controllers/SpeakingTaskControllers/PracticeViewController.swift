@@ -10,6 +10,7 @@ import AVFoundation
 
 class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate  {
     
+    @IBOutlet weak var recordButtonView: UIView!
     var selectedPassageId: Int = 0
     
     // MARK: - Properties
@@ -179,7 +180,8 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         playRecordingButton.isEnabled = true
         waveRecordingView.isHidden = true
         readyView.isHidden = true
-        
+        recordButtonView.isHidden = true
+        estimatedTimeView.isHidden = true
         guard let recording = data as? Recording else {
             print("Error: data is not a Recording object.")
             return
@@ -526,28 +528,72 @@ class PracticeViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             .fluency: fluency
         ]
         
-        // Create feedback comments
-        let comments: [FeedbackCategory: String] = [
-            .clarity: "Work on articulation",
-            .tone: "Good tone variation",
-            .pace: "Maintain consistent pace",
-            .fluency: "Reduce filler words"
-        ]
+        // Generate dynamic feedback comments based on scores
+        var comments: [FeedbackCategory: String] = [:]
         
-        // Create a new feedback object
-        let feedbackId = (FeedbackDataModel.shared.getAllFeedbacks().last?.feedbackId ?? 0) + 1
+        // Clarity feedback
+        if clarity < 80 {
+            comments[.clarity] = "Focus on clearer pronunciation and articulation"
+        } else {
+            comments[.clarity] = "Good clarity in speech"
+        }
+        
+        // Tone feedback
+        if tone < 80 {
+            comments[.tone] = "Try varying your pitch and expression more"
+        } else {
+            comments[.tone] = "Excellent tone variation"
+        }
+        
+        // Pace feedback
+        if pace < 80 {
+            comments[.pace] = "Work on maintaining a more consistent speaking pace"
+        } else {
+            comments[.pace] = "Well-maintained speaking pace"
+        }
+        
+        // Fluency feedback
+        if fluency < 80 {
+            comments[.fluency] = "Practice reducing filler words and pauses"
+        } else {
+            comments[.fluency] = "Good speech fluency"
+        }
+        
+        // Calculate overall score
+        let overallScore = (clarity + tone + pace + fluency) / 4
+        let overallComment = generateOverallComment(score: overallScore)
+        
+        // Create a new feedback object with an incremented ID
+        let existingFeedbacks = FeedbackDataModel.shared.getAllFeedbacks()
+        let maxFeedbackId = existingFeedbacks.map { $0.feedbackId }.max() ?? 0
+        let newFeedbackId = maxFeedbackId + 1
+        
         let feedback = Feedback(
-            feedbackId: feedbackId,
+            feedbackId: newFeedbackId,
             recordingId: lastRecordingId,
             scores: scores,
             comments: comments,
-            overallComment: "Good progress overall. Keep practicing!"
+            overallComment: overallComment
         )
         
         // Save the feedback
         FeedbackDataModel.shared.addFeedback(feedback)
-        print("Feedback saved for recording ID: \(lastRecordingId)")
+        print("Feedback saved - ID: \(newFeedbackId), Recording ID: \(lastRecordingId)")
         print("Feedback scores: \(scores)")
+        print("Overall score: \(overallScore)")
+    }
+    
+    private func generateOverallComment(score: Int) -> String {
+        switch score {
+        case 90...100:
+            return "Excellent performance! Your speaking skills are outstanding."
+        case 80..<90:
+            return "Very good progress! Keep up the great work."
+        case 70..<80:
+            return "Good effort! Focus on the suggested improvements to enhance your speaking."
+        default:
+            return "Keep practicing! Focus on the areas highlighted for improvement."
+        }
     }
     
     // in this audio play back only first recording is gettig played back

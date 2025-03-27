@@ -55,33 +55,6 @@ class RecordingDataModel {
         let wednesday = calendar.date(byAdding: .day, value: 2, to: monday)!
 
         recordings = [
-//            Recording(
-//                recordingId: 1,
-//                userId: 1,
-//                title: "Monday Practice",
-//                audioFileURL: "",
-//                timestamp: monday,
-//                sessionType: .readAloud,
-//                topicId: 1
-//            ),
-//            Recording(
-//                recordingId: 2,
-//                userId: 1,
-//                title: "Tuesday Practice",
-//                audioFileURL: "",
-//                timestamp: tuesday,
-//                sessionType: .randomTopic,
-//                topicId: 2
-//            ),
-//            Recording(
-//                recordingId: 3,
-//                userId: 1,
-//                title: "Wednesday Practice",
-//                audioFileURL: "",
-//                timestamp: wednesday,
-//                sessionType: .preparedSpeech,
-//                topicId: 3
-//            )
         ]
     }
     

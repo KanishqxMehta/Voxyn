@@ -68,31 +68,9 @@ class FeedbackDataModel {
     private var feedbacks: [Feedback] = []
 
     private init() {
-        // Add dummy feedback data for testing
-        feedbacks = [
-//            Feedback(
-//                feedbackId: 1,
-//                recordingId: 1,
-//                scores: [.clarity: 85, .tone: 90, .pace: 80, .fluency: 75],
-//                comments: [.clarity: "Good clarity", .tone: "Great tone"],
-//                overallComment: "Excellent progress"
-//            ),
-//            Feedback(
-//                feedbackId: 2,
-//                recordingId: 2,
-//                scores: [.clarity: 70, .tone: 75, .pace: 85, .fluency: 80],
-//                comments: [.clarity: "Needs improvement", .pace: "Better pacing"],
-//                overallComment: "Good effort"
-//            ),
-//            Feedback(
-//                feedbackId: 3,
-//                recordingId: 3,
-//                scores: [.clarity: 88, .tone: 92, .pace: 85, .fluency: 90],
-//                comments: [.tone: "Excellent modulation", .fluency: "Smooth delivery"],
-//                overallComment: "Great delivery"
-//            )
-        ]
-        print("FeedbackDataModel initialized with (feedbacks.count) dummy records")
+        // Initialize with empty feedback array
+        feedbacks = []
+        print("FeedbackDataModel initialized with empty feedback array")
     }
 
     func getAllFeedbacks() -> [Feedback] {

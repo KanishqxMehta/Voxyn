@@ -34,7 +34,7 @@ class UserDataModel {
     
     private var users: [User] = [
         User(
-            userId: 1,
+            userId: 0,
             firstName: "Voxite",
             lastName: "",
             email: "voxite@gmail.com",
